@@ -110,12 +110,6 @@ namespace FaceEngine
         return *this;
     }
 
-    template<>
-    inline Matrix<float, 4, 4>& Matrix<float, 4, 4>::Ortho() noexcept
-    {
-        
-    }
-
     std::ostream& operator<<(std::ostream&, const Matrix<float, 3, 3>&);
     std::ostream& operator<<(std::ostream&, const Matrix<float, 4, 4>&);
 

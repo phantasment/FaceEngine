@@ -1,9 +1,12 @@
-#include <iomanip>
-
 #include "FaceEngine/Math/Matrix.h"
 
 namespace FaceEngine
 {
+    Matrix<float, 4, 4>& Matrix<float, 4, 4>::Ortho() noexcept
+    {
+        return *this;
+    }
+
     std::ostream& operator<<(std::ostream& os, const Matrix<float, 3, 3>& mat)
     {
         os << "Matrix3f\n[";
