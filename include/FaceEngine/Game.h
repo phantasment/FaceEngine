@@ -1,3 +1,14 @@
+/**
+ * @file Game.h
+ * @author Logan Woods
+ * @brief A class containing the logic required to run a game.
+ * @version 0.1
+ * @date 2022-04-27
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #ifndef FACEENGINE_GAME_H_
 #define FACEENGINE_GAME_H_
 
