@@ -11,11 +11,13 @@ namespace FaceEngine
     private:
         inline GameDraw() { }
 
-        double lastDraw;
+        double delta;
     public:
-        inline const double LastDraw() const noexcept
+        // Returns the number of seconds that have passed since the last draw.
+        // If your game is running at 60 frames per second the delta will be ~0.016.
+        inline const double Delta() const noexcept
         {
-            return lastDraw;
+            return delta;
         }
     };
 }

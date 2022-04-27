@@ -34,7 +34,7 @@ namespace FaceEngine
 
         // Determines the target speed of the Update() function.
         // A value less than 1 indicates no limit.
-        double PreferredUpdates = 128.0f;
+        double PreferredUpdates = 0.0f;
 
         // Determines the target speed of the Draw() function.
         // A value less than 1 indicates no limit.

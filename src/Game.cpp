@@ -53,6 +53,7 @@ namespace FaceEngine
         while (!glfwWindowShouldClose(winHandle))
         {
             // handle updating
+            glfwPollEvents();
             now = glfwGetTime();
 
             if (PreferredUpdates > 0.0)
@@ -76,11 +77,20 @@ namespace FaceEngine
 
             if (PreferredDraws > 0.0)
             {
-
+                if (now - lastDraw >= 1.0 / PreferredDraws)
+                {
+                    GameDrawPtr->delta = now - lastDraw;
+                    lastDraw = now;
+                    Draw();
+                    glfwSwapBuffers(winHandle);
+                }
             }
             else
             {
-                
+                GameDrawPtr->delta = now - lastDraw;
+                lastDraw = now;
+                Draw();
+                glfwSwapBuffers(winHandle);
             }
 
             // do cleanup
