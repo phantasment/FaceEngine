@@ -20,7 +20,7 @@ namespace FaceEngine
             msg = m;
         }
     public:
-        inline const std::string& GetMessage() const noexcept
+        inline const std::string GetMessage() const noexcept
         {
             if (origin.empty())
             {
