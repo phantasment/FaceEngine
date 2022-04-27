@@ -34,14 +34,14 @@ namespace FaceEngine
         {
             return height;
         }
-    };
 
-    inline Resolution& Resolution::operator=(const Resolution& res)
-    {
-        width = res.width;
-        height = res.height;
-        return *this;
-    }
+        Resolution& operator=(const Resolution& res)
+        {
+            width = res.width;
+            height = res.height;
+            return *this;
+        }
+    };
 }
 
 #endif
