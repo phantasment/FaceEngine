@@ -44,10 +44,16 @@ namespace FaceEngine
         GameUpdatePtr = new GameUpdate;
         GameDrawPtr = new GameDraw;
 
+        // delta time/target time stuff
         double lastUpdate = glfwGetTime();
         double lastDraw = lastUpdate;
         double lastCleanup = lastDraw;
         double now;
+
+        // UPS/FPS stuff
+        std::uint32_t updates = 0, frames = 0;
+        double lastUPS = lastCleanup;
+        double lastFPS = lastUPS;
 
         Initialise();
         glfwShowWindow(winHandle);
@@ -65,6 +71,7 @@ namespace FaceEngine
                     GameUpdatePtr->delta = now - lastUpdate;
                     lastUpdate = now;
                     Update();
+                    ++updates;
                 }
             }
             else
@@ -72,6 +79,7 @@ namespace FaceEngine
                 GameUpdatePtr->delta = now - lastUpdate;
                 lastUpdate = now;
                 Update();
+                ++updates;
             }
 
             // handle drawing
@@ -84,6 +92,7 @@ namespace FaceEngine
                     GameDrawPtr->delta = now - lastDraw;
                     lastDraw = now;
                     Draw();
+                    ++frames;
                     glfwSwapBuffers(winHandle);
                 }
             }
@@ -92,12 +101,29 @@ namespace FaceEngine
                 GameDrawPtr->delta = now - lastDraw;
                 lastDraw = now;
                 Draw();
+                ++frames;
                 glfwSwapBuffers(winHandle);
             }
 
-            // do cleanup
+            // UPS/FPS check
             now = glfwGetTime();
 
+            if (now - lastUPS >= 1.0)
+            {
+                lastUPS = now;
+                GameUpdatePtr->ups = updates;
+                updates = 0;
+            }
+
+            if (now - lastFPS >= 1.0)
+            {
+                lastFPS = now;
+                GameDrawPtr->fps = frames;
+                frames = 0;
+            }
+
+            // do cleanup
+            
             if (now - lastCleanup >= 1.0)
             {
                 lastCleanup = now;

@@ -12,12 +12,21 @@ namespace FaceEngine
         inline GameUpdate() { }
 
         double delta;
+        std::uint32_t ups;
     public:
-        // Returns the number of seconds that have passed since the last update.
-        // If your game is running at 60 frames per second the delta will be ~0.016.
-        inline const double Delta() const noexcept
+        /**
+         * @brief Returns the number of seconds that have passed since the last update. If your game is running at 60 frames per second the delta will be ~0.016.
+         * 
+         * @return double
+         */
+        inline double Delta() const noexcept
         {
             return delta;
+        }
+
+        inline double UPS() const noexcept
+        {
+            return ups;
         }
     };
 }
