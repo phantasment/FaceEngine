@@ -80,6 +80,8 @@ namespace FaceEngine
             return *this;
         }
 
+        Matrix<float, 4, 4>& Ortho() noexcept;
+
         inline T* operator[](const std::size_t r) const
         {
             return &data[r][0];
@@ -106,6 +108,12 @@ namespace FaceEngine
         data[3][2] = 0.0f;
         data[3][3] = 1.0f;
         return *this;
+    }
+
+    template<>
+    inline Matrix<float, 4, 4>& Matrix<float, 4, 4>::Ortho() noexcept
+    {
+        
     }
 
     std::ostream& operator<<(std::ostream&, const Matrix<float, 3, 3>&);
