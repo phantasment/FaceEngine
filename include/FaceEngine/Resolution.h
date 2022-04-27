@@ -25,12 +25,12 @@ namespace FaceEngine
             height = res.height;
         }
 
-        inline const std::uint16_t Width() const noexcept
+        inline std::uint16_t Width() const noexcept
         {
             return width;
         }
 
-        inline const std::uint16_t Height() const noexcept
+        inline std::uint16_t Height() const noexcept
         {
             return height;
         }
