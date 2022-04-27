@@ -27,7 +27,6 @@ namespace FaceEngine
     #endif
 
         GraphicsDevicePtr = new GraphicsDevice;
-        GLFWwindow* winHandle;
 
         try
         {
@@ -40,7 +39,7 @@ namespace FaceEngine
             throw e;
         }
 
-        winHandle = WindowPtr->winHandle;
+        GLFWwindow* winHandle = WindowPtr->winHandle;
         ResourceManagerPtr = new ResourceManager;
         GameUpdatePtr = new GameUpdate;
         GameDrawPtr = new GameDraw;
@@ -49,6 +48,9 @@ namespace FaceEngine
         double lastDraw = lastUpdate;
         double lastCleanup = lastDraw;
         double now;
+
+        Initialise();
+        glfwShowWindow(winHandle);
 
         while (!glfwWindowShouldClose(winHandle))
         {
@@ -110,5 +112,17 @@ namespace FaceEngine
         delete WindowPtr;
         delete GraphicsDevicePtr;
         glfwTerminate();
+    }
+
+    void Game::Exit()
+    {
+        if (GameRunning.load())
+        {
+            glfwSetWindowShouldClose(WindowPtr->winHandle, GLFW_TRUE);
+        }
+        else
+        {
+            throw Exception::FromMessage("FaceEngine::Game::Exit", "Game is not running!");
+        }
     }
 }

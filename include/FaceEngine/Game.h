@@ -55,6 +55,7 @@ namespace FaceEngine
         virtual void Update();
         virtual void Draw();
         void Run();
+        void Exit();
     };
 }
 
