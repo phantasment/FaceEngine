@@ -3,6 +3,8 @@ project(FaceEngine VERSION 1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+option(BUILD_TESTS "Build Face Engine tests" OFF)
+
 find_package(ZLIB 1.2.11 EXACT REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 
@@ -50,3 +52,10 @@ add_library(FaceEngine STATIC ${FACE_ENGINE_SRC_FILES})
 target_compile_options(FaceEngine PRIVATE -O3)
 target_include_directories(FaceEngine PRIVATE include "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
 target_link_libraries(FaceEngine PRIVATE "${ZLIB_LIBRARIES}" glfw)
+
+if (BUILD_TESTS)
+    add_executable(FaceEngineMathTests ${FACE_ENGINE_SRC_FILES} tests/MathTests.cpp)
+    target_compile_options(FaceEngineMathTests PRIVATE -O3)
+    target_include_directories(FaceEngineMathTests PRIVATE include "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
+    target_link_libraries(FaceEngineMathTests PRIVATE "${ZLIB_LIBRARIES}" glfw)
+endif()
