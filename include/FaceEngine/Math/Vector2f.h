@@ -122,7 +122,7 @@ namespace FaceEngine
          * 
          * @param scalar The scalar to multiply by.
          */
-        void Multiply(const float& scalar) noexcept;
+        void Multiply(const float scalar) noexcept;
 
         /**
          * @brief Multiplies this Vector2f with the provided Vector2f component-wise.
@@ -137,7 +137,7 @@ namespace FaceEngine
          * @throws FaceEngine::Exception - thrown when scalar is zero.
          * @param scalar The scalar to divide by.
          */
-        void Divide(const float& scalar);
+        void Divide(const float scalar);
 
         /**
          * @brief Transforms this Vector2f with the provided Matrix3f (via homogenenous transformation).
@@ -206,7 +206,7 @@ namespace FaceEngine
          * 
          * @param scalar The scalar to multiply by.
          */
-        void operator *=(const float& scalar) noexcept;
+        void operator *=(const float scalar) noexcept;
 
         /**
          * @brief Multiplies the left-hand Vector2f by the right-hand Vector2f component-wise.
@@ -228,7 +228,7 @@ namespace FaceEngine
          * @throws FaceEngine::Exception - thrown when scalar is zero.
          * @param scalar The scalar to divide by.
          */
-        void operator /=(const float& scalar);
+        void operator /=(const float scalar);
 
         /**
          * @brief Negates this Vector2f.
@@ -316,7 +316,7 @@ namespace FaceEngine
      * @param scalar The scalar to multiply by.
      * @return The product of the Vector2f and the scalar.
      */
-    Vector2f operator *(const Vector2f& vector, const float& scalar) noexcept;
+    Vector2f operator *(const Vector2f& vector, const float scalar) noexcept;
 
     /**
      * @brief Multiplies these Vector2f instances component-wise.
@@ -344,7 +344,7 @@ namespace FaceEngine
      * @param scalar The scalar to divide by.
      * @return The quotient of the Vector2f and the scalar.
      */
-    Vector2f operator /(const Vector2f& vector, const float& scalar);
+    Vector2f operator /(const Vector2f& vector, const float scalar);
 
     /**
      * @brief Compares the two provided Vector2f instances and checks if their components are equal.

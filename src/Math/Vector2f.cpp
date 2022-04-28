@@ -1,4 +1,5 @@
 #include "FaceEngine/Math/Vector2f.h"
+
 #include <cmath>
 #include <algorithm>
 
@@ -59,7 +60,7 @@ namespace FaceEngine
         Y -= vector.Y;
     }
 
-    void Vector2f::Multiply(const float& scalar) noexcept
+    void Vector2f::Multiply(const float scalar) noexcept
     {
         X *= scalar;
         Y *= scalar;
@@ -77,7 +78,7 @@ namespace FaceEngine
         Y *= matrix.M21 * X + matrix.M22 * Y + matrix.M23;
     }
 
-    void Vector2f::Divide(const float& scalar)
+    void Vector2f::Divide(const float scalar)
     {
         if (scalar == 0)
         {
@@ -146,7 +147,7 @@ namespace FaceEngine
         Y -= vector.Y;
     }
 
-    void Vector2f::operator *=(const float& scalar) noexcept
+    void Vector2f::operator *=(const float scalar) noexcept
     {
         X *= scalar;
         Y *= scalar;
@@ -163,7 +164,7 @@ namespace FaceEngine
         Transform(matrix);
     }
 
-    void Vector2f::operator /=(const float& scalar)
+    void Vector2f::operator /=(const float scalar)
     {
         if (scalar == 0)
         {
@@ -242,7 +243,7 @@ FaceEngine::Vector2f operator -(const FaceEngine::Vector2f& firstVector, const F
     return FaceEngine::Vector2f(firstVector.X - secondVector.X, firstVector.Y - secondVector.Y);
 }
 
-FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const float& scalar) noexcept
+FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const float scalar) noexcept
 {
     return FaceEngine::Vector2f(vector.X * scalar, vector.Y * scalar);
 }
@@ -257,7 +258,7 @@ FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const FaceEn
     return FaceEngine::Vector2f(vector.X * matrix.M11 + vector.Y * matrix.M12 + matrix.M13, vector.X * matrix.M21 + vector.Y * matrix.M22 + matrix.M23);
 }
 
-FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float& scalar)
+FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float scalar)
 {
     if (scalar == 0)
     {
@@ -279,5 +280,5 @@ FaceEngine::Vector2f operator !=(const FaceEngine::Vector2f& firstVector, const 
 
 std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f vec2)
 {
-    os << vec2.ToString();
+    return os << vec2.ToString();
 }
