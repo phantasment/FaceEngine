@@ -9,7 +9,13 @@ namespace FaceEngine
 
     void Game::Run()
     {
-        if (!glfwInit())
+        bool running = false;
+
+        if (!GameRunning.compare_exchange_strong(running, true))
+        {
+            throw Exception::FromMessage("FaceEngine::Game::Run", "Game is already running.");
+        }
+        else if (!glfwInit())
         {
             throw Exception::FromMessage("FaceEngine::Game::Run", "Couldn't initialise GLFW.");
         }
@@ -57,6 +63,8 @@ namespace FaceEngine
 
         Initialise();
         glfwShowWindow(winHandle);
+
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         while (!glfwWindowShouldClose(winHandle))
         {
@@ -138,6 +146,7 @@ namespace FaceEngine
         delete WindowPtr;
         delete GraphicsDevicePtr;
         glfwTerminate();
+        GameRunning.store(false);
     }
 
     void Game::Exit()
