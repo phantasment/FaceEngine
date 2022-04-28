@@ -60,12 +60,14 @@ namespace FaceEngine
 
         /**
          * @brief Constructs a new Vector2f object with both components set to value provided.
+         * 
          * @param value The value of both X and Y.
          */
         Vector2f(float value);
 
         /**
          * @brief Constructs a new Vector2f object with specified X and Y values.
+         * 
          * @param x The value of the X component.
          * @param y The value of the Y component.
          */
