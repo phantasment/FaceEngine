@@ -38,6 +38,8 @@ namespace FaceEngine
         }
 
         void SetVSync(const bool) noexcept;
+
+        void Clear() const noexcept;
     };
 }
 

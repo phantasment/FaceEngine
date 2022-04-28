@@ -64,6 +64,8 @@ namespace FaceEngine
         Initialise();
         glfwShowWindow(winHandle);
 
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
         while (!glfwWindowShouldClose(winHandle))
         {
             // handle updating
