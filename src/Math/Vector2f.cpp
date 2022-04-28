@@ -278,7 +278,7 @@ FaceEngine::Vector2f operator !=(const FaceEngine::Vector2f& firstVector, const 
     return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y;
 }
 
-std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f vec2)
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vec2)
 {
     return os << vec2.ToString();
 }
