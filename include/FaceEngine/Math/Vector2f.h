@@ -291,6 +291,8 @@ namespace FaceEngine
         const std::vector<float> ToArray() const noexcept override;
     };
 
+}
+
     /**
      * @brief Adds the left- and right-hand Vector2f instances together component-wise.
      * 
@@ -298,7 +300,7 @@ namespace FaceEngine
      * @param secondVector The second Vector2f to add.
      * @return The sum of the two Vector2f instances. 
      */
-    Vector2f operator +(const Vector2f& firstVector, const Vector2f& secondVector) noexcept;
+    FaceEngine::Vector2f operator +(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
     /**
      * @brief Subtracts the right-hand Vector2f from the left-hand one.
@@ -307,7 +309,7 @@ namespace FaceEngine
      * @param secondVector The Vector2f to subtract.
      * @return The difference of the two Vector2f instances.
      */
-    Vector2f operator -(const Vector2f& firstVector, const Vector2f& secondVector) noexcept;
+    FaceEngine::Vector2f operator -(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
     /**
      * @brief Multiplies the Vector2f by the provided scalar.
@@ -316,7 +318,7 @@ namespace FaceEngine
      * @param scalar The scalar to multiply by.
      * @return The product of the Vector2f and the scalar.
      */
-    Vector2f operator *(const Vector2f& vector, const float scalar) noexcept;
+    FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const float scalar) noexcept;
 
     /**
      * @brief Multiplies these Vector2f instances component-wise.
@@ -325,7 +327,7 @@ namespace FaceEngine
      * @param secondVector The second Vector2f to multiply.
      * @return The component-wise product of these two Vector2f instances.
      */
-    Vector2f operator *(const Vector2f& firstVector, const Vector2f& secondVector) noexcept;
+    FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
     /**
      * @brief Transforms the Vector2f by the provided Matrix3f via homogeneous multiplication.
@@ -334,7 +336,7 @@ namespace FaceEngine
      * @param matrix The Matrix3f to multiply by.
      * @return A transformed Vector2f.
      */
-    Vector2f operator *(const Vector2f& vector, const Matrix3f& matrix) noexcept;
+    FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const FaceEngine::Matrix3f& matrix) noexcept;
 
     /**
      * @brief Divides the Vector2f by the provided scalar.
@@ -344,7 +346,7 @@ namespace FaceEngine
      * @param scalar The scalar to divide by.
      * @return The quotient of the Vector2f and the scalar.
      */
-    Vector2f operator /(const Vector2f& vector, const float scalar);
+    FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float scalar);
 
     /**
      * @brief Compares the two provided Vector2f instances and checks if their components are equal.
@@ -353,7 +355,7 @@ namespace FaceEngine
      * @param secondVector The second Vector2f to compare.
      * @return A boolean describing whether the two Vector2f instances are equal.
      */
-    bool operator ==(const Vector2f& firstVector, const Vector2f& secondVector);
+    //bool operator ==(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector);
 
     /**
      * @brief Compares the two provided Vector2f instances and checks if their components are unequal.
@@ -362,7 +364,7 @@ namespace FaceEngine
      * @param secondVector The second Vector2f to compare.
      * @return A boolean describing whether the two Vector2f instances are unequal.
      */
-    bool operator !=(const Vector2f& firstVector, const Vector2f& secondVector);
+    //bool operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector);
 
     /**
      * @brief Inserts a string version of Vector2f into the provided stream.
@@ -371,7 +373,6 @@ namespace FaceEngine
      * @param vec2 The Vector2f to insert.
      * @return The updated stream.
      */
-    std::ostream& operator <<(std::ostream& os, const Vector2f& vec2);
-}
+    std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vec2);
 
 #endif
