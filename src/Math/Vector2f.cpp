@@ -268,15 +268,15 @@ FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float 
     return FaceEngine::Vector2f(vector.X / scalar, vector.Y / scalar);
 }
 
-// FaceEngine::Vector2f operator ==(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
-// {
-//     return firstVector.X == secondVector.X && firstVector.Y == secondVector.Y;
-// }
+bool operator ==(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
+{
+    return firstVector.X == secondVector.X && firstVector.Y == secondVector.Y;
+}
 
-// FaceEngine::Vector2f operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
-// {
-//     return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y;
-// }
+bool operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
+{
+    return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y;
+}
 
 std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vec2)
 {
