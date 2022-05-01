@@ -56,14 +56,14 @@ namespace FaceEngine
         /**
          * @brief Constructs a new Vector2f object with both components set to zero.
          */
-        Vector2f();
+        Vector2f() noexcept;
 
         /**
          * @brief Constructs a new Vector2f object with both components set to value provided.
          * 
          * @param value The value of both X and Y.
          */
-        Vector2f(float value);
+        Vector2f(float value) noexcept;
 
         /**
          * @brief Constructs a new Vector2f object with specified X and Y values.
@@ -71,7 +71,7 @@ namespace FaceEngine
          * @param x The value of the X component.
          * @param y The value of the Y component.
          */
-        Vector2f(float x, float y);
+        Vector2f(float x, float y) noexcept;
 
         /**
          * @brief Calculates the dot product between this Vector2f and the provided Vector2f.
