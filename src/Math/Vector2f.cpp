@@ -280,7 +280,7 @@ bool operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vect
     return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y;
 }
 
-std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vec2)
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vector)
 {
-    return os << vec2.ToString();
+    return os << vector.ToString();
 }

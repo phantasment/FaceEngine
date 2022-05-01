@@ -369,9 +369,9 @@ bool operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vect
  * @brief Inserts a string version of Vector2f into the provided stream.
  * 
  * @param os The stream to insert into.
- * @param vec2 The Vector2f to insert.
+ * @param vector The Vector2f to insert.
  * @return The updated stream.
  */
-std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vec2);
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vector);
 
 #endif

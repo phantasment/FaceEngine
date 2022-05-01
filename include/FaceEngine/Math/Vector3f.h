@@ -75,5 +75,6 @@ FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& vector, const FaceEn
 FaceEngine::Vector3f operator /(const FaceEngine::Vector3f& vector, const float scalar);
 bool operator ==(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vector3f& secondVector) noexcept;
 bool operator !=(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vector3f& secondVector) noexcept;
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector3f& vector);
 
 #endif

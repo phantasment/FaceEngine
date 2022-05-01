@@ -340,3 +340,8 @@ bool operator !=(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vect
 {
     return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y || firstVector.Z != secondVector.Z;
 }
+
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector3f& vector)
+{
+    return os << vector.ToString();
+}
