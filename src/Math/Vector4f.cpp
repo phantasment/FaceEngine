@@ -1,6 +1,7 @@
 #include "FaceEngine/Math/Vector4f.h"
 
 #include <cmath>
+#include <algorithm>
 
 namespace FaceEngine
 {
@@ -11,7 +12,7 @@ namespace FaceEngine
     const Vector4f Vector4f::UnitZ = Vector4f(0, 0, 1, 0);
     const Vector4f Vector4f::UnitW = Vector4f(0, 0, 0, 1);
 
-    Vector4f::Vector4f()
+    Vector4f::Vector4f() noexcept
     {
         X = 0;
         Y = 0;
@@ -19,7 +20,7 @@ namespace FaceEngine
         W = 0;
     }
 
-    Vector4f::Vector4f(float value)
+    Vector4f::Vector4f(float value) noexcept
     {
         X = value;
         Y = value;
@@ -27,7 +28,15 @@ namespace FaceEngine
         W = value;
     }
 
-    Vector4f::Vector4f(const Vector3f& vector, float w)
+    Vector4f::Vector4f(const Vector2f& vector, float z, float w) noexcept
+    {
+        X = vector.X;
+        Y = vector.Y;
+        Z = z;
+        W = w;
+    }
+
+    Vector4f::Vector4f(const Vector3f& vector, float w) noexcept
     {
         X = vector.X;
         Y = vector.Y;
@@ -35,7 +44,7 @@ namespace FaceEngine
         W = w;
     }
 
-    Vector4f::Vector4f(float x, float y, float z, float w)
+    Vector4f::Vector4f(float x, float y, float z, float w) noexcept
     {
         X = x;
         Y = y;
@@ -43,17 +52,27 @@ namespace FaceEngine
         W = w;
     }
 
-    float Vector4f::Dot(const Vector4f& vector)
+    float Vector4f::Dot(const Vector4f& vector) const noexcept
     {
         return (X * vector.X) + (Y * vector.Y) + (Z * vector.Z) + (W * vector.W);
     }
 
-    float Vector4f::GetMagnitude()
+    float Vector4f::GetMagnitude() const noexcept
     {
         return sqrt((X * X) + (Y * Y) + (Z * Z) + (W * W));
     }
 
-    void Vector4f::Add(const Vector4f& vector)
+    float Vector4f::Distance(const Vector4f& vector) const noexcept
+    {
+        return sqrt(((X - vector.X) * (X - vector.X)) + ((Y - vector.Y) * (Y - vector.Y)) + ((Z - vector.Z) * (Z - vector.Z))+ ((W - vector.W) * (W - vector.W)));
+    }
+
+    std::string Vector4f::ToString() const noexcept
+    {
+        return "Vector4f[X: " + std::to_string(X) + ", Y: " + std::to_string(Y) + ", Z: " + std::to_string(Z) + ", W: " + std::to_string(W) + "]";
+    }
+
+    void Vector4f::Add(const Vector4f& vector) noexcept
     {
         X += vector.X;
         Y += vector.Y;
@@ -61,7 +80,7 @@ namespace FaceEngine
         W += vector.W;
     }
 
-    void Vector4f::Subtract(const Vector4f& vector)
+    void Vector4f::Subtract(const Vector4f& vector) noexcept
     {
         X -= vector.X;
         Y -= vector.Y;
@@ -69,7 +88,7 @@ namespace FaceEngine
         W -= vector.W;
     }
 
-    void Vector4f::Multiply(const float& scalar)
+    void Vector4f::Multiply(const float scalar) noexcept
     {
         X *= scalar;
         Y *= scalar;
@@ -77,15 +96,98 @@ namespace FaceEngine
         W *= scalar;
     }
 
-    void Vector4f::Divide(const float& scalar)
+    void Vector4f::Multiply(const Vector4f& vector) noexcept
     {
+        X *= vector.X;
+        Y *= vector.Y;
+        Z *= vector.Z;
+        W *= vector.W;
+    }
+
+    void Vector4f::Divide(const float scalar)
+    {
+        if (scalar == 0)
+        {
+            throw Exception::FromMessage("Vector4f::Divide", "Divisor cannot be zero.");
+        }
+
         X /= scalar;
         Y /= scalar;
         Z /= scalar;
         W /= scalar;
     }
 
-    void Vector4f::operator +=(const Vector4f& vector)
+    void Vector4f::Transform(const Matrix4f& matrix) noexcept
+    {
+        float oldX = X;
+        float oldY = Y;
+        float oldZ = Z;
+
+        X = X * matrix.M11 + Y * matrix.M12 + Z * matrix.M13 + W * matrix.M14;
+        Y = oldX * matrix.M21 + Y * matrix.M22 + Z * matrix.M23 + W * matrix.M24;
+        Z = oldX * matrix.M31 + oldY * matrix.M32 + Z * matrix.M33 + W * matrix.M34;
+        W = oldZ * matrix.M41 + oldY * matrix.M42 + oldZ * matrix.M43 + W * matrix.M44;
+    }
+
+    bool Vector4f::Equals(const Vector4f& vector) const noexcept
+    {
+        return X == vector.X && Y == vector.Y && Z == vector.Z && W == vector.W;
+    }
+
+    void Vector4f::Negate() noexcept
+    {
+        X = -X;
+        Y = -Y;
+        Z = -Z;
+        W = -W;
+    }
+
+    void Vector4f::Floor() noexcept
+    {
+        X = floorf(X);
+        Y = floorf(Y);
+        Z = floorf(Z);
+        W = floorf(W);
+    }
+
+    void Vector4f::Ceiling() noexcept
+    {
+        X = ceilf(X);
+        Y = ceilf(Y);
+        Z = ceilf(Z);
+        W = ceilf(W);
+    }
+
+    void Vector4f::Round() noexcept
+    {
+        X = roundf(X);
+        Y = roundf(Y);
+        Z = roundf(Z);
+        W = roundf(W);
+    }
+
+    void Vector4f::Clamp(const Vector4f& firstBound, const Vector4f& secondBound) noexcept
+    {
+        X = std::clamp(X, std::min(firstBound.X, secondBound.X), std::max(firstBound.X, secondBound.X));
+        Y = std::clamp(Y, std::min(firstBound.Y, secondBound.Y), std::max(firstBound.Y, secondBound.Y));
+        Z = std::clamp(Z, std::min(firstBound.Z, secondBound.Z), std::max(firstBound.Z, secondBound.Z));
+        W = std::clamp(W, std::min(firstBound.W, secondBound.W), std::max(firstBound.W, secondBound.W));
+    }
+
+    void Vector4f::Normalise() noexcept
+    {
+        float magnitude = GetMagnitude();
+
+        if (magnitude != 0)
+        {
+            X /= magnitude;
+            Y /= magnitude;
+            Z /= magnitude;
+            W /= magnitude;
+        }
+    }
+
+    void Vector4f::operator +=(const Vector4f& vector) noexcept
     {
         X += vector.X;
         Y += vector.Y;
@@ -93,7 +195,7 @@ namespace FaceEngine
         W += vector.W;
     }
 
-    void Vector4f::operator -=(const Vector4f& vector)
+    void Vector4f::operator -=(const Vector4f& vector) noexcept
     {
         X -= vector.X;
         Y -= vector.Y;
@@ -101,7 +203,7 @@ namespace FaceEngine
         W -= vector.W;
     }
 
-    void Vector4f::operator *=(const float& scalar)
+    void Vector4f::operator *=(const float scalar) noexcept
     {
         X *= scalar;
         Y *= scalar;
@@ -109,8 +211,26 @@ namespace FaceEngine
         W *= scalar;
     }
 
-    void Vector4f::operator /=(const float& scalar)
+    void Vector4f::operator *=(const Vector4f& vector) noexcept
     {
+        X *= vector.X;
+        Y *= vector.Y;
+        Z *= vector.Z;
+        W *= vector.W;
+    }
+
+    void Vector4f::operator *=(const Matrix4f& matrix) noexcept
+    {
+        Transform(matrix);
+    }
+
+    void Vector4f::operator /=(const float scalar)
+    {
+        if (scalar == 0)
+        {
+            throw Exception::FromMessage("Vector4f::operator /=", "Divisor cannot be zero.");
+        }
+
         X /= scalar;
         Y /= scalar;
         Z /= scalar;
@@ -123,32 +243,50 @@ namespace FaceEngine
     }
 }
 
-FaceEngine::Vector4f operator +(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector)
+FaceEngine::Vector4f operator +(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept
 {
     return FaceEngine::Vector4f(firstVector.X + secondVector.X, firstVector.Y + secondVector.Y, firstVector.Z + secondVector.Z, firstVector.W + secondVector.W);
 }
 
-FaceEngine::Vector4f operator -(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector)
+FaceEngine::Vector4f operator -(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept
 {
     return FaceEngine::Vector4f(firstVector.X - secondVector.X, firstVector.Y - secondVector.Y, firstVector.Z - secondVector.Z, firstVector.W - secondVector.W);
 }
 
-FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& vector, const float& scalar)
+FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& vector, const float scalar) noexcept
 {
     return FaceEngine::Vector4f(vector.X * scalar, vector.Y * scalar, vector.Z * scalar, vector.W * scalar);
 }
 
-FaceEngine::Vector4f operator /(const FaceEngine::Vector4f& vector, const float& scalar)
+FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept
 {
-    return FaceEngine::Vector4f(vector.X / scalar, vector.Y / scalar, vector.Z / scalar, vector.W * scalar);
+    return FaceEngine::Vector4f(firstVector.X * secondVector.X, firstVector.Y * secondVector.Y, firstVector.Z * secondVector.Z, firstVector.W * secondVector.W);
 }
 
-FaceEngine::Vector4f operator ==(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector)
+FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& vector, const FaceEngine::Matrix4f& matrix) noexcept
+{
+    return FaceEngine::Vector4f(vector.X * matrix.M11 + vector.Y * matrix.M12 + vector.Z * matrix.M13 + vector.W * matrix.M14,
+                                vector.X * matrix.M21 + vector.Y * matrix.M22 + vector.Z * matrix.M23 + vector.W * matrix.M24,
+                                vector.X * matrix.M31 + vector.Y * matrix.M32 + vector.Z * matrix.M33 + vector.W * matrix.M34,
+                                vector.X * matrix.M41 + vector.Y * matrix.M42 + vector.Z * matrix.M43 + vector.W * matrix.M44);
+}
+
+FaceEngine::Vector4f operator /(const FaceEngine::Vector4f& vector, const float scalar)
+{
+    if (scalar == 0)
+    {
+        throw FaceEngine::Exception::FromMessage("FaceEngine::Vector4f operator /", "Divisor cannot be zero.");
+    }
+
+    return FaceEngine::Vector4f(vector.X / scalar, vector.Y / scalar, vector.Z / scalar, vector.W / scalar);
+}
+
+bool operator ==(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept
 {
     return firstVector.X == secondVector.X && firstVector.Y == secondVector.Y && firstVector.Z == secondVector.Z && firstVector.W == secondVector.W;
 }
 
-FaceEngine::Vector4f operator !=(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector)
+bool operator !=(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept
 {
     return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y || firstVector.Z != secondVector.Z || firstVector.W != secondVector.W;
 }
