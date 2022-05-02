@@ -6,8 +6,8 @@ namespace FaceEngine
     {
         if (program != 0)
         {
-            program = 0;
             glDeleteProgram(program);
+            program = 0;
         }
     }
 
