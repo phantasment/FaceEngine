@@ -6,8 +6,8 @@ namespace FaceEngine
     class Resource
     {
     public:
-        virtual const bool IsDisposed() const noexcept;
-        virtual void Dispose() const noexcept;
+        virtual const bool IsDisposed() noexcept;
+        virtual void Dispose() noexcept;
     };
 }
 
