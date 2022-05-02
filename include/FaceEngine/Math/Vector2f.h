@@ -56,14 +56,14 @@ namespace FaceEngine
         /**
          * @brief Constructs a new Vector2f object with both components set to zero.
          */
-        Vector2f();
+        Vector2f() noexcept;
 
         /**
          * @brief Constructs a new Vector2f object with both components set to value provided.
          * 
          * @param value The value of both X and Y.
          */
-        Vector2f(float value);
+        Vector2f(float value) noexcept;
 
         /**
          * @brief Constructs a new Vector2f object with specified X and Y values.
@@ -71,7 +71,7 @@ namespace FaceEngine
          * @param x The value of the X component.
          * @param y The value of the Y component.
          */
-        Vector2f(float x, float y);
+        Vector2f(float x, float y) noexcept;
 
         /**
          * @brief Calculates the dot product between this Vector2f and the provided Vector2f.
@@ -290,89 +290,88 @@ namespace FaceEngine
          */
         const std::vector<float> ToArray() const noexcept override;
     };
-
 }
 
-    /**
-     * @brief Adds the left- and right-hand Vector2f instances together component-wise.
-     * 
-     * @param firstVector The first Vector2f to add.
-     * @param secondVector The second Vector2f to add.
-     * @return The sum of the two Vector2f instances. 
-     */
-    FaceEngine::Vector2f operator +(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
+/**
+ * @brief Adds the left- and right-hand Vector2f instances together component-wise.
+ * 
+ * @param firstVector The first Vector2f to add.
+ * @param secondVector The second Vector2f to add.
+ * @return The sum of the two Vector2f instances. 
+ */
+FaceEngine::Vector2f operator +(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
-    /**
-     * @brief Subtracts the right-hand Vector2f from the left-hand one.
-     * 
-     * @param firstVector The Vector2f to subtract from.
-     * @param secondVector The Vector2f to subtract.
-     * @return The difference of the two Vector2f instances.
-     */
-    FaceEngine::Vector2f operator -(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
+/**
+ * @brief Subtracts the right-hand Vector2f from the left-hand one.
+ * 
+ * @param firstVector The Vector2f to subtract from.
+ * @param secondVector The Vector2f to subtract.
+ * @return The difference of the two Vector2f instances.
+ */
+FaceEngine::Vector2f operator -(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
-    /**
-     * @brief Multiplies the Vector2f by the provided scalar.
-     * 
-     * @param vector The Vector2f to multiply.
-     * @param scalar The scalar to multiply by.
-     * @return The product of the Vector2f and the scalar.
-     */
-    FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const float scalar) noexcept;
+/**
+ * @brief Multiplies the Vector2f by the provided scalar.
+ * 
+ * @param vector The Vector2f to multiply.
+ * @param scalar The scalar to multiply by.
+ * @return The product of the Vector2f and the scalar.
+ */
+FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const float scalar) noexcept;
 
-    /**
-     * @brief Multiplies these Vector2f instances component-wise.
-     * 
-     * @param firstVector The first Vector2f to multiply.
-     * @param secondVector The second Vector2f to multiply.
-     * @return The component-wise product of these two Vector2f instances.
-     */
-    FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
+/**
+ * @brief Multiplies these Vector2f instances component-wise.
+ * 
+ * @param firstVector The first Vector2f to multiply.
+ * @param secondVector The second Vector2f to multiply.
+ * @return The component-wise product of these two Vector2f instances.
+ */
+FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
-    /**
-     * @brief Transforms the Vector2f by the provided Matrix3f via homogeneous multiplication.
-     * 
-     * @param vector The Vector2f to transform.
-     * @param matrix The Matrix3f to multiply by.
-     * @return A transformed Vector2f.
-     */
-    FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const FaceEngine::Matrix3f& matrix) noexcept;
+/**
+ * @brief Transforms the Vector2f by the provided Matrix3f via homogeneous multiplication.
+ * 
+ * @param vector The Vector2f to transform.
+ * @param matrix The Matrix3f to multiply by.
+ * @return A transformed Vector2f.
+ */
+FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const FaceEngine::Matrix3f& matrix) noexcept;
 
-    /**
-     * @brief Divides the Vector2f by the provided scalar.
-     * 
-     * @throws FaceEngine::Exception - thrown when scalar is zero.
-     * @param vector The Vector2f to divide.
-     * @param scalar The scalar to divide by.
-     * @return The quotient of the Vector2f and the scalar.
-     */
-    FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float scalar);
+/**
+ * @brief Divides the Vector2f by the provided scalar.
+ * 
+ * @throws FaceEngine::Exception - thrown when scalar is zero.
+ * @param vector The Vector2f to divide.
+ * @param scalar The scalar to divide by.
+ * @return The quotient of the Vector2f and the scalar.
+ */
+FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float scalar);
 
-    /**
-     * @brief Compares the two provided Vector2f instances and checks if their components are equal.
-     * 
-     * @param firstVector The first Vector2f to compare.
-     * @param secondVector The second Vector2f to compare.
-     * @return A boolean describing whether the two Vector2f instances are equal.
-     */
-    //bool operator ==(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector);
+/**
+ * @brief Compares the two provided Vector2f instances and checks if their components are equal.
+ * 
+ * @param firstVector The first Vector2f to compare.
+ * @param secondVector The second Vector2f to compare.
+ * @return A boolean describing whether the two Vector2f instances are equal.
+ */
+bool operator ==(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
-    /**
-     * @brief Compares the two provided Vector2f instances and checks if their components are unequal.
-     * 
-     * @param firstVector The first Vector2f to compare.
-     * @param secondVector The second Vector2f to compare.
-     * @return A boolean describing whether the two Vector2f instances are unequal.
-     */
-    //bool operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector);
+/**
+ * @brief Compares the two provided Vector2f instances and checks if their components are unequal.
+ * 
+ * @param firstVector The first Vector2f to compare.
+ * @param secondVector The second Vector2f to compare.
+ * @return A boolean describing whether the two Vector2f instances are unequal.
+ */
+bool operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
 
-    /**
-     * @brief Inserts a string version of Vector2f into the provided stream.
-     * 
-     * @param os The stream to insert into.
-     * @param vec2 The Vector2f to insert.
-     * @return The updated stream.
-     */
-    std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vec2);
+/**
+ * @brief Inserts a string version of Vector2f into the provided stream.
+ * 
+ * @param os The stream to insert into.
+ * @param vector The Vector2f to insert.
+ * @return The updated stream.
+ */
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vector);
 
 #endif

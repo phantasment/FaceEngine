@@ -10,19 +10,19 @@ namespace FaceEngine
     const Vector2f Vector2f::UnitX = Vector2f(1, 0);
     const Vector2f Vector2f::UnitY = Vector2f(0, 1);
 
-    Vector2f::Vector2f()
+    Vector2f::Vector2f() noexcept
     {
         X = 0;
         Y = 0;
     }
 
-    Vector2f::Vector2f(float value)
+    Vector2f::Vector2f(float value) noexcept
     {
         X = value;
         Y = value;
     }
 
-    Vector2f::Vector2f(float x, float y)
+    Vector2f::Vector2f(float x, float y) noexcept
     {
         X = x;
         Y = y;
@@ -74,8 +74,10 @@ namespace FaceEngine
 
     void Vector2f::Transform(const Matrix3f& matrix) noexcept
     {
+        float oldX = X;
+
         X *= matrix.M11 * X + matrix.M12 * Y + matrix.M13;
-        Y *= matrix.M21 * X + matrix.M22 * Y + matrix.M23;
+        Y *= matrix.M21 * oldX + matrix.M22 * Y + matrix.M23;
     }
 
     void Vector2f::Divide(const float scalar)
@@ -168,7 +170,7 @@ namespace FaceEngine
     {
         if (scalar == 0)
         {
-            throw std::invalid_argument("Divisor cannot be zero.");
+            throw Exception::FromMessage("Vector2f::operator /=", "Divisor cannot be zero.");
         }
 
         X /= scalar;
@@ -197,7 +199,7 @@ namespace FaceEngine
         }
         else
         {
-            throw Exception::FromMessage("Vector2f::operator[]", "Index out of bounds of Vector2f.");
+            throw Exception::FromMessage("Vector2f::operator []", "Index out of bounds of Vector2f.");
         }
     }
 
@@ -213,7 +215,7 @@ namespace FaceEngine
         }
         else
         {
-            throw std::invalid_argument("Index out of bounds of Vector2f.");
+            throw Exception::FromMessage("Vector2f::operator []", "Index out of bounds of Vector2f.");
         }
     }
 
@@ -268,17 +270,17 @@ FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float 
     return FaceEngine::Vector2f(vector.X / scalar, vector.Y / scalar);
 }
 
-// FaceEngine::Vector2f operator ==(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
-// {
-//     return firstVector.X == secondVector.X && firstVector.Y == secondVector.Y;
-// }
-
-// FaceEngine::Vector2f operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
-// {
-//     return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y;
-// }
-
-std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vec2)
+bool operator ==(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
 {
-    return os << vec2.ToString();
+    return firstVector.X == secondVector.X && firstVector.Y == secondVector.Y;
+}
+
+bool operator !=(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
+{
+    return firstVector.X != secondVector.X || firstVector.Y != secondVector.Y;
+}
+
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Vector2f& vector)
+{
+    return os << vector.ToString();
 }
