@@ -3,7 +3,6 @@
 
 #include "FaceEngine/Math/Vector.h"
 #include "FaceEngine/Math/Vector2f.h"
-#include "FaceEngine/Math/Matrix4f.h"
 
 namespace FaceEngine
 {
@@ -36,8 +35,6 @@ namespace FaceEngine
         void Multiply(const float scalar) noexcept;
         void Multiply(const Vector3f& vector) noexcept;
         void Divide(const float scalar);
-        void Transform(const Matrix3f& matrix) noexcept;
-        void Transform(const Matrix4f& matrix) noexcept;
         bool Equals(const Vector3f& vector) const noexcept;
 
         void Negate() noexcept;
@@ -51,8 +48,6 @@ namespace FaceEngine
         void operator -=(const Vector3f& vector) noexcept;
         void operator *=(const float scalar) noexcept;
         void operator *=(const Vector3f& vector) noexcept;
-        void operator *=(const Matrix3f& matrix) noexcept;
-        void operator *=(const Matrix4f& matrix) noexcept;
         void operator /=(const float scalar);
         Vector3f operator -() const noexcept;
         float operator [](int index) const;
@@ -70,8 +65,6 @@ FaceEngine::Vector3f operator +(const FaceEngine::Vector3f& firstVector, const F
 FaceEngine::Vector3f operator -(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vector3f& secondVector) noexcept;
 FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& vector, const float scalar) noexcept;
 FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vector3f& secondVector) noexcept;
-FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& vector, const FaceEngine::Matrix3f& matrix) noexcept;
-FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& vector, const FaceEngine::Matrix4f& matrix) noexcept;
 FaceEngine::Vector3f operator /(const FaceEngine::Vector3f& vector, const float scalar);
 bool operator ==(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vector3f& secondVector) noexcept;
 bool operator !=(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vector3f& secondVector) noexcept;

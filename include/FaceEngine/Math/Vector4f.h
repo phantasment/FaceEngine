@@ -38,7 +38,6 @@ namespace FaceEngine
         void Multiply(const float scalar) noexcept;
         void Multiply(const Vector4f& scalar) noexcept;
         void Divide(const float scalar);
-        void Transform(const Matrix4f& matrix) noexcept;
         bool Equals(const Vector4f& vector) const noexcept;
 
         void Negate() noexcept;
@@ -53,7 +52,6 @@ namespace FaceEngine
         void operator -=(const Vector4f& vector) noexcept;
         void operator *=(const float scalar) noexcept;
         void operator *=(const Vector4f& scalar) noexcept;
-        void operator *=(const Matrix4f& scalar) noexcept;
         void operator /=(const float scalar);
         Vector4f operator -() const noexcept;
         float operator [](int index) const;
@@ -71,7 +69,6 @@ FaceEngine::Vector4f operator +(const FaceEngine::Vector4f& firstVector, const F
 FaceEngine::Vector4f operator -(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept;
 FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& vector, const float scalar) noexcept;
 FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept;
-FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& vector, const FaceEngine::Matrix4f& scalar) noexcept;
 FaceEngine::Vector4f operator /(const FaceEngine::Vector4f& vector, const float& scalar);
 bool operator ==(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept;
 bool operator !=(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept;

@@ -1,5 +1,4 @@
 #include "FaceEngine/Math/Vector3f.h"
-#include "FaceEngine/Math/Matrix4f.h"
 #include <cmath>
 #include <algorithm>
 
@@ -99,26 +98,6 @@ namespace FaceEngine
         Z /= scalar;
     }
 
-    void Vector3f::Transform(const Matrix3f& matrix) noexcept
-    {
-        float oldX = X;
-        float oldY = Y;
-
-        X = X * matrix.M11 + Y * matrix.M12 + Z * matrix.M13;
-        Y = oldX * matrix.M21 + Y * matrix.M22 + Z * matrix.M23;
-        Z = oldX * matrix.M31 + oldY * matrix.M32 + Z * matrix.M33;
-    }
-
-    void Vector3f::Transform(const Matrix4f& matrix) noexcept
-    {
-        float oldX = X;
-        float oldY = Y;
-
-        X = X * matrix.M11 + Y * matrix.M12 + Z * matrix.M13 + matrix.M14;
-        Y = oldX * matrix.M21 + Y * matrix.M22 + Z * matrix.M23 + matrix.M24;
-        Z = oldX * matrix.M31 + oldY * matrix.M32 + Z * matrix.M33 + matrix.M34;
-    }
-
     bool Vector3f::Equals(const Vector3f& vector) const noexcept
     {
         return X == vector.X && Y == vector.Y && Z == vector.Z;
@@ -197,16 +176,6 @@ namespace FaceEngine
         X *= vector.X;
         Y *= vector.Y;
         Z *= vector.Z;
-    }
-
-    void Vector3f::operator *=(const Matrix3f& matrix) noexcept
-    {
-        Transform(matrix);
-    }
-
-    void Vector3f::operator *=(const Matrix4f& matrix) noexcept
-    {
-        Transform(matrix);
     }
 
     void Vector3f::operator /=(const float scalar)
@@ -305,20 +274,6 @@ FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& vector, const float 
 FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& firstVector, const FaceEngine::Vector3f& secondVector) noexcept
 {
     return FaceEngine::Vector3f(firstVector.X * secondVector.X, firstVector.Y * secondVector.Y, firstVector.Z * secondVector.Z);
-}
-
-FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& vector, const FaceEngine::Matrix3f& matrix) noexcept
-{
-    return FaceEngine::Vector3f(vector.X * matrix.M11 + vector.Y * matrix.M12 + vector.Z * matrix.M13,
-                                vector.X * matrix.M21 + vector.Y * matrix.M22 + vector.Z * matrix.M23,
-                                vector.X * matrix.M31 + vector.Y * matrix.M32 + vector.Z * matrix.M33);
-}
-
-FaceEngine::Vector3f operator *(const FaceEngine::Vector3f& vector, const FaceEngine::Matrix4f& matrix) noexcept
-{
-    return FaceEngine::Vector3f(vector.X * matrix.M11 + vector.Y * matrix.M12 + vector.Z * matrix.M13 + matrix.M14,
-                                vector.X * matrix.M21 + vector.Y * matrix.M22 + vector.Z * matrix.M23 + matrix.M24,
-                                vector.X * matrix.M31 + vector.Y * matrix.M32 + vector.Z * matrix.M33 + matrix.M34);
 }
 
 FaceEngine::Vector3f operator /(const FaceEngine::Vector3f& vector, const float& scalar)

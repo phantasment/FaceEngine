@@ -23,6 +23,7 @@ set(FACE_ENGINE_HEADER_FILES
     include/FaceEngine/ResourceManager.h
     include/FaceEngine/Window.h
 
+    include/FaceEngine/Math/Calculator.h
     include/FaceEngine/Math/Matrix.h
     include/FaceEngine/Math/Matrix3f.h
     include/FaceEngine/Math/Matrix4f.h
@@ -39,6 +40,8 @@ set(FACE_ENGINE_SRC_FILES
     src/Resource.cpp
     src/ResourceManager.cpp
     src/Window.cpp
+
+    src/Math/Calculator.cpp
     src/Math/Matrix.cpp
     src/Math/Matrix3f.cpp
     src/Math/Matrix4f.cpp

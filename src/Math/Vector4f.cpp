@@ -117,18 +117,6 @@ namespace FaceEngine
         W /= scalar;
     }
 
-    void Vector4f::Transform(const Matrix4f& matrix) noexcept
-    {
-        float oldX = X;
-        float oldY = Y;
-        float oldZ = Z;
-
-        X = X * matrix.M11 + Y * matrix.M12 + Z * matrix.M13 + W * matrix.M14;
-        Y = oldX * matrix.M21 + Y * matrix.M22 + Z * matrix.M23 + W * matrix.M24;
-        Z = oldX * matrix.M31 + oldY * matrix.M32 + Z * matrix.M33 + W * matrix.M34;
-        W = oldZ * matrix.M41 + oldY * matrix.M42 + oldZ * matrix.M43 + W * matrix.M44;
-    }
-
     bool Vector4f::Equals(const Vector4f& vector) const noexcept
     {
         return X == vector.X && Y == vector.Y && Z == vector.Z && W == vector.W;
@@ -219,11 +207,6 @@ namespace FaceEngine
         W *= vector.W;
     }
 
-    void Vector4f::operator *=(const Matrix4f& matrix) noexcept
-    {
-        Transform(matrix);
-    }
-
     void Vector4f::operator /=(const float scalar)
     {
         if (scalar == 0)
@@ -261,14 +244,6 @@ FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& vector, const float 
 FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& firstVector, const FaceEngine::Vector4f& secondVector) noexcept
 {
     return FaceEngine::Vector4f(firstVector.X * secondVector.X, firstVector.Y * secondVector.Y, firstVector.Z * secondVector.Z, firstVector.W * secondVector.W);
-}
-
-FaceEngine::Vector4f operator *(const FaceEngine::Vector4f& vector, const FaceEngine::Matrix4f& matrix) noexcept
-{
-    return FaceEngine::Vector4f(vector.X * matrix.M11 + vector.Y * matrix.M12 + vector.Z * matrix.M13 + vector.W * matrix.M14,
-                                vector.X * matrix.M21 + vector.Y * matrix.M22 + vector.Z * matrix.M23 + vector.W * matrix.M24,
-                                vector.X * matrix.M31 + vector.Y * matrix.M32 + vector.Z * matrix.M33 + vector.W * matrix.M34,
-                                vector.X * matrix.M41 + vector.Y * matrix.M42 + vector.Z * matrix.M43 + vector.W * matrix.M44);
 }
 
 FaceEngine::Vector4f operator /(const FaceEngine::Vector4f& vector, const float scalar)

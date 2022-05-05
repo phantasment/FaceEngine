@@ -3,6 +3,7 @@
 
 #include "FaceEngine/Math/Matrix.h"
 #include "FaceEngine/Math/Vector3f.h"
+#include "FaceEngine/Math/Vector4f.h"
 
 namespace FaceEngine
 {
@@ -160,6 +161,9 @@ namespace FaceEngine
          * @param scalar The scalar to divide the elements of this Matrix4f by.
          */
         void Divide(const float scalar);
+
+        void Transform(Vector3f& vector) const noexcept;
+        void Transform(Vector4f& vector) const noexcept;
 
         /**
          * @brief Sets the i-hat basis Vector3f of this Matrix4f, i.e., elements M11, M21, and M31.
@@ -333,24 +337,149 @@ namespace FaceEngine
          * @return The perspective projection matrix.
          */
         static Matrix4f CreatePerspectiveFOV(const float fieldOfView, const float aspectRatio, const float nearPlaneDistance, const float farPlaneDistance) noexcept;
+
+        /**
+         * @brief Creates a customised perspective projection matrix, capable of projecting three-dimensional coordinates (e.g., a 3D scene) 
+         * onto a two-dimensional plane (e.g., a 2D screen), such that more distant objects appear smaller.
+         * 
+         * @param left The minimum X-value of the view volume.
+         * @param right The maximum X-value of the view volume.
+         * @param bottom The minimum Y-value of the view volume.
+         * @param top The maximum Y-value of the view volume.
+         * @param nearPlaneDistance The minimum Z-value of the view volume.
+         * @param farPlaneDistance The maximum Z-value of the view volume.
+         * @return The perspective projection matrix.
+         */
         static Matrix4f CreatePerspectiveOffCentre(const float left, const float right, const float bottom, const float top, const float nearPlaneDistance, const float farPlaneDistance) noexcept;
+        
+        /**
+         * @brief Creates the world matrix, a Matrix4f capable of transforming coordinates in Model-space to world space.
+         * 
+         * @param objectPos The position of the origin of the object in world coordinates.
+         * @param upVector The up-vector of the object.
+         * @param forwardVector The forward-vector of the object.
+         * @return The world matrix.
+         */
         static Matrix4f CreateWorld(const Vector3f& objectPos, const Vector3f& upVector, const Vector3f& forwardVector) noexcept;
         //static Matrix4f CreateReflection(Plane) noexcept;
         //static Matrix4f CreateShadow(Plane, Vector3 lightSource) noexcept
+
+        /**
+         * @brief Creates a rotation matrix about the x-axis by the provided angle in radians.
+         * 
+         * @param angle The angle in radians that this Matrix4f will rotate objects by.
+         * @return A rotation matrix about the x-axis.
+         */
         static Matrix4f CreateRotationX(const float angle) noexcept;
+
+        /**
+         * @brief Creates a rotation matrix about the x-axis at the position provided by the provided angle in radians.
+         * 
+         * @param angle The angle in radians that this Matrix4f will rotate objects by.
+         * @param position The point about which this Matrix4f will rotate objects.
+         * @return A rotation matrix about the x-axis.
+         */
         static Matrix4f CreateRotationX(const float angle, const Vector3f& position) noexcept;
+
+        /**
+         * @brief Creates a rotation matrix about the y-axis by the provided angle in radians.
+         * 
+         * @param angle The angle in radians that this Matrix4f will rotate objects by.
+         * @return A rotation matrix about the y-axis.
+         */
         static Matrix4f CreateRotationY(const float angle) noexcept;
+
+        /**
+         * @brief Creates a rotation matrix about the y-axis at the position provided by the provided angle in radians.
+         * 
+         * @param angle The angle in radians that this Matrix4f will rotate objects by.
+         * @param position The point about which this Matrix4f will rotate objects.
+         * @return A rotation matrix about the y-axis.
+         */
         static Matrix4f CreateRotationY(const float angle, const Vector3f& position) noexcept;
+
+        /**
+         * @brief Creates a rotation matrix about the z-axis by the provided angle in radians.
+         * 
+         * @param angle The angle in radians that this Matrix4f will rotate objects by.
+         * @return A rotation matrix about the z-axis.
+         */
         static Matrix4f CreateRotationZ(const float angle) noexcept;
+
+        /**
+         * @brief Creates a rotation matrix about the z-axis at the position provided by the provided angle in radians.
+         * 
+         * @param angle The angle in radians that this Matrix4f will rotate objects by.
+         * @param position The point about which this Matrix4f will rotate objects.
+         * @return A rotation matrix about the z-axis.
+         */
         static Matrix4f CreateRotationZ(const float angle, const Vector3f& position) noexcept;
+
+        /**
+         * @brief Creates a scale matrix that uniformly scales Vector3f instances across all three dimensions.
+         * 
+         * @param scale The degree to which this Matrix4f will scale the x-, y-, and z-axes.
+         * @return A scale matrix.
+         */
         static Matrix4f CreateScale(const float scale) noexcept;
+
+        /**
+         * @brief Creates a scale matrix that scales Vector3f instances by the provided factors.
+         * 
+         * @param scaleX The x-axis scale factor.
+         * @param scaleY The y-axis scale factor.
+         * @param scaleZ The z-axis scale factor.
+         * @return A scale matrix.
+         */
         static Matrix4f CreateScale(const float scaleX, const float scaleY, const float scaleZ) noexcept;
+
+        /**
+         * @brief Creates a translation matrix that translates Vector3f instances by the provided factors.
+         * 
+         * @param translationX The x-axis translation factor.
+         * @param translationY The y-axis translation factor.
+         * @param translationZ The z-axis translation factor.
+         * @return A translation matrix.
+         */
         static Matrix4f CreateTranslation(const float translationX, const float translationY, const float translationZ) noexcept;
+
+        /**
+         * @brief Creates a translation matrix that translates Vector3f instances by the provided factors, encoded in a Vector3f.
+         * 
+         * @param translation The Vector3f encoding the x-, y-, and z-axis translation factors.
+         * @return A translation matrix.
+         */
         static Matrix4f CreateTranslation(const Vector3f& translation) noexcept;
+
+        /**
+         * @brief Linearly interpolates between two Matrix4f instances.
+         * 
+         * @param firstMatrix The first Matrix4f to interpolate from.
+         * @param secondMatrix The second Matrix4f to interpolate from.
+         * @param t The percentage between the first and second Matrix4f instances to interpolate at.
+         * @return A linearly interpolated Matrix4f.
+         */
         static Matrix4f Lerp(const Matrix4f& firstMatrix, const Matrix4f& secondMatrix, const float t) noexcept;
 
+        /**
+         * @brief Expresses this Matrix4f as an std::vector<float> in row major.
+         * 
+         * @return An std::vector<float> containing the elements of this Matrix4f.
+         */
         const std::vector<float> ToArray() const noexcept override;
+
+        /**
+         * @brief Expresses this Matrix4f as an std::string with newlines.
+         * 
+         * @return An std::string displaying the elements of this Matrix4f.
+         */
         std::string ToString() const noexcept;
+
+        /**
+         * @brief Expresses this Matrix4f as an std::string on a single line.
+         * 
+         * @return An std::string displaying the elements of this Matrix4f.
+         */
         std::string ToStringInline() const noexcept;
 
         void operator +=(const Matrix4f& matrix) noexcept;
@@ -367,6 +496,8 @@ namespace FaceEngine
 FaceEngine::Matrix4f operator +(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix) noexcept;
 FaceEngine::Matrix4f operator -(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix) noexcept;
 FaceEngine::Matrix4f operator *(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix) noexcept;
+FaceEngine::Vector3f operator *(const FaceEngine::Matrix4f& matrix, const FaceEngine::Vector3f& vector) noexcept;
+FaceEngine::Vector4f operator *(const FaceEngine::Matrix4f& matrix, const FaceEngine::Vector4f& vector) noexcept;
 FaceEngine::Matrix4f operator *(const FaceEngine::Matrix4f& matrix, const float scalar) noexcept;
 FaceEngine::Matrix4f operator /(const FaceEngine::Matrix4f& matrix, const float scalar);
 bool operator ==(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix) noexcept;

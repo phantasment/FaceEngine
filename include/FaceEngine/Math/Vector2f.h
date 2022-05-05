@@ -12,7 +12,6 @@
 #define FACEENGINE_MATH_VECTOR2F_H_
 
 #include "FaceEngine/Math/Vector.h"
-#include "FaceEngine/Math/Matrix3f.h"
 #include <iostream>
 
 namespace FaceEngine
@@ -140,13 +139,6 @@ namespace FaceEngine
         void Divide(const float scalar);
 
         /**
-         * @brief Transforms this Vector2f with the provided Matrix3f (via homogenenous transformation).
-         * 
-         * @param matrix The Matrix3f to multiply this Vector2f by.
-         */
-        void Transform(const Matrix3f& matrix) noexcept;
-
-        /**
          * @brief Checks if the components of this Vector2f are equal to the components of the provided Vector2f.
          * 
          * @param vector The Vector2f to compare.
@@ -214,13 +206,6 @@ namespace FaceEngine
          * @param vector The Vector2f to multiply by.
          */
         void operator *=(const Vector2f& vector) noexcept;
-
-        /**
-         * @brief Transforms the left-hand Vector2f by multiplying it by the right-hand Matrix3f homogeneneously.
-         * 
-         * @param matrix The matrix to multiply by.
-         */
-        void operator *=(const Matrix3f& matrix) noexcept;
 
         /**
          * @brief Divides the left-hand Vector2f by the right-hand scalar.
@@ -327,15 +312,6 @@ FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const float 
  * @return The component-wise product of these two Vector2f instances.
  */
 FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept;
-
-/**
- * @brief Transforms the Vector2f by the provided Matrix3f via homogeneous multiplication.
- * 
- * @param vector The Vector2f to transform.
- * @param matrix The Matrix3f to multiply by.
- * @return A transformed Vector2f.
- */
-FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const FaceEngine::Matrix3f& matrix) noexcept;
 
 /**
  * @brief Divides the Vector2f by the provided scalar.

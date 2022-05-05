@@ -326,6 +326,28 @@ namespace FaceEngine
         M44 /= scalar;
     }
 
+    void Matrix4f::Transform(Vector3f& vector) const noexcept
+    {
+        float oldX = vector.X;
+        float oldY = vector.Y;
+
+        vector.X = vector.X * M11 + vector.Y * M12 + vector.Z * M13 + M14;
+        vector.Y = oldX * M21 + vector.Y * M22 + vector.Z * M23 + M24;
+        vector.Z = oldX * M31 + oldY * M32 + vector.Z * M33 + M34;
+    }
+
+    void Matrix4f::Transform(Vector4f& vector) const noexcept
+    {
+        float oldX = vector.X;
+        float oldY = vector.Y;
+        float oldZ = vector.Z;
+
+        vector.X = vector.X * M11 + vector.Y * M12 + vector.Z * M13 + vector.W * M14;
+        vector.Y = oldX * M21 + vector.Y * M22 + vector.Z * M23 + vector.W * M24;
+        vector.Z = oldX * M31 + oldY * M32 + vector.Z * M33 + vector.W * M34;
+        vector.W = oldZ * M41 + oldY * M42 + oldZ * M43 + vector.W * M44;
+    }
+
     void Matrix4f::SetRight(const Vector3f& rightVector) noexcept
     {
         M11 = rightVector.X;
@@ -679,28 +701,43 @@ namespace FaceEngine
     }
 }
 
-FaceEngine::Matrix4f operator +(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix)
+FaceEngine::Matrix4f operator +(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix) noexcept
 {
     FaceEngine::Matrix4f result = FaceEngine::Matrix4f(firstMatrix);
     result.Add(secondMatrix);
     return result;
 }
 
-FaceEngine::Matrix4f operator -(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix)
+FaceEngine::Matrix4f operator -(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix) noexcept
 {
     FaceEngine::Matrix4f result = FaceEngine::Matrix4f(firstMatrix);
     result.Subtract(secondMatrix);
     return result;
 }
 
-FaceEngine::Matrix4f operator *(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix)
+FaceEngine::Matrix4f operator *(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matrix4f& secondMatrix) noexcept
 {
     FaceEngine::Matrix4f result = FaceEngine::Matrix4f(firstMatrix);
     result.Multiply(secondMatrix);
     return result;
 }
 
-FaceEngine::Matrix4f operator *(const FaceEngine::Matrix4f& firstMatrix, const float& scalar)
+FaceEngine::Vector3f operator *(const FaceEngine::Matrix4f& matrix, const FaceEngine::Vector3f& vector) noexcept
+{
+    return FaceEngine::Vector3f(vector.X * matrix.M11 + vector.Y * matrix.M12 + vector.Z * matrix.M13 + matrix.M14,
+                                vector.X * matrix.M21 + vector.Y * matrix.M22 + vector.Z * matrix.M23 + matrix.M24,
+                                vector.X * matrix.M31 + vector.Y * matrix.M32 + vector.Z * matrix.M33 + matrix.M34);
+}
+
+FaceEngine::Vector4f operator *(const FaceEngine::Matrix4f& matrix, const FaceEngine::Vector4f& vector) noexcept
+{
+    return FaceEngine::Vector4f(vector.X * matrix.M11 + vector.Y * matrix.M12 + vector.Z * matrix.M13 + vector.W * matrix.M14,
+                                vector.X * matrix.M21 + vector.Y * matrix.M22 + vector.Z * matrix.M23 + vector.W * matrix.M24,
+                                vector.X * matrix.M31 + vector.Y * matrix.M32 + vector.Z * matrix.M33 + vector.W * matrix.M34,
+                                vector.X * matrix.M41 + vector.Y * matrix.M42 + vector.Z * matrix.M43 + vector.W * matrix.M44);
+}
+
+FaceEngine::Matrix4f operator *(const FaceEngine::Matrix4f& firstMatrix, const float& scalar) noexcept
 {
     FaceEngine::Matrix4f result = FaceEngine::Matrix4f(firstMatrix);
     result.Multiply(scalar);
@@ -731,7 +768,7 @@ bool operator !=(const FaceEngine::Matrix4f& firstMatrix, const FaceEngine::Matr
     return !(firstMatrix == secondMatrix);
 }
 
-std::ostream& operator <<(std::ostream& cout, const FaceEngine::Matrix4f& matrix)
+std::ostream& operator <<(std::ostream& cout, const FaceEngine::Matrix4f& matrix) noexcept
 {
     cout << matrix.ToStringInline();
     return cout;

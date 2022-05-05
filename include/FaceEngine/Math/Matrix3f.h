@@ -2,6 +2,8 @@
 #define FACEENGINE_MATH_MATRIX3F_H_
 
 #include "FaceEngine/Math/Matrix.h"
+#include "FaceEngine/Math/Vector2f.h"
+#include "FaceEngine/Math/Vector3f.h"
 
 namespace FaceEngine
 {
@@ -15,8 +17,14 @@ namespace FaceEngine
 
         float GetDeterminant();
 
+        void Transform(Vector2f& vector) const noexcept;
+        void Transform(Vector3f& vector) const noexcept;
+
         const std::vector<float> ToArray() const noexcept override;
     };
 }
+
+FaceEngine::Vector2f operator *(const FaceEngine::Matrix3f& matrix, const FaceEngine::Vector2f& vector) noexcept;
+FaceEngine::Vector3f operator *(const FaceEngine::Matrix3f& matrix, const FaceEngine::Vector3f& vector) noexcept;
 
 #endif

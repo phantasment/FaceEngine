@@ -72,14 +72,6 @@ namespace FaceEngine
         Y *= vector.Y;
     }
 
-    void Vector2f::Transform(const Matrix3f& matrix) noexcept
-    {
-        float oldX = X;
-
-        X *= matrix.M11 * X + matrix.M12 * Y + matrix.M13;
-        Y *= matrix.M21 * oldX + matrix.M22 * Y + matrix.M23;
-    }
-
     void Vector2f::Divide(const float scalar)
     {
         if (scalar == 0)
@@ -159,11 +151,6 @@ namespace FaceEngine
     {
         X *= vector.X;
         Y *= vector.Y;
-    }
-
-    void Vector2f::operator *=(const Matrix3f& matrix) noexcept
-    {
-        Transform(matrix);
     }
 
     void Vector2f::operator /=(const float scalar)
@@ -253,11 +240,6 @@ FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const float 
 FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& firstVector, const FaceEngine::Vector2f& secondVector) noexcept
 {
     return FaceEngine::Vector2f(firstVector.X * secondVector.X, firstVector.Y * secondVector.Y);
-}
-
-FaceEngine::Vector2f operator *(const FaceEngine::Vector2f& vector, const FaceEngine::Matrix3f& matrix) noexcept
-{
-    return FaceEngine::Vector2f(vector.X * matrix.M11 + vector.Y * matrix.M12 + matrix.M13, vector.X * matrix.M21 + vector.Y * matrix.M22 + matrix.M23);
 }
 
 FaceEngine::Vector2f operator /(const FaceEngine::Vector2f& vector, const float scalar)
