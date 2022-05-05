@@ -33,9 +33,14 @@ namespace FaceEngine
         bool Intersects(const Rectangle& rect) const;
         bool IntersectsOrTouches(const Rectangle& rect) const;
         bool Equals(const Rectangle& rect) const;
+
+        void operator +=(const Rectangle& rect) noexcept;
     };
 }
 
 std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle& rect);
+FaceEngine::Rectangle operator+(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept;
+bool operator==(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept;
+bool operator!=(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept;
 
 #endif

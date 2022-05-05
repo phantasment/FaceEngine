@@ -91,6 +91,34 @@ namespace FaceEngine
     {
         return (X == rect.X) && (Y == rect.Y) && (Width == rect.Width) && (Height == rect.Height);
     }
+
+    void Rectangle::operator+=(const Rectangle& rect) noexcept
+    {
+        X = std::min(X, rect.X);
+        Y = std::min(Y, rect.Y);
+        Width = std::max(GetRight() - X, rect.GetRight() - X);
+        Height = std::max(GetBottom() - Y, rect.GetBottom() - Y);
+    }
+}
+
+FaceEngine::Rectangle operator+(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept
+{
+    float X = std::min(firstRect.X, secondRect.X);
+    float Y = std::min(firstRect.Y, secondRect.Y);
+
+    FaceEngine::Rectangle rect = FaceEngine::Rectangle(X, Y, 
+                                                       std::max(firstRect.GetRight() - X, secondRect.GetRight() - X), 
+                                                       std::max(firstRect.GetBottom() - Y, secondRect.GetBottom() - Y));
+}
+
+bool operator==(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept
+{
+    return firstRect.Equals(secondRect);
+}
+
+bool operator!=(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept
+{
+    return !firstRect.Equals(secondRect);
 }
 
 std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle& rect)
