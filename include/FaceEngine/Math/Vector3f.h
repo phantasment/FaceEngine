@@ -29,6 +29,7 @@ namespace FaceEngine
         float GetMagnitude() const noexcept;
         float Distance(const Vector3f& vector) const noexcept;
         std::string ToString() const noexcept;
+        std::string ToStringWithoutHead() const noexcept;
 
         void Add(const Vector3f& vector) noexcept;
         void Subtract(const Vector3f& vector) noexcept;

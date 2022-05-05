@@ -63,6 +63,11 @@ namespace FaceEngine
         return "Vector3f[X: " + std::to_string(X) + ", Y: " + std::to_string(Y) + ", Z: " + std::to_string(Z) + "]";
     }
 
+    std::string Vector3f::ToStringWithoutHead() const noexcept
+    {
+        return "[X: " + std::to_string(X) + ", Y: " + std::to_string(Y) + ", Z: " + std::to_string(Z) + "]";
+    }
+
     void Vector3f::Add(const Vector3f& vector) noexcept
     {
         X += vector.X;
