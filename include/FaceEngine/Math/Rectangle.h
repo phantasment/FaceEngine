@@ -6,41 +6,55 @@
 
 namespace FaceEngine
 {
+    template <typename T>
     class Rectangle
     {
+        static_assert(std::is_same<float, T>() || 
+                      std::is_same<int, T>() || 
+                      std::is_same<double, T>() || 
+                      std::is_same<short, T>() ||
+                      std::is_same<long, T>());
+
     public:
-        float X;
-        float Y;
-        float Width;
-        float Height;
+        T X;
+        T Y;
+        T Width;
+        T Height;
 
-        Rectangle();
-        Rectangle(const Vector2f& position, const float& width, const float& height);
-        Rectangle(const float& x, const float& y, const float& width, const float& height);
+        Rectangle<T>();
+        Rectangle<T>(const Vector2f& position, const T width, const T height);
+        Rectangle<T>(const T x, const T y, const T width, const T height);
 
-        float GetTop() const;
-        float GetBottom() const;
-        float GetLeft() const;
-        float GetRight() const;
+        T GetTop() const;
+        T GetBottom() const;
+        T GetLeft() const;
+        T GetRight() const;
 
         Vector2f GetPosition() const;
         Vector2f GetSize() const;
 
         bool Contains(const Vector2f& vector) const;
         bool CompletelyContains(const Vector2f& vector) const;
-        bool Contains(const Rectangle& rect) const;
-        bool CompletelyContains(const Rectangle& rect) const;
-        bool Intersects(const Rectangle& rect) const;
-        bool IntersectsOrTouches(const Rectangle& rect) const;
-        bool Equals(const Rectangle& rect) const;
+        bool Contains(const Rectangle<T>& rect) const;
+        bool CompletelyContains(const Rectangle<T>& rect) const;
+        bool Intersects(const Rectangle<T>& rect) const;
+        bool IntersectsOrTouches(const Rectangle<T>& rect) const;
+        bool Equals(const Rectangle<T>& rect) const;
 
-        void operator +=(const Rectangle& rect) noexcept;
+        void operator +=(const Rectangle<T>& rect) noexcept;
     };
 }
 
-std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle& rect);
-FaceEngine::Rectangle operator+(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept;
-bool operator==(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept;
-bool operator!=(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept;
+template <class T>
+std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle<T>& rect);
+
+template <class T>
+FaceEngine::Rectangle<T> operator+(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rectangle<T>& secondRect) noexcept;
+
+template <class T>
+bool operator==(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rectangle<T>& secondRect) noexcept;
+
+template <class T>
+bool operator!=(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rectangle<T>& secondRect) noexcept;
 
 #endif

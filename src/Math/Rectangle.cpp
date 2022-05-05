@@ -3,7 +3,8 @@
 
 namespace FaceEngine
 {
-    Rectangle::Rectangle()
+    template <typename T>
+    Rectangle<T>::Rectangle()
     {
         X = 0;
         Y = 0;
@@ -11,7 +12,8 @@ namespace FaceEngine
         Height = 0;
     }
 
-    Rectangle::Rectangle(const Vector2f& position, const float& width, const float& height)
+    template <typename T>
+    Rectangle<T>::Rectangle(const Vector2f& position, const T width, const T height)
     {
         X = position.X;
         Y = position.Y;
@@ -19,7 +21,8 @@ namespace FaceEngine
         Height = height;
     }
 
-    Rectangle::Rectangle(const float& x, const float& y, const float& width, const float& height)
+    template <typename T>
+    Rectangle<T>::Rectangle(const T x, const T y, const T width, const T height)
     {
         X = x;
         Y = y;
@@ -27,72 +30,86 @@ namespace FaceEngine
         Height = height;
     }
 
-    float Rectangle::GetTop() const
+    template <typename T>
+    T Rectangle<T>::GetTop() const
     {
         return Y;
     }
 
-    float Rectangle::GetBottom() const
+    template <typename T>
+    T Rectangle<T>::GetBottom() const
     {
         return Y + Height;
     }
 
-    float Rectangle::GetLeft() const
+    template <typename T>
+    T Rectangle<T>::GetLeft() const
     {
         return X;
     }
 
-    float Rectangle::GetRight() const
+    template <typename T>
+    T Rectangle<T>::GetRight() const
     {
         return X + Width;
     }
 
-    Vector2f Rectangle::GetPosition() const
+    template <typename T>
+    Vector2f Rectangle<T>::GetPosition() const
     {
         return Vector2f(X, Y);
     }
 
-    Vector2f Rectangle::GetSize() const
+    template <typename T>
+    Vector2f Rectangle<T>::GetSize() const
     {
         return Vector2f(Width, Height);
     }
 
-    bool Rectangle::Contains(const Vector2f& vector) const
+    template <typename T>
+    bool Rectangle<T>::Contains(const Vector2f& vector) const
     {
         return (vector.X >= X) && (vector.X <= GetRight()) && (vector.Y >= Y) && (vector.Y <= GetBottom());
     }
 
-    bool Rectangle::CompletelyContains(const Vector2f& vector) const
+    template <typename T>
+    bool Rectangle<T>::CompletelyContains(const Vector2f& vector) const
     {
         return (vector.X > X) && (vector.X < GetRight()) && (vector.Y > Y) && (vector.Y < GetBottom());
     }
 
-    bool Rectangle::Contains(const Rectangle& rect) const
+    template <typename T>
+    bool Rectangle<T>::Contains(const Rectangle<T>& rect) const
     {
         return (X <= rect.X) && (GetRight() >= rect.GetRight()) && (Y <= rect.Y) && (GetBottom() >= rect.GetBottom());
     }
 
-    bool Rectangle::CompletelyContains(const Rectangle& rect) const
+    template <typename T>
+    bool Rectangle<T>::CompletelyContains(const Rectangle<T>& rect) const
     {
         return (X < rect.X) && (GetRight() > rect.GetRight()) && (Y < rect.Y) && (GetBottom() > rect.GetBottom());
     }
 
-    bool Rectangle::Intersects(const Rectangle& rect) const
+    template <typename T>
+    bool Rectangle<T>::Intersects(const Rectangle<T>& rect) const
     {
         return (X < rect.GetRight()) && (GetRight() > rect.GetLeft()) && (Y < rect.GetBottom()) && (GetBottom() > rect.Y);
     }
 
-    bool Rectangle::IntersectsOrTouches(const Rectangle& rect) const
+    template <typename T>
+    bool Rectangle<T>::IntersectsOrTouches(const Rectangle<T>& rect) const
     {
         return (X <= rect.GetRight()) && (GetRight() >= rect.GetLeft()) && (Y <= rect.GetBottom()) && (GetBottom() >= rect.Y);
     }
 
-    bool Rectangle::Equals(const Rectangle& rect) const
+    template <typename T>
+    bool Rectangle<T>::Equals(const Rectangle<T>& rect) const
     {
         return (X == rect.X) && (Y == rect.Y) && (Width == rect.Width) && (Height == rect.Height);
     }
 
-    void Rectangle::operator+=(const Rectangle& rect) noexcept
+    template <typename T>
+    void Rectangle<T>::operator+=(const Rectangle<T>& rect) noexcept
     {
         X = std::min(X, rect.X);
         Y = std::min(Y, rect.Y);
@@ -101,7 +118,8 @@ namespace FaceEngine
     }
 }
 
-FaceEngine::Rectangle operator+(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept
+template <typename T>
+FaceEngine::Rectangle<T> operator+(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rectangle<T>& secondRect) noexcept
 {
     float X = std::min(firstRect.X, secondRect.X);
     float Y = std::min(firstRect.Y, secondRect.Y);
@@ -111,17 +129,20 @@ FaceEngine::Rectangle operator+(const FaceEngine::Rectangle& firstRect, const Fa
                                                        std::max(firstRect.GetBottom() - Y, secondRect.GetBottom() - Y));
 }
 
-bool operator==(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept
+template <typename T>
+bool operator==(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rectangle<T>& secondRect) noexcept
 {
     return firstRect.Equals(secondRect);
 }
 
-bool operator!=(const FaceEngine::Rectangle& firstRect, const FaceEngine::Rectangle& secondRect) noexcept
+template <typename T>
+bool operator!=(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rectangle<T>& secondRect) noexcept
 {
     return !firstRect.Equals(secondRect);
 }
 
-std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle& rect)
+template <typename T>
+std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle<T>& rect)
 {
     return out << "Rectangle:[X: " << rect.X << ", Y: " << rect.Y << ", Width: " << rect.Width << ", Height: " << rect.Height;
 }
