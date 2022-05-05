@@ -31,6 +31,8 @@ set(FACE_ENGINE_HEADER_FILES
     include/FaceEngine/Math/Vector2f.h
     include/FaceEngine/Math/Vector3f.h
     include/FaceEngine/Math/Vector4f.h
+    include/FaceEngine/Math/Rectangle.h
+    include/FaceEngine/Math/Circle.h
 )
 
 set(FACE_ENGINE_SRC_FILES
@@ -49,6 +51,8 @@ set(FACE_ENGINE_SRC_FILES
     src/Math/Vector2f.cpp
     src/Math/Vector3f.cpp
     src/Math/Vector4f.cpp
+    src/Math/Rectangle.cpp
+    src/Math/Circle.cpp
 )
 
 add_library(FaceEngine STATIC ${FACE_ENGINE_SRC_FILES})
