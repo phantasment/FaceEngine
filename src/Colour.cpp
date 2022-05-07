@@ -1,4 +1,4 @@
-#include "FaceEngine/Math/Colour.h"
+#include "FaceEngine/Colour.h"
 #include <sstream>
 #include <ios>
 #include <cmath>
