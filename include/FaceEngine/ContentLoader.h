@@ -33,6 +33,11 @@ namespace FaceEngine
 
         bool IsValidHeader(const std::uint8_t*) const noexcept;
     public:
+        /**
+         * @brief Loads a Texture2D from a Face Engine content file specified by the path.
+         * 
+         * @return Texture2D* A pointer to the newly created Texture2D.
+         */
         Texture2D* LoadTexture2D(const std::string&) const;
     };
 }
