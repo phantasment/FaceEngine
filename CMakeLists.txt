@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 option(BUILD_TESTS "Build Face Engine tests" OFF)
 
-find_package(ZLIB 1.2.11 EXACT REQUIRED)
+find_package(ZLIB 1.2.12 EXACT REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 
 set(FACE_ENGINE_HEADER_FILES
