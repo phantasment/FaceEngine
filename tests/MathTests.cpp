@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "FaceEngine/Math/Vector2f.h"
+#include "FaceEngine/Math/Vector2.h"
 
 int main()
 {
