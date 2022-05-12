@@ -678,6 +678,7 @@ namespace FaceEngine
             case 13: return M42;
             case 14: return M43;
             case 15: return M44;
+            default: return 0.0f;
         }
     }
 
@@ -706,6 +707,7 @@ namespace FaceEngine
             case 13: return M42;
             case 14: return M43;
             case 15: return M44;
+            default: return M11;
         }
     }
 }
