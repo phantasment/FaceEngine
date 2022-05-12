@@ -17,7 +17,7 @@ namespace FaceEngine
 
         float GetDeterminant();
 
-        void Transform(Vector2f& vector) const noexcept;
+        void Transform(Vector2<float>& vector) const noexcept;
         void Transform(Vector3f& vector) const noexcept;
 
         const std::vector<float> ToArray() const noexcept override;

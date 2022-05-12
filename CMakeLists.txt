@@ -28,7 +28,7 @@ set(FACE_ENGINE_HEADER_FILES
     include/FaceEngine/Math/Matrix3f.h
     include/FaceEngine/Math/Matrix4f.h
     include/FaceEngine/Math/Vector.h
-    include/FaceEngine/Math/Vector2f.h
+    include/FaceEngine/Math/Vector2.h
     include/FaceEngine/Math/Vector3f.h
     include/FaceEngine/Math/Vector4f.h
     include/FaceEngine/Math/Rectangle.h
@@ -48,7 +48,6 @@ set(FACE_ENGINE_SRC_FILES
     src/Math/Matrix3f.cpp
     src/Math/Matrix4f.cpp
     src/Math/Vector.cpp
-    src/Math/Vector2f.cpp
     src/Math/Vector3f.cpp
     src/Math/Vector4f.cpp
     src/Math/Rectangle.cpp
