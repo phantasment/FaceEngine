@@ -27,6 +27,14 @@ namespace FaceEngine
 
         void Dispose() noexcept override;
 
+        inline void SetActive() const noexcept
+        {
+            if (program != 0)
+            {
+                glUseProgram(program);
+            }
+        }
+
         static Shader* CreateShader(ResourceManager*, const std::string&, const std::string&);
     };
 }
