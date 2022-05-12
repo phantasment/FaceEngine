@@ -26,7 +26,7 @@ namespace FaceEngine
     class Game
     {
     private:
-        std::atomic_bool GameRunning;
+        static std::atomic_bool GameRunning;
         void RunGame();
     protected:
         // The graphics device for a running game;
@@ -58,6 +58,7 @@ namespace FaceEngine
         virtual void Initialise();
         virtual void Update();
         virtual void Draw();
+
         void Run();
         void Exit();
     };

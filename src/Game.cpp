@@ -3,6 +3,8 @@
 
 namespace FaceEngine
 {
+    std::atomic_bool Game::GameRunning(false);
+    
     void Game::Initialise() { }
     void Game::Update() { }
     void Game::Draw() { }
