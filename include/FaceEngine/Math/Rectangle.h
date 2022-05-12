@@ -1,7 +1,7 @@
 #ifndef FACEENGINE_MATH_RECTANGLE_H_
 #define FACEENGINE_MATH_RECTANGLE_H_
 
-#include "FaceEngine/Math/Vector2f.h"
+#include "FaceEngine/Math/Vector2.h"
 #include <iostream>
 
 namespace FaceEngine
