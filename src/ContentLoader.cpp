@@ -97,6 +97,7 @@ namespace FaceEngine
             if (zStream.total_out != imageDataSize)
             {
                 delete[] imageData;
+                std::fclose(fp);
                 throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file.");
             }
         }
@@ -106,12 +107,5 @@ namespace FaceEngine
         delete[] imageData;
         resMan->AddResource(result);
         return result;
-    }
-
-    ContentLoader* ContentLoader::CreateContentLoader(ResourceManager* rm)
-    {
-        ContentLoader* cl = new ContentLoader(rm);
-        rm->AddResource(cl);
-        return cl;
     }
 }

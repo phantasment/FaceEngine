@@ -4,7 +4,6 @@
 #include <cstdint>
 #include <array>
 
-#include "FaceEngine/Resource.h"
 #include "FaceEngine/ResourceManager.h"
 #include "FaceEngine/Texture2D.h"
 
@@ -15,9 +14,10 @@ namespace FaceEngine
         TypeTexture2D = 1,
         TypeTextureFont = 2
     };
-    
-    class ContentLoader : public Resource
+
+    class ContentLoader
     {
+        friend class Game;
     private:
         ResourceManager* resMan;
 
@@ -34,8 +34,6 @@ namespace FaceEngine
         bool IsValidHeader(const std::uint8_t*) const noexcept;
     public:
         Texture2D* LoadTexture2D(const std::string&) const;
-
-        static ContentLoader* CreateContentLoader(ResourceManager*);
     };
 }
 

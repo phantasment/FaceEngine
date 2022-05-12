@@ -47,6 +47,7 @@ namespace FaceEngine
 
         GLFWwindow* winHandle = WindowPtr->winHandle;
         ResourceManagerPtr = new ResourceManager;
+        ContentLoaderPtr = new ContentLoader(ResourceManagerPtr);
         GameUpdatePtr = new GameUpdate;
         GameDrawPtr = new GameDraw;
 
@@ -141,6 +142,7 @@ namespace FaceEngine
         
         ResourceManagerPtr->DisposeAllResources();
         delete ResourceManagerPtr;
+        delete ContentLoaderPtr;
         delete GameUpdatePtr;
         delete GameDrawPtr;
         delete WindowPtr;

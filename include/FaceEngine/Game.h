@@ -17,6 +17,7 @@
 #include "FaceEngine/Exception.h"
 #include "FaceEngine/Window.h"
 #include "FaceEngine/ResourceManager.h"
+#include "FaceEngine/ContentLoader.h"
 #include "FaceEngine/Game/GameUpdate.h"
 #include "FaceEngine/Game/GameDraw.h"
 
@@ -36,6 +37,9 @@ namespace FaceEngine
         
         // The game window.
         Window* WindowPtr;
+
+        // The content loader.
+        ContentLoader* ContentLoaderPtr;
         
         // Contains ionformation important for updating a game such as input and delta time.
         GameUpdate* GameUpdatePtr;
