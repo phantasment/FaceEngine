@@ -37,6 +37,7 @@ set(FACE_ENGINE_HEADER_FILES
 
 set(FACE_ENGINE_SRC_FILES
     src/Colour.cpp
+    src/ContentLoader.cpp
     src/Game.cpp
     src/GLAD.cpp
     src/GraphicsDevice.cpp
