@@ -36,11 +36,15 @@ set(FACE_ENGINE_HEADER_FILES
 )
 
 set(FACE_ENGINE_SRC_FILES
+    src/Colour.cpp
     src/Game.cpp
     src/GLAD.cpp
     src/GraphicsDevice.cpp
     src/Resource.cpp
     src/ResourceManager.cpp
+    src/Shader.cpp
+    src/SpriteBatcher.cpp
+    src/Texture2D.cpp
     src/Window.cpp
 
     src/Math/Calculator.cpp
