@@ -2,7 +2,7 @@
 #define FACEENGINE_MATH_MATRIX3F_H_
 
 #include "FaceEngine/Math/Matrix.h"
-#include "FaceEngine/Math/Vector2f.h"
+#include "FaceEngine/Math/Vector2.h"
 #include "FaceEngine/Math/Vector3f.h"
 
 namespace FaceEngine
