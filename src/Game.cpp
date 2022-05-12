@@ -4,7 +4,7 @@
 namespace FaceEngine
 {
     std::atomic_bool Game::GameRunning(false);
-    
+
     void Game::Initialise() { }
     void Game::Update() { }
     void Game::Draw() { }
@@ -47,7 +47,8 @@ namespace FaceEngine
             throw e;
         }
 
-        glfwMakeContextCurrent(WindowPtr->winHandle);
+        GLFWwindow* winHandle = WindowPtr->winHandle;
+        glfwMakeContextCurrent(winHandle);
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
@@ -57,11 +58,15 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::Game::Run", "Could not load OpenGL functions.");
         }
 
-        GLFWwindow* winHandle = WindowPtr->winHandle;
         ResourceManagerPtr = new ResourceManager;
         ContentLoaderPtr = new ContentLoader(ResourceManagerPtr);
         GameUpdatePtr = new GameUpdate;
         GameDrawPtr = new GameDraw;
+
+        // initialise
+        Initialise();
+        glfwShowWindow(winHandle);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // delta time/target time stuff
         double lastUpdate = glfwGetTime();
@@ -73,10 +78,6 @@ namespace FaceEngine
         std::uint32_t updates = 0, frames = 0;
         double lastUPS = lastCleanup;
         double lastFPS = lastUPS;
-
-        Initialise();
-        glfwShowWindow(winHandle);
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         while (!glfwWindowShouldClose(winHandle))
         {
