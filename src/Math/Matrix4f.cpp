@@ -425,11 +425,13 @@ namespace FaceEngine
     Matrix4f Matrix4f::CreateBillboard(Vector3f& objectPos, Vector3f& cameraPos, Vector3f& upVector, Vector3f& forwardVector) noexcept
     {
         // TODO: implement
+        return Identity;
     }
 
     Matrix4f Matrix4f::CreateConstrainedBillboard(Vector3f& objectPos, Vector3f& cameraPos, Vector3f& upVector, Vector3f& forwardVector, Vector3f& rotationAxis) noexcept
     {
-        //TODO : implement
+        // TODO: implement
+        return Identity;
     }
 
     // moves everything such that the camera is at the origin and is facing -Z axis.
@@ -503,11 +505,13 @@ namespace FaceEngine
     Matrix4f Matrix4f::CreateOrthographicOffCentre(const float left, const float right, const float bottom, const float top, const float zNearPlane, const float zFarPlane) noexcept
     {
         // TODO: implement
+        return Identity;
     }
 
     Matrix4f Matrix4f::CreatePerspective(const float width, const float height, const float nearPlaneDistance, const float farPlaneDistance) noexcept
     {
         // TODO: implement
+        return Identity;
     }
 
     Matrix4f Matrix4f::CreatePerspectiveFOV(const float fieldOfView, const float aspectRatio, const float nearPlane, const float farPlane) noexcept
@@ -521,6 +525,7 @@ namespace FaceEngine
     Matrix4f Matrix4f::CreatePerspectiveOffCentre(const float left, const float right, const float bottom, const float top, const float nearPlaneDistance, const float farPlaneDistance) noexcept
     {
         // TODO: implement
+        return Identity;
     }
 
     Matrix4f Matrix4f::CreateWorld(const Vector3f& objectPos, const Vector3f& upVector, const Vector3f& forwardVector) noexcept
@@ -541,6 +546,7 @@ namespace FaceEngine
     Matrix4f Matrix4f::CreateRotationX(const float angle, const Vector3f& position) noexcept
     {
         // TODO: implement
+        return Identity;
     }
 
     Matrix4f Matrix4f::CreateRotationY(const float angle) noexcept
@@ -551,6 +557,7 @@ namespace FaceEngine
     Matrix4f Matrix4f::CreateRotationY(const float angle, const Vector3f& position) noexcept
     {
         // TODO: implement
+        return Identity;
     }
 
     Matrix4f Matrix4f::CreateRotationZ(const float angle) noexcept
@@ -561,6 +568,7 @@ namespace FaceEngine
     Matrix4f Matrix4f::CreateRotationZ(const float angle, const Vector3f& position) noexcept
     {
         // TODO: implement
+        return Identity;
     }
     
     Matrix4f Matrix4f::CreateScale(const float scale) noexcept
@@ -586,6 +594,7 @@ namespace FaceEngine
     Matrix4f Matrix4f::Lerp(const Matrix4f& firstMatrix, const Matrix4f& secondMatrix, const float t) noexcept
     {
         // TODO: implement (https://stackoverflow.com/questions/27751602/interpolation-between-2-4x4-matrices)
+        return Identity;
     }
 
     const std::vector<float> Matrix4f::ToArray() const noexcept
