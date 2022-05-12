@@ -45,6 +45,16 @@ namespace FaceEngine
             throw e;
         }
 
+        glfwMakeContextCurrent(WindowPtr->winHandle);
+
+        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+        {
+            delete GraphicsDevicePtr;
+            delete WindowPtr;
+            glfwTerminate();
+            throw Exception::FromMessage("FaceEngine::Game::Run", "Could not load OpenGL functions.");
+        }
+
         GLFWwindow* winHandle = WindowPtr->winHandle;
         ResourceManagerPtr = new ResourceManager;
         ContentLoaderPtr = new ContentLoader(ResourceManagerPtr);
@@ -64,7 +74,6 @@ namespace FaceEngine
 
         Initialise();
         glfwShowWindow(winHandle);
-
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         while (!glfwWindowShouldClose(winHandle))
