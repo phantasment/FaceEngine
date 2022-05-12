@@ -11,6 +11,18 @@ namespace FaceEngine
         }
     }
 
+    void Shader::SetUniform(const std::string& name, const Vector2f& vec2)
+    {
+        GLint l = glGetUniformLocation(program, name.c_str());
+
+        if (l == -1)
+        {
+            throw Exception::FromMessage("FaceEngine::Shader::SetUniform", "Invalid uniform name.");
+        }
+
+        glUniform2fv(l, 1, &vec2.ToArray()[0]);
+    }
+
     Shader* Shader::CreateShader(ResourceManager* rm, const std::string& vertexShader, const std::string& fragmentShader)
     {
         int success;

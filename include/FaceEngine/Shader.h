@@ -7,6 +7,7 @@
 #include "FaceEngine/Resource.h"
 #include "FaceEngine/Exception.h"
 #include "FaceEngine/ResourceManager.h"
+#include "FaceEngine/Math/Vector2.h"
 
 namespace FaceEngine
 {
@@ -34,6 +35,8 @@ namespace FaceEngine
                 glUseProgram(program);
             }
         }
+
+        void SetUniform(const std::string&, const Vector2f&);
 
         static Shader* CreateShader(ResourceManager*, const std::string&, const std::string&);
     };
