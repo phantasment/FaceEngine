@@ -54,7 +54,7 @@ namespace FaceEngine
 
         if (compressLevel == 0)
         {
-            if (std::fread(imageData, 1, imageDataSize, fp) != imageDataSize)
+            if (std::fread(imageData, imageDataSize, 1, fp) != 1)
             {
                 delete[] imageData;
                 std::fclose(fp);
@@ -63,7 +63,7 @@ namespace FaceEngine
         }
         else
         {
-            if (std::fread(buffer, 4, 1, fp) != 1)
+            if (std::fread(buffer, 1, 4, fp) != 4)
             {
                 delete[] imageData;
                 std::fclose(fp);
