@@ -1,70 +1,49 @@
 #include "FaceEngine/ResourceManager.h"
+#include <iostream>
 
 namespace FaceEngine
 {
-    void ResourceManager::AddResource(Resource* res)
+    bool ResourceManager::TrackResource(Resource* r)
     {
-        resources.push_back(res);
+        return resources.insert(r).second;
     }
 
-    void ResourceManager::MarkResource(Resource* res)
+    bool ResourceManager::UntrackResource(Resource* r)
     {
-        marked.push_back(res);
+        return resources.erase(r);
     }
 
-    void ResourceManager::DisposeResource(Resource* res)
+    bool ResourceManager::DisposeResource(Resource* r)
     {
-        std::vector<FaceEngine::Resource*>::iterator it = resources.begin();
-
-        while (it != resources.end())
+        if (disposingAll)
         {
-            if (*it == res)
-            {
-                resources.erase(it);
-                Resource* r = *it;
-                r->Dispose();
-                delete r;
-                return;
-            }
+            return true;
+        }
+        else if (resources.erase(r))
+        {
+            r->Dispose();
+            delete r;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     void ResourceManager::DisposeAllResources()
     {
-        HandleMarked();
+        disposingAll = true;
 
-        for (Resource* res : resources)
+        while (!resources.empty())
         {
-            res->Dispose();
-            delete res;
+            Resource* r = (*resources.begin());
+            r->Dispose();
+            delete r;
+            resources.erase(r);
         }
 
         resources.clear();
-    }
-
-    void ResourceManager::HandleMarked()
-    {
-        bool deleted;
-        std::size_t amt = marked.size() < 10 ? marked.size() : 10;
-
-        for (std::size_t i = 0; i < amt; ++i)
-        {
-            Resource* res = marked[i];
-            deleted = false;
-            res->Dispose();
-            delete res;
-            std::vector<FaceEngine::Resource*>::iterator it = resources.begin();
-
-            while (!deleted && it != resources.end())
-            {
-                if (*it == res)
-                {
-                    deleted = true;
-                    resources.erase(it);
-                }
-            }
-        }
-
-        marked.clear();
+        disposingAll = false;
     }
 }

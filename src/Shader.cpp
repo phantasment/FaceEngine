@@ -67,7 +67,7 @@ namespace FaceEngine
         }
 
         Shader* shader = new Shader(program);
-        rm->AddResource(shader);
+        rm->TrackResource(shader);
         return shader;
     }
 }

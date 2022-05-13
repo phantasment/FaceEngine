@@ -34,7 +34,7 @@ namespace FaceEngine
             std::fread(buffer, 9, 1, fp) != 1)
         {
             std::fclose(fp);
-            throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file.");
+            throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file. 1");
         }
         
         std::uint32_t width = BytesToInt32({ buffer[0], buffer[1], buffer[2], buffer[3] });
@@ -46,7 +46,7 @@ namespace FaceEngine
             compressLevel < 0 || compressLevel > Z_BEST_COMPRESSION)
         {
             std::fclose(fp);
-            throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file.");
+            throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file. 2");
         }
 
         std::size_t imageDataSize = width * height * 4;
@@ -58,7 +58,7 @@ namespace FaceEngine
             {
                 delete[] imageData;
                 std::fclose(fp);
-                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file.");
+                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file. 3");
             }
         }
         else
@@ -67,7 +67,7 @@ namespace FaceEngine
             {
                 delete[] imageData;
                 std::fclose(fp);
-                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file.");
+                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file. 4");
             }
 
             std::size_t compressedDataSize = BytesToInt32({ buffer[0], buffer[1], buffer[2], buffer[3] });
@@ -78,7 +78,7 @@ namespace FaceEngine
                 delete[] imageData;
                 delete[] compressedImageData;
                 std::fclose(fp);
-                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file.");
+                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file. 5");
             }
 
             z_stream zStream;
@@ -98,14 +98,13 @@ namespace FaceEngine
             {
                 delete[] imageData;
                 std::fclose(fp);
-                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file.");
+                throw Exception::FromMessage("FaceEngine::ContentLoader::LoadTexture2D", "Invalid content file. 6");
             }
         }
 
         std::fclose(fp);
         Texture2D* result = Texture2D::CreateTexture2D(resMan, width, height, imageData);
         delete[] imageData;
-        resMan->AddResource(result);
         return result;
     }
 }

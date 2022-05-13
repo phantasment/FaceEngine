@@ -28,7 +28,7 @@ namespace FaceEngine
         glPixelStorei(GL_PACK_ALIGNMENT, 4);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         Texture2D* tex = new Texture2D(texId, w, h);
-        rm->AddResource(tex);
+        rm->TrackResource(tex);
         return tex;
     }
 }

@@ -71,12 +71,11 @@ namespace FaceEngine
         // delta time/target time stuff
         double lastUpdate = glfwGetTime();
         double lastDraw = lastUpdate;
-        double lastCleanup = lastDraw;
         double now;
 
         // UPS/FPS stuff
         std::uint32_t updates = 0, frames = 0;
-        double lastUPS = lastCleanup;
+        double lastUPS = lastUpdate;
         double lastFPS = lastUPS;
 
         while (!glfwWindowShouldClose(winHandle))
@@ -141,14 +140,6 @@ namespace FaceEngine
                 lastFPS = now;
                 GameDrawPtr->fps = frames;
                 frames = 0;
-            }
-
-            // do cleanup
-            
-            if (now - lastCleanup >= 1.0)
-            {
-                lastCleanup = now;
-                ResourceManagerPtr->HandleMarked();
             }
         }
         

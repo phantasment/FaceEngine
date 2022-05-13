@@ -1,7 +1,7 @@
 #ifndef FACEENGINE_RESOURCEMANAGER_H_
 #define FACEENGINE_RESOURCEMANAGER_H_
 
-#include <vector>
+#include <set>
 #include <cstdint>
 
 #include "FaceEngine/Resource.h"
@@ -11,16 +11,18 @@ namespace FaceEngine
     class ResourceManager
     {
     private:
-        std::vector<Resource*> resources;
-        std::vector<Resource*> marked;
+        std::set<Resource*> resources;
+        bool disposingAll;
     public:
-        inline ResourceManager() { }
+        inline ResourceManager()
+        {
+            disposingAll = false;
+        }
 
-        void AddResource(Resource*);
-        void MarkResource(Resource*);
-        void DisposeResource(Resource*);
+        bool TrackResource(Resource*);
+        bool UntrackResource(Resource*);
+        bool DisposeResource(Resource*);
         void DisposeAllResources();
-        void HandleMarked();
     };
 }
 

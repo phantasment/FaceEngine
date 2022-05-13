@@ -156,7 +156,7 @@ namespace FaceEngine
         }
         
         SpriteBatcher* result = new SpriteBatcher(rm, shader);
-        rm->AddResource(result);
+        rm->TrackResource(result);
         return result;
     }
 }

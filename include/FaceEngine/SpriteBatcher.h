@@ -50,7 +50,7 @@ namespace FaceEngine
         SpriteBatcher(ResourceManager*, Shader*) noexcept;
     public:
         inline const bool IsDisposed() noexcept override { return disposed; }
-        inline void Dispose() noexcept override { resMan->MarkResource(shader); disposed = true; }
+        inline void Dispose() noexcept override { resMan->DisposeResource(shader); disposed = true; }
 
         void Draw(Texture2D*);
 
