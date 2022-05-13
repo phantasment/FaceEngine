@@ -8,6 +8,7 @@
 #include "FaceEngine/Exception.h"
 #include "FaceEngine/ResourceManager.h"
 #include "FaceEngine/Math/Vector2.h"
+#include "FaceEngine/Math/Matrix4f.h"
 
 namespace FaceEngine
 {
@@ -37,6 +38,7 @@ namespace FaceEngine
         }
 
         void SetUniform(const std::string&, const Vector2f&);
+        void SetUniform(const std::string&, const Matrix4f&);
 
         static Shader* CreateShader(ResourceManager*, const std::string&, const std::string&);
     };
