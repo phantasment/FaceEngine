@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "FaceEngine/Exception.h"
+#include "FaceEngine/Window.h"
 #include "FaceEngine/Resource.h"
 #include "FaceEngine/ResourceManager.h"
 #include "FaceEngine/Math/Rectangle.h"
@@ -42,12 +43,13 @@ namespace FaceEngine
     {
     private:
         bool disposed;
+        Window* win;
         ResourceManager* resMan;
         Shader* shader;
         GLuint vao, vbo, ebo;
         std::vector<BatchJob> jobs;
 
-        SpriteBatcher(ResourceManager*, Shader*) noexcept;
+        SpriteBatcher(Window*, ResourceManager*, Shader*) noexcept;
     public:
         inline const bool IsDisposed() noexcept override { return disposed; }
         inline void Dispose() noexcept override { resMan->DisposeResource(shader); disposed = true; }
@@ -56,7 +58,7 @@ namespace FaceEngine
 
         void Flush() noexcept;
 
-        static SpriteBatcher* CreateSpriteBatcher(ResourceManager*);
+        static SpriteBatcher* CreateSpriteBatcher(ResourceManager*, Window*);
     };
 }
 

@@ -2,8 +2,9 @@
 
 namespace FaceEngine
 {
-    SpriteBatcher::SpriteBatcher(ResourceManager* rm, Shader* s) noexcept
+    SpriteBatcher::SpriteBatcher(Window* w, ResourceManager* rm, Shader* s) noexcept
     {
+        win = w;
         resMan = rm;
         shader = s;
         disposed = false;
@@ -57,6 +58,9 @@ namespace FaceEngine
         glActiveTexture(GL_TEXTURE0);
 
         shader->SetActive();
+        const Resolution& resolution = win->CurrentResolution();
+        shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.Width(), resolution.Height(), -1.0f, 1.0f));
+        shader->SetUniform("transform", Matrix4f::Identity);
         float* vertexData = new float[32];
 
         for (BatchJob& job : jobs)
@@ -107,7 +111,7 @@ namespace FaceEngine
         jobs.clear();
     }
 
-    SpriteBatcher* SpriteBatcher::CreateSpriteBatcher(ResourceManager* rm)
+    SpriteBatcher* SpriteBatcher::CreateSpriteBatcher(ResourceManager* rm, Window* win)
     {
         Shader* shader;
 
@@ -155,7 +159,7 @@ namespace FaceEngine
             throw e;
         }
         
-        SpriteBatcher* result = new SpriteBatcher(rm, shader);
+        SpriteBatcher* result = new SpriteBatcher(win, rm, shader);
         rm->TrackResource(result);
         return result;
     }
