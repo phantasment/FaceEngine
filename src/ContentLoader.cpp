@@ -71,7 +71,7 @@ namespace FaceEngine
             }
 
             std::size_t compressedDataSize = BytesToInt32({ buffer[0], buffer[1], buffer[2], buffer[3] });
-            unsigned char* compressedImageData = new unsigned char[compressedDataSize];
+            std::uint8_t* compressedImageData = new std::uint8_t[compressedDataSize];
 
             if (std::fread(compressedImageData, 1, compressedDataSize, fp) != compressedDataSize)
             {
