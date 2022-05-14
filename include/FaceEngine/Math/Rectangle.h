@@ -119,6 +119,8 @@ namespace FaceEngine
             Height = std::max(GetBottom() - Y, rect.GetBottom() - Y);
         }
     };
+
+    typedef Rectangle<float> Rectanglef;
 }
 
 template <class T>
