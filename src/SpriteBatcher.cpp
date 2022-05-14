@@ -41,7 +41,81 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job(tex);
+        BatchJob job
+        {
+            tex,
+            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Colour::White
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Colour& col)
+    {
+        if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            col
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Vector2f& vec2)
+    {
+        if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            Rectanglef(vec2.X, vec2.Y, tex->Width(), tex->Height()),
+            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Colour::White
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Vector2f& vec2, const Colour& col)
+    {
+        if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            Rectanglef(vec2.X, vec2.Y, tex->Width(), tex->Height()),
+            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            col
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect)
+    {
+        if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            rect,
+            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Colour::White
+        };
         jobs.push_back(std::move(job));
     }
 
