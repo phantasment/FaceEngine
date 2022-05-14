@@ -28,8 +28,8 @@ namespace FaceEngine
             Texture = t;
             Rect.Width = t->Width();
             Rect.Height = t->Height();
-            Source.Width = Rect.Width;
-            Source.Height = Rect.Height;
+            Source.Width = t->Width();
+            Source.Height = t->Height();
             Colour = Colour::White;
         }
 
