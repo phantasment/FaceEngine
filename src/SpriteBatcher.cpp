@@ -59,8 +59,9 @@ namespace FaceEngine
 
         shader->SetActive();
         const Resolution& resolution = win->CurrentResolution();
-        shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.Width(), resolution.Height(), -1.0f, 1.0f));
+        shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.Width(), resolution.Height(), 0.0f, 1.0f));
         shader->SetUniform("transform", Matrix4f::Identity);
+        
         float* vertexData = new float[32];
 
         for (BatchJob& job : jobs)
@@ -113,51 +114,42 @@ namespace FaceEngine
 
     SpriteBatcher* SpriteBatcher::CreateSpriteBatcher(ResourceManager* rm, Window* win)
     {
-        Shader* shader;
+        Shader* shader = Shader::CreateShader(rm,
+        // vertex shader
+        "#version 330 core\n"
 
-        try
-        {
-            shader = Shader::CreateShader(rm,
-            // vertex shader
-            "#version 330 core\n"
+        "layout (location = 0) in vec2 vert;\n"
+        "layout (location = 1) in vec4 colour;\n"
+        "layout (location = 2) in vec2 textureCoord;\n"
 
-            "layout (location = 0) in vec2 vert;\n"
-            "layout (location = 1) in vec4 colour;\n"
-            "layout (location = 2) in vec2 textureCoord;\n"
+        "out vec4 fragColour;\n"
+        "out vec2 fragTextureCoord;\n"
 
-            "out vec4 fragColour;\n"
-            "out vec2 fragTextureCoord;\n"
+        "uniform mat4 projection;\n"
+        "uniform mat4 transform;\n"
 
-            "uniform mat4 projection;\n"
-            "uniform mat4 transform;\n"
+        "void main()\n"
+        "{\n"
+            "gl_Position = projection * transform * vec4(vert.x, vert.y, 0.0, 1.0);\n"
+            "fragColour = colour;\n"
+            "fragTextureCoord = textureCoord;\n"
+        "}",
+        // fragment shader
+        "#version 330 core\n"
 
-            "void main()\n"
-            "{\n"
-            "    gl_Position = projection * transform * vec4(vert.x, vert.y, 0.0, 1.0);\n"
-            "    fragColour = colour;\n"
-            "    fragTextureCoord = textureCoord;\n"
-            "}",
-            // fragment shader
-            "#version 330 core\n"
+        "out vec4 fragmentColour;\n"
 
-            "out vec4 fragmentColour;\n"
+        "in vec4 fragColour;\n"
+        "in vec2 fragTextureCoord;\n"
 
-            "in vec4 fragColour;\n"
-            "in vec2 fragTextureCoord;\n"
+        "uniform vec2 textureSize;\n"
+        "uniform sampler2D textureSampler;\n"
 
-            "uniform vec2 textureSize;\n"
-            "uniform sampler2D textureSampler;\n"
-
-            "void main()\n"
-            "{\n"
-            "    fragmentColour = texture(textureSampler, vec2(fragTextureCoord.x / textureSize.x, 1.0 - (fragTextureCoord.y / textureSize.y))) * fragColour;\n"
-            "    if (fragmentColour.w == 0.0) { discard; }\n"
-            "}");
-        }
-        catch (const FaceEngine::Exception& e)
-        {
-            throw e;
-        }
+        "void main()\n"
+        "{\n"
+            "fragmentColour = texture(textureSampler, vec2(fragTextureCoord.x / textureSize.x, 1.0 - (fragTextureCoord.y / textureSize.y))) * fragColour;\n"
+            "if (fragmentColour.w == 0.0) { discard; }\n"
+        "}");
         
         SpriteBatcher* result = new SpriteBatcher(win, rm, shader);
         rm->TrackResource(result);
