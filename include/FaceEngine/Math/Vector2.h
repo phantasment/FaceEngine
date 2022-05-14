@@ -40,7 +40,7 @@ namespace FaceEngine
         Vector2(T x, T y) noexcept
         {
             X = x;
-            Y - y;
+            Y = y;
         }
 
         float Dot(const Vector2<T>& vector) const noexcept
