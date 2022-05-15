@@ -8,6 +8,7 @@ namespace FaceEngine
         resMan = rm;
         shader = s;
         disposed = false;
+        hasBegun = false;
 
         glGenVertexArrays(1, &vao);
         glGenBuffers(1, &vbo);
@@ -32,6 +33,91 @@ namespace FaceEngine
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
         glEnableVertexAttribArray(2);
+    }
+
+    void SpriteBatcher::Begin()
+    {
+        if (hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Begin", "Invalid state.");
+        }
+
+        hasBegun = true;
+        transform = Matrix4f::Identity;
+    }
+
+    void SpriteBatcher::End()
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Begin", "Invalid state.");
+        }
+
+        hasBegun = false;
+
+        if (jobs.empty())
+        {
+            return;
+        }
+
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glActiveTexture(GL_TEXTURE0);
+
+        shader->SetActive();
+        const Resolution& resolution = win->CurrentResolution();
+        shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.Width(), resolution.Height(), 0.0f, 1.0f));
+        shader->SetUniform("transform", transform);
+        
+        float* vertexData = new float[32];
+
+        for (BatchJob& job : jobs)
+        {
+            vertexData[0] = job.Rect.GetLeft();
+            vertexData[1] = job.Rect.GetTop();
+            vertexData[2] = job.Colour.GetR();
+            vertexData[3] = job.Colour.GetG();
+            vertexData[4] = job.Colour.GetB();
+            vertexData[5] = job.Colour.GetA();
+            vertexData[6] = job.Source.GetLeft();
+            vertexData[7] = job.Source.GetTop();
+
+            vertexData[8] = job.Rect.GetRight();
+            vertexData[9] = job.Rect.GetTop();
+            vertexData[10] = job.Colour.GetR();
+            vertexData[11] = job.Colour.GetG();
+            vertexData[12] = job.Colour.GetB();
+            vertexData[13] = job.Colour.GetA();
+            vertexData[14] = job.Source.GetRight();
+            vertexData[15] = job.Source.GetTop();
+
+            vertexData[16] = job.Rect.GetRight();
+            vertexData[17] = job.Rect.GetBottom();
+            vertexData[18] = job.Colour.GetR();
+            vertexData[19] = job.Colour.GetG();
+            vertexData[20] = job.Colour.GetB();
+            vertexData[21] = job.Colour.GetA();
+            vertexData[22] = job.Source.GetRight();
+            vertexData[23] = job.Source.GetBottom();
+
+            vertexData[24] = job.Rect.GetLeft();
+            vertexData[25] = job.Rect.GetBottom();
+            vertexData[26] = job.Colour.GetR();
+            vertexData[27] = job.Colour.GetG();
+            vertexData[28] = job.Colour.GetB();
+            vertexData[29] = job.Colour.GetA();
+            vertexData[30] = job.Source.GetLeft();
+            vertexData[31] = job.Source.GetBottom();
+
+            glBufferSubData(GL_ARRAY_BUFFER, 0, 32 * sizeof(float), vertexData);
+            shader->SetUniform("textureSize", Vector2f(job.Texture->Width(), job.Texture->Height()));
+            glBindTexture(GL_TEXTURE_2D, job.Texture->Handle());
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        }
+
+        delete[] vertexData;
+        jobs.clear();
     }
 
     void SpriteBatcher::Draw(Texture2D* tex)
@@ -117,73 +203,6 @@ namespace FaceEngine
             Colour::White
         };
         jobs.push_back(std::move(job));
-    }
-
-    void SpriteBatcher::Flush() noexcept
-    {
-        if (jobs.empty())
-        {
-            return;
-        }
-
-        glBindVertexArray(vao);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-        glActiveTexture(GL_TEXTURE0);
-
-        shader->SetActive();
-        const Resolution& resolution = win->CurrentResolution();
-        shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.Width(), resolution.Height(), 0.0f, 1.0f));
-        shader->SetUniform("transform", Matrix4f::Identity);
-        
-        float* vertexData = new float[32];
-
-        for (BatchJob& job : jobs)
-        {
-            vertexData[0] = job.Rect.GetLeft();
-            vertexData[1] = job.Rect.GetTop();
-            vertexData[2] = job.Colour.GetR();
-            vertexData[3] = job.Colour.GetG();
-            vertexData[4] = job.Colour.GetB();
-            vertexData[5] = job.Colour.GetA();
-            vertexData[6] = job.Source.GetLeft();
-            vertexData[7] = job.Source.GetTop();
-
-            vertexData[8] = job.Rect.GetRight();
-            vertexData[9] = job.Rect.GetTop();
-            vertexData[10] = job.Colour.GetR();
-            vertexData[11] = job.Colour.GetG();
-            vertexData[12] = job.Colour.GetB();
-            vertexData[13] = job.Colour.GetA();
-            vertexData[14] = job.Source.GetRight();
-            vertexData[15] = job.Source.GetTop();
-
-            vertexData[16] = job.Rect.GetRight();
-            vertexData[17] = job.Rect.GetBottom();
-            vertexData[18] = job.Colour.GetR();
-            vertexData[19] = job.Colour.GetG();
-            vertexData[20] = job.Colour.GetB();
-            vertexData[21] = job.Colour.GetA();
-            vertexData[22] = job.Source.GetRight();
-            vertexData[23] = job.Source.GetBottom();
-
-            vertexData[24] = job.Rect.GetLeft();
-            vertexData[25] = job.Rect.GetBottom();
-            vertexData[26] = job.Colour.GetR();
-            vertexData[27] = job.Colour.GetG();
-            vertexData[28] = job.Colour.GetB();
-            vertexData[29] = job.Colour.GetA();
-            vertexData[30] = job.Source.GetLeft();
-            vertexData[31] = job.Source.GetBottom();
-
-            glBufferSubData(GL_ARRAY_BUFFER, 0, 32 * sizeof(float), vertexData);
-            shader->SetUniform("textureSize", Vector2f(job.Texture->Width(), job.Texture->Height()));
-            glBindTexture(GL_TEXTURE_2D, job.Texture->Handle());
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        }
-
-        delete[] vertexData;
-        jobs.clear();
     }
 
     SpriteBatcher* SpriteBatcher::CreateSpriteBatcher(ResourceManager* rm, Window* win)

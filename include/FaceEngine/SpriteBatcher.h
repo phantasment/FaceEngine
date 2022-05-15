@@ -32,12 +32,18 @@ namespace FaceEngine
         ResourceManager* resMan;
         Shader* shader;
         GLuint vao, vbo, ebo;
+
         std::vector<BatchJob> jobs;
+        Matrix4f transform;
+        bool hasBegun;
 
         SpriteBatcher(Window*, ResourceManager*, Shader*) noexcept;
     public:
         inline const bool IsDisposed() noexcept override { return disposed; }
         inline void Dispose() noexcept override { resMan->DisposeResource(shader); disposed = true; }
+
+        void Begin();
+        void End();
 
         /**
          * @brief Draws a texture.
@@ -102,11 +108,6 @@ namespace FaceEngine
          * This function creates a batch job. To complete it, call Flush().
          */
         void Draw(Texture2D*, const Rectanglef&, const Rectanglef&, const Colour&);
-
-        /**
-         * @brief Draws all current batch jobs & clears the job queue.
-         */
-        void Flush() noexcept;
 
         /**
          * @brief Constructs a SpriteBatcher object.
