@@ -15,12 +15,18 @@ set(FACE_ENGINE_HEADER_FILES
     include/FaceEngine/Display.h
     include/FaceEngine/Exception.h
     include/FaceEngine/Game.h
+    include/FaceEngine/GameDraw.h
+    include/FaceEngine/GameUpdate.h
     include/FaceEngine/GraphicsDevice.h
     include/FaceEngine/Math.h
     include/FaceEngine/OGL.h
     include/FaceEngine/Resolution.h
     include/FaceEngine/Resource.h
     include/FaceEngine/ResourceManager.h
+    include/FaceEngine/Shader.h
+    include/FaceEngine/SpriteBatcher.h
+    include/FaceEngine/Texture2D.h
+    include/FaceEngine/TypingSession.h
     include/FaceEngine/Window.h
 
     include/FaceEngine/Math/Calculator.h
@@ -39,6 +45,7 @@ set(FACE_ENGINE_SRC_FILES
     src/Colour.cpp
     src/ContentLoader.cpp
     src/Game.cpp
+    src/GameUpdate.cpp
     src/GLAD.cpp
     src/GraphicsDevice.cpp
     src/Resolution.cpp
@@ -47,6 +54,7 @@ set(FACE_ENGINE_SRC_FILES
     src/Shader.cpp
     src/SpriteBatcher.cpp
     src/Texture2D.cpp
+    src/TypingSession.cpp
     src/Window.cpp
 
     src/Math/Calculator.cpp

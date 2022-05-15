@@ -18,8 +18,8 @@
 #include "FaceEngine/Window.h"
 #include "FaceEngine/ResourceManager.h"
 #include "FaceEngine/ContentLoader.h"
-#include "FaceEngine/Game/GameUpdate.h"
-#include "FaceEngine/Game/GameDraw.h"
+#include "FaceEngine/GameUpdate.h"
+#include "FaceEngine/GameDraw.h"
 
 namespace FaceEngine
 {

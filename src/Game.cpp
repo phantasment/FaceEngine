@@ -60,7 +60,7 @@ namespace FaceEngine
 
         ResourceManagerPtr = new ResourceManager;
         ContentLoaderPtr = new ContentLoader(ResourceManagerPtr);
-        GameUpdatePtr = new GameUpdate;
+        GameUpdatePtr = new GameUpdate(winHandle);
         GameDrawPtr = new GameDraw;
 
         // initialise
@@ -81,6 +81,7 @@ namespace FaceEngine
         while (!glfwWindowShouldClose(winHandle))
         {
             // handle updating
+            GameUpdatePtr->UpdateInput();
             glfwPollEvents();
             now = glfwGetTime();
 
