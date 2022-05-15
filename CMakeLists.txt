@@ -41,6 +41,7 @@ set(FACE_ENGINE_SRC_FILES
     src/Game.cpp
     src/GLAD.cpp
     src/GraphicsDevice.cpp
+    src/Resolution.cpp
     src/Resource.cpp
     src/ResourceManager.cpp
     src/Shader.cpp

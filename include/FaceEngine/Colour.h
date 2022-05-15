@@ -118,13 +118,9 @@ namespace FaceEngine
         static const Colour Blue;
         static const Colour Magenta;
     };
-
-    std::ostream& operator<<(std::ostream& os, const Colour& c) noexcept
-    {
-        os << '[' << c.GetRAsInt() << ", " << c.GetGAsInt() << ", " << c.GetBAsInt() << ", " << c.GetAAsInt() << ']';
-        return os;
-    }
 }
+
+std::ostream& operator<<(std::ostream& os, const FaceEngine::Colour& c) noexcept;
 
 FaceEngine::Colour operator +(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour);
 FaceEngine::Colour operator -(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour);

@@ -89,7 +89,7 @@ namespace FaceEngine
 
         shader->SetActive();
         const Resolution& resolution = win->CurrentResolution();
-        shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.Width(), resolution.Height(), 0.0f, 1.0f));
+        shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.GetWidth(), resolution.GetHeight(), 0.0f, 1.0f));
         shader->SetUniform("transform", transform);
         
         float* vertexData = new float[32];
@@ -133,8 +133,8 @@ namespace FaceEngine
             vertexData[31] = job.Source.GetBottom();
 
             glBufferSubData(GL_ARRAY_BUFFER, 0, 32 * sizeof(float), vertexData);
-            shader->SetUniform("textureSize", Vector2f(job.Texture->Width(), job.Texture->Height()));
-            glBindTexture(GL_TEXTURE_2D, job.Texture->Handle());
+            shader->SetUniform("textureSize", Vector2f(job.Texture->GetWidth(), job.Texture->GetHeight()));
+            glBindTexture(GL_TEXTURE_2D, job.Texture->GetHandle());
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
 
@@ -152,8 +152,8 @@ namespace FaceEngine
         BatchJob job
         {
             tex,
-            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
-            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
         jobs.push_back(std::move(job));
@@ -169,8 +169,8 @@ namespace FaceEngine
         BatchJob job
         {
             tex,
-            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
-            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
         jobs.push_back(std::move(job));
@@ -186,8 +186,8 @@ namespace FaceEngine
         BatchJob job
         {
             tex,
-            Rectanglef(vec2.X, vec2.Y, tex->Width(), tex->Height()),
-            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
         jobs.push_back(std::move(job));
@@ -203,8 +203,8 @@ namespace FaceEngine
         BatchJob job
         {
             tex,
-            Rectanglef(vec2.X, vec2.Y, tex->Width(), tex->Height()),
-            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
         jobs.push_back(std::move(job));
@@ -221,7 +221,7 @@ namespace FaceEngine
         {
             tex,
             rect,
-            Rectanglef(0.0f, 0.0f, tex->Width(), tex->Height()),
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
         jobs.push_back(std::move(job));

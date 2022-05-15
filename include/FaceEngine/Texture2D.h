@@ -30,17 +30,17 @@ namespace FaceEngine
 
         void Dispose() noexcept override;
 
-        inline const GLuint Handle() const noexcept
+        inline const GLuint GetHandle() const noexcept
         {
             return handle;
         }
 
-        inline const std::uint32_t Width() const noexcept
+        inline const std::uint32_t GetWidth() const noexcept
         {
             return width;
         }
 
-        inline const std::uint32_t Height() const noexcept
+        inline const std::uint32_t GetHeight() const noexcept
         {
             return height;
         }

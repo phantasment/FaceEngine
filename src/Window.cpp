@@ -7,7 +7,7 @@ namespace FaceEngine
         graphicsDevice = d;
         title = "Game";
         currentRes = graphicsDevice->PrimaryDisplay().MinResolution();
-        winHandle = glfwCreateWindow(currentRes.Width(), currentRes.Height(), title.c_str(), NULL, NULL);
+        winHandle = glfwCreateWindow(currentRes.GetWidth(), currentRes.GetHeight(), title.c_str(), NULL, NULL);
 
         if (winHandle == NULL)
         {

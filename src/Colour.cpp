@@ -306,3 +306,8 @@ namespace FaceEngine
     const FaceEngine::Colour FaceEngine::Colour::Magenta = FaceEngine::Colour(1, 0, 1);
 }
 
+std::ostream& operator<<(std::ostream& os, const FaceEngine::Colour& c) noexcept
+{
+    os << '[' << c.GetRAsInt() << ", " << c.GetGAsInt() << ", " << c.GetBAsInt() << ", " << c.GetAAsInt() << ']';
+    return os;
+}

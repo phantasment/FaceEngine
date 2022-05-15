@@ -36,19 +36,15 @@ namespace FaceEngine
             return height;
         }
 
-        Resolution& operator=(const Resolution& res)
+        inline Resolution& operator=(const Resolution& res)
         {
             width = res.width;
             height = res.height;
             return *this;
         }
     };
-
-    std::ostream& operator<<(std::ostream& os, const Resolution& r) noexcept
-    {
-        os << r.GetWidth() << "x" << r.GetHeight();
-        return os;
-    }
 }
+
+std::ostream& operator<<(std::ostream& os, const FaceEngine::Resolution& r) noexcept;
 
 #endif
