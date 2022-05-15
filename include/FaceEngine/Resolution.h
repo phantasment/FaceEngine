@@ -26,12 +26,12 @@ namespace FaceEngine
             height = res.height;
         }
 
-        inline std::uint16_t Width() const noexcept
+        inline std::uint16_t GetWidth() const noexcept
         {
             return width;
         }
 
-        inline std::uint16_t Height() const noexcept
+        inline std::uint16_t GetHeight() const noexcept
         {
             return height;
         }
@@ -46,7 +46,7 @@ namespace FaceEngine
 
     std::ostream& operator<<(std::ostream& os, const Resolution& r) noexcept
     {
-        os << r.Width() << "x" << r.Height();
+        os << r.GetWidth() << "x" << r.GetHeight();
         return os;
     }
 }
