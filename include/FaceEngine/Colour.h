@@ -2,9 +2,10 @@
 #define FACEENGINE_COLOUR_H
 
 #include <string>
+#include <iostream>
+
 #include "FaceEngine/Math/Vector3f.h"
 #include "FaceEngine/Math/Vector4f.h"
-#include <iostream>
 
 namespace FaceEngine
 {
@@ -117,6 +118,12 @@ namespace FaceEngine
         static const Colour Blue;
         static const Colour Magenta;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Colour& c) noexcept
+    {
+        os << '[' << c.GetRAsInt() << ", " << c.GetGAsInt() << ", " << c.GetBAsInt() << ", " << c.GetAAsInt() << ']';
+        return os;
+    }
 }
 
 FaceEngine::Colour operator +(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour);

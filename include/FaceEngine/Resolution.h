@@ -2,6 +2,7 @@
 #define FACEENGINE_RESOLUTION_H_
 
 #include <cstdint>
+#include <iostream>
 
 namespace FaceEngine
 {
@@ -42,6 +43,12 @@ namespace FaceEngine
             return *this;
         }
     };
+
+    std::ostream& operator<<(std::ostream& os, const Resolution& r) noexcept
+    {
+        os << r.Width() << "x" << r.Height();
+        return os;
+    }
 }
 
 #endif
