@@ -2,7 +2,7 @@
 
 namespace FaceEngine
 {
-    const bool Resource::IsDisposed() noexcept { return false; }
+    const bool Resource::IsDisposed() noexcept { return true; }
 
     void Resource::Dispose() noexcept { }
 }
