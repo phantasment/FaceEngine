@@ -1,7 +1,7 @@
 #ifndef FACEENGINE_MATH_QUADRILATERAL
 #define FACEENGINE_MATH_QUADRILATERAL
 
-#include "FaceEngine/Math/Vector2f.h"
+#include "FaceEngine/Math/Vector2.h"
 #include "FaceEngine/Math/Rectangle.h"
 
 namespace FaceEngine

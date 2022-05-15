@@ -3,7 +3,7 @@
 
 #include "FaceEngine/Math/Matrix.h"
 #include "FaceEngine/Math/Vector2.h"
-#include "FaceEngine/Math/Vector3f.h"
+#include "FaceEngine/Math/Vector3.h"
 
 namespace FaceEngine
 {

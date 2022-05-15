@@ -2,8 +2,8 @@
 #define FACEENGINE_MATH_MATRIX4F_H_
 
 #include "FaceEngine/Math/Matrix.h"
-#include "FaceEngine/Math/Vector3f.h"
-#include "FaceEngine/Math/Vector4f.h"
+#include "FaceEngine/Math/Vector3.h"
+#include "FaceEngine/Math/Vector4.h"
 
 namespace FaceEngine
 {

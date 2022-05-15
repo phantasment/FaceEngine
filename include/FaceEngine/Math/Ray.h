@@ -1,7 +1,7 @@
 #ifndef FACEENGINE_MATH_RAY_H_
 #define FACEENGINE_MATH_RAY_H_
 
-#include "FaceEngine/Math/Vector3f.h"
+#include "FaceEngine/Math/Vector3.h"
 
 namespace FaceEngine
 {

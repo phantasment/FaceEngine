@@ -4,8 +4,8 @@
 #include <string>
 #include <iostream>
 
-#include "FaceEngine/Math/Vector3f.h"
-#include "FaceEngine/Math/Vector4f.h"
+#include "FaceEngine/Math/Vector3.h"
+#include "FaceEngine/Math/Vector4.h"
 
 namespace FaceEngine
 {
