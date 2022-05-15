@@ -46,6 +46,28 @@ namespace FaceEngine
         transform = Matrix4f::Identity;
     }
 
+    void SpriteBatcher::Begin(const Vector2f& vec2)
+    {
+        if (hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Begin", "Invalid state.");
+        }
+
+        hasBegun = true;
+        transform = Matrix4f::CreateTranslation(vec2.X, vec2.Y, 0.0f);
+    }
+
+    void SpriteBatcher::Begin(const Matrix4f& mat4)
+    {
+        if (hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Begin", "Invalid state.");
+        }
+
+        hasBegun = true;
+        transform = mat4;
+    }
+
     void SpriteBatcher::End()
     {
         if (!hasBegun)

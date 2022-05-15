@@ -41,8 +41,27 @@ namespace FaceEngine
     public:
         inline const bool IsDisposed() noexcept override { return disposed; }
         inline void Dispose() noexcept override { resMan->DisposeResource(shader); disposed = true; }
-
+    
+        /**
+         * @brief Begins a sprite batch with an identity transform.
+         */
         void Begin();
+
+        /**
+         * @brief Begins a sprite batch with the specified translation.
+         * 
+         */
+        void Begin(const Vector2f&);
+
+        /**
+         * @brief Begins a sprite batch with the specified transform.
+         * 
+         */
+        void Begin(const Matrix4f&);
+
+        /**
+         * @brief Ends a sprite batch. All sprite jobs will be drawn and removed from the batch.
+         */
         void End();
 
         /**
