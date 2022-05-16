@@ -94,7 +94,7 @@ namespace FaceEngine
         
         float* vertexData = new float[32];
 
-        for (BatchJob& job : jobs)
+        for (const BatchJob& job : jobs)
         {
             vertexData[0] = job.Rect.GetLeft();
             vertexData[1] = job.Rect.GetTop();
