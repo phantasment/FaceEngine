@@ -20,19 +20,19 @@ namespace FaceEngine
         Resolution currentRes;
         bool vsync;
     public:
-        inline const std::string& Title() const noexcept
+        inline const std::string& GetTitle() const noexcept
         {
             return title;
         }
 
         void SetTitle(const std::string&) noexcept;
         
-        inline const Resolution& CurrentResolution() const noexcept
+        inline const Resolution& GetCurrentResolution() const noexcept
         {
             return currentRes;
         }
 
-        inline const bool IsVsync() const noexcept
+        inline const bool GetVsync() const noexcept
         {
             return vsync;
         }
