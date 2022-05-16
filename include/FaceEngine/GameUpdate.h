@@ -49,12 +49,12 @@ namespace FaceEngine
          * 
          * @return double
          */
-        inline double Delta() const noexcept
+        inline double GetDelta() const noexcept
         {
             return delta;
         }
 
-        inline double UPS() const noexcept
+        inline double GetUPS() const noexcept
         {
             return ups;
         }

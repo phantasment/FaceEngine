@@ -19,12 +19,12 @@ namespace FaceEngine
          * 
          * @return double 
          */
-        inline double Delta() const noexcept
+        inline double GetDelta() const noexcept
         {
             return delta;
         }
 
-        inline double FPS() const noexcept
+        inline double GetFPS() const noexcept
         {
             return fps;
         }
