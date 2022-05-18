@@ -26,7 +26,7 @@ namespace FaceEngine
          * @return true If the resource has been disposed.
          * @return false If the resource has not been disposed.
          */
-        virtual const bool IsDisposed() noexcept;
+        virtual bool IsDisposed() noexcept;
 
         /**
          * @brief Code to run before a Resource is deleted from memory (generally cleanup code).

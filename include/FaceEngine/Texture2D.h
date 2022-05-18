@@ -23,7 +23,7 @@ namespace FaceEngine
             height = h;
         }
     public:
-        inline const bool IsDisposed() noexcept override
+        inline bool IsDisposed() noexcept override
         {
             return handle == 0;
         }
