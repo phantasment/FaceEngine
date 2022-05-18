@@ -144,7 +144,11 @@ namespace FaceEngine
 
     void SpriteBatcher::Draw(Texture2D* tex)
     {
-        if (jobs.size() >= MAX_JOBS)
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
         {
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
@@ -161,7 +165,11 @@ namespace FaceEngine
 
     void SpriteBatcher::Draw(Texture2D* tex, const Colour& col)
     {
-        if (jobs.size() >= MAX_JOBS)
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
         {
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
@@ -178,7 +186,11 @@ namespace FaceEngine
 
     void SpriteBatcher::Draw(Texture2D* tex, const Vector2f& vec2)
     {
-        if (jobs.size() >= MAX_JOBS)
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
         {
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
@@ -195,7 +207,11 @@ namespace FaceEngine
 
     void SpriteBatcher::Draw(Texture2D* tex, const Vector2f& vec2, const Colour& col)
     {
-        if (jobs.size() >= MAX_JOBS)
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
         {
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
@@ -212,7 +228,11 @@ namespace FaceEngine
 
     void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect)
     {
-        if (jobs.size() >= MAX_JOBS)
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
         {
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
@@ -229,7 +249,11 @@ namespace FaceEngine
 
     void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src)
     {
-        if (jobs.size() >= MAX_JOBS)
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
         {
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
@@ -246,7 +270,11 @@ namespace FaceEngine
 
     void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src, const Colour& col)
     {
-        if (jobs.size() >= MAX_JOBS)
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
         {
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
