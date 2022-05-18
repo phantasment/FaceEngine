@@ -22,7 +22,7 @@ namespace FaceEngine
             program = p;
         }
     public:
-        inline const bool IsDisposed() noexcept override
+        inline bool IsDisposed() noexcept override
         {
             return program == 0;
         }

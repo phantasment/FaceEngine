@@ -39,7 +39,7 @@ namespace FaceEngine
 
         SpriteBatcher(Window*, ResourceManager*, Shader*) noexcept;
     public:
-        inline const bool IsDisposed() noexcept override { return disposed; }
+        inline bool IsDisposed() noexcept override { return disposed; }
         inline void Dispose() noexcept override { resMan->DisposeResource(shader); disposed = true; }
     
         /**
