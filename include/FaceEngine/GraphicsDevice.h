@@ -16,12 +16,12 @@ namespace FaceEngine
 
         std::vector<Display> displays;
     public:
-        inline const std::vector<Display>& Displays() const noexcept
+        inline const std::vector<Display>& GetDisplays() const noexcept
         {
             return displays;
         }
 
-        inline const Display& PrimaryDisplay() const noexcept
+        inline const Display& GetPrimaryDisplay() const noexcept
         {
             return displays[0];
         }

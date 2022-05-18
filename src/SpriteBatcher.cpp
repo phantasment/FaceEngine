@@ -88,7 +88,7 @@ namespace FaceEngine
         glActiveTexture(GL_TEXTURE0);
 
         shader->SetActive();
-        const Resolution& resolution = win->GetCurrentResolution();
+        const Resolution& resolution = win->GetResolution();
         shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.GetWidth(), resolution.GetHeight(), 0.0f, 1.0f));
         shader->SetUniform("transform", transform);
         

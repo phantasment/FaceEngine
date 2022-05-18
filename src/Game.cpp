@@ -58,6 +58,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::Game::Run", "Could not load OpenGL functions.");
         }
 
+        glViewport(0, 0, WindowPtr->currentRes.GetWidth(), WindowPtr->currentRes.GetHeight());
         ResourceManagerPtr = new ResourceManager;
         ContentLoaderPtr = new ContentLoader(ResourceManagerPtr);
         GameUpdatePtr = new GameUpdate(winHandle);

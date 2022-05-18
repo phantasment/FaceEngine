@@ -18,6 +18,7 @@ namespace FaceEngine
         GLFWwindow* winHandle;
         std::string title;
         Resolution currentRes;
+        bool fullscreen;
         bool vsync;
     public:
         inline const std::string& GetTitle() const noexcept
@@ -27,7 +28,7 @@ namespace FaceEngine
 
         void SetTitle(const std::string&) noexcept;
         
-        inline const Resolution& GetCurrentResolution() const noexcept
+        inline const Resolution& GetResolution() const noexcept
         {
             return currentRes;
         }
@@ -36,6 +37,8 @@ namespace FaceEngine
         {
             return vsync;
         }
+
+        void SetResolution(const Resolution&);
 
         void SetVSync(const bool) noexcept;
 
