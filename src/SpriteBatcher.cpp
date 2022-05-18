@@ -227,6 +227,40 @@ namespace FaceEngine
         jobs.push_back(std::move(job));
     }
 
+    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src)
+    {
+        if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            rect,
+            src,
+            Colour::White
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src, const Colour& col)
+    {
+        if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            rect,
+            src,
+            col
+        };
+        jobs.push_back(std::move(job));
+    }
+
     SpriteBatcher* SpriteBatcher::CreateSpriteBatcher(ResourceManager* rm, Window* win)
     {
         Shader* shader = Shader::CreateShader(rm,
