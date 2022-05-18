@@ -6,6 +6,7 @@
 
 #include "FaceEngine/ResourceManager.h"
 #include "FaceEngine/Texture2D.h"
+#include "FaceEngine/TextureFont.h"
 
 namespace FaceEngine
 {
@@ -39,6 +40,8 @@ namespace FaceEngine
          * @return Texture2D* A pointer to the newly created Texture2D.
          */
         Texture2D* LoadTexture2D(const std::string&) const;
+
+        TextureFont* LoadTextureFont(const std::string&) const;
     };
 }
 

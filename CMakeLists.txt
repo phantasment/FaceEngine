@@ -26,6 +26,7 @@ set(FACE_ENGINE_HEADER_FILES
     include/FaceEngine/Shader.h
     include/FaceEngine/SpriteBatcher.h
     include/FaceEngine/Texture2D.h
+    include/FaceEngine/TextureFont.h
     include/FaceEngine/TypingSession.h
     include/FaceEngine/Window.h
 
@@ -54,6 +55,7 @@ set(FACE_ENGINE_SRC_FILES
     src/Shader.cpp
     src/SpriteBatcher.cpp
     src/Texture2D.cpp
+    src/TextureFont.cpp
     src/TypingSession.cpp
     src/Window.cpp
 
