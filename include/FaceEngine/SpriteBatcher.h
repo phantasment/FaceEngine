@@ -20,6 +20,7 @@ namespace FaceEngine
     {
         Texture2D* Texture;
         Rectanglef Rect;
+        float Rotation;
         Rectanglef Source;
         Colour Colour;
     };
@@ -119,6 +120,8 @@ namespace FaceEngine
          * This function creates a batch job. To complete it, call Flush().
          */
         void Draw(Texture2D*, const Rectanglef&, const Rectanglef&);
+
+        void Draw(Texture2D*, const Rectanglef&, const Rectanglef&, float);
 
         /**
          * @brief Draws a texture.

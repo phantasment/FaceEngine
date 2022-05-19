@@ -18,7 +18,7 @@ namespace FaceEngine
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-        glBufferData(GL_ARRAY_BUFFER, 128, nullptr, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, 208, nullptr, GL_DYNAMIC_DRAW);
         GLuint indices[6];
         indices[0] = 0;
         indices[1] = 1;
@@ -27,12 +27,18 @@ namespace FaceEngine
         indices[4] = 3;
         indices[5] = 0;
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(2 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(2 * sizeof(float)));
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(4 * sizeof(float)));
         glEnableVertexAttribArray(2);
+        glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(6 * sizeof(float)));
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(7 * sizeof(float)));
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(9 * sizeof(float)));
+        glEnableVertexAttribArray(5);
     }
 
     void SpriteBatcher::Begin()
@@ -90,49 +96,69 @@ namespace FaceEngine
         shader->SetActive();
         const Resolution& resolution = win->GetResolution();
         shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.GetWidth(), resolution.GetHeight(), 0.0f, 1.0f));
-        shader->SetUniform("transform", transform);
+        shader->SetUniform("windowSize", Vector2f(resolution.GetWidth(), resolution.GetHeight()));
         
-        float* vertexData = new float[32];
+        float* vertexData = new float[52];
+        vertexData[0] = -0.5f;
+        vertexData[1] = 0.5f;
+        vertexData[13] = 0.5f;
+        vertexData[14] = 0.5f;
+        vertexData[26] = 0.5f;
+        vertexData[27] = -0.5f;
+        vertexData[39] = -0.5f;
+        vertexData[40] = -0.5f;
 
         for (const BatchJob& job : jobs)
         {
-            vertexData[0] = job.Rect.GetLeft();
-            vertexData[1] = job.Rect.GetTop();
-            vertexData[2] = job.Colour.GetR();
-            vertexData[3] = job.Colour.GetG();
-            vertexData[4] = job.Colour.GetB();
-            vertexData[5] = job.Colour.GetA();
-            vertexData[6] = job.Source.GetLeft();
-            vertexData[7] = job.Source.GetTop();
-
-            vertexData[8] = job.Rect.GetRight();
-            vertexData[9] = job.Rect.GetTop();
-            vertexData[10] = job.Colour.GetR();
+            vertexData[2] = job.Rect.Width;
+            vertexData[3] = job.Rect.Height;
+            vertexData[4] = job.Rect.X;
+            vertexData[5] = job.Rect.Y;
+            vertexData[6] = job.Rotation;
+            vertexData[7] = job.Source.GetLeft();
+            vertexData[8] = job.Source.GetTop();
+            vertexData[9] = job.Colour.GetR();
+            vertexData[10] = job.Colour.GetB();
             vertexData[11] = job.Colour.GetG();
-            vertexData[12] = job.Colour.GetB();
-            vertexData[13] = job.Colour.GetA();
-            vertexData[14] = job.Source.GetRight();
-            vertexData[15] = job.Source.GetTop();
+            vertexData[12] = job.Colour.GetA();
 
-            vertexData[16] = job.Rect.GetRight();
-            vertexData[17] = job.Rect.GetBottom();
-            vertexData[18] = job.Colour.GetR();
-            vertexData[19] = job.Colour.GetG();
-            vertexData[20] = job.Colour.GetB();
-            vertexData[21] = job.Colour.GetA();
-            vertexData[22] = job.Source.GetRight();
-            vertexData[23] = job.Source.GetBottom();
+            vertexData[15] = job.Rect.Width;
+            vertexData[16] = job.Rect.Height;
+            vertexData[17] = job.Rect.X;
+            vertexData[18] = job.Rect.Y;
+            vertexData[19] = job.Rotation;
+            vertexData[20] = job.Source.GetRight();
+            vertexData[21] = job.Source.GetTop();
+            vertexData[22] = job.Colour.GetR();
+            vertexData[23] = job.Colour.GetB();
+            vertexData[24] = job.Colour.GetG();
+            vertexData[25] = job.Colour.GetA();
 
-            vertexData[24] = job.Rect.GetLeft();
-            vertexData[25] = job.Rect.GetBottom();
-            vertexData[26] = job.Colour.GetR();
-            vertexData[27] = job.Colour.GetG();
-            vertexData[28] = job.Colour.GetB();
-            vertexData[29] = job.Colour.GetA();
-            vertexData[30] = job.Source.GetLeft();
-            vertexData[31] = job.Source.GetBottom();
+            vertexData[28] = job.Rect.Width;
+            vertexData[29] = job.Rect.Height;
+            vertexData[30] = job.Rect.X;
+            vertexData[31] = job.Rect.Y;
+            vertexData[32] = job.Rotation;
+            vertexData[33] = job.Source.GetRight();
+            vertexData[34] = job.Source.GetBottom();
+            vertexData[35] = job.Colour.GetR();
+            vertexData[36] = job.Colour.GetB();
+            vertexData[37] = job.Colour.GetG();
+            vertexData[38] = job.Colour.GetA();
 
-            glBufferSubData(GL_ARRAY_BUFFER, 0, 32 * sizeof(float), vertexData);
+            vertexData[41] = job.Rect.Width;
+            vertexData[42] = job.Rect.Height;
+            vertexData[43] = job.Rect.X;
+            vertexData[44] = job.Rect.Y;
+            vertexData[45] = job.Rotation;
+            vertexData[46] = job.Source.GetLeft();
+            vertexData[47] = job.Source.GetBottom();
+            vertexData[48] = job.Colour.GetR();
+            vertexData[49] = job.Colour.GetB();
+            vertexData[50] = job.Colour.GetG();
+            vertexData[51] = job.Colour.GetA();
+
+            glBufferSubData(GL_ARRAY_BUFFER, 0, 52 * sizeof(float), vertexData);
             shader->SetUniform("textureSize", Vector2f(job.Texture->GetWidth(), job.Texture->GetHeight()));
             glBindTexture(GL_TEXTURE_2D, job.Texture->GetHandle());
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -157,6 +183,7 @@ namespace FaceEngine
         {
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            0.0f,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
@@ -178,6 +205,7 @@ namespace FaceEngine
         {
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            0.0f,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -199,6 +227,7 @@ namespace FaceEngine
         {
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
+            0.0f,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
@@ -220,6 +249,7 @@ namespace FaceEngine
         {
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
+            0.0f,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -241,6 +271,7 @@ namespace FaceEngine
         {
             tex,
             rect,
+            0.0f,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
@@ -262,6 +293,29 @@ namespace FaceEngine
         {
             tex,
             rect,
+            0.0f,
+            src,
+            Colour::White
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src, float rotation)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            rect,
+            rotation,
             src,
             Colour::White
         };
@@ -283,6 +337,7 @@ namespace FaceEngine
         {
             tex,
             rect,
+            0.0f,
             src,
             col
         };
@@ -294,37 +349,74 @@ namespace FaceEngine
         Shader* shader = Shader::CreateShader(rm,
         // vertex shader
         "#version 330 core\n"
-
+        "\n"
         "layout (location = 0) in vec2 vert;\n"
-        "layout (location = 1) in vec4 colour;\n"
-        "layout (location = 2) in vec2 textureCoord;\n"
-
+        "layout (location = 1) in vec2 scale;\n"
+        "layout (location = 2) in vec2 translation;\n"
+        "layout (location = 3) in float rotation;\n"
+        "layout (location = 4) in vec2 texCoord;\n"
+        "layout (location = 5) in vec4 texColour;\n"
+        "\n"
+        "out vec2 fragTexCoord;\n"
         "out vec4 fragColour;\n"
-        "out vec2 fragTextureCoord;\n"
-
+        "\n"
         "uniform mat4 projection;\n"
-        "uniform mat4 transform;\n"
-
+        "uniform vec2 windowSize;\n"
+        "\n"
+        "mat4 create_translate(float x, float y)\n"
+        "{\n"
+        "\treturn mat4\n"
+        "\t(\n"
+        "\t\t1, 0, 0, 0,\n"
+        "\t\t0, 1, 0, 0,\n"
+        "\t\t0, 0, 1, 0,\n"
+        "\t\tx - ((windowSize.x - scale.x) / 2), ((windowSize.y - scale.y) / 2) - y, 0, 1\n"
+        "\t);\n"
+        "}\n"
+        "\n"
+        "mat4 create_rotate(float r)\n"
+        "{\n"
+        "\treturn mat4\n"
+        "\t(\n"
+        "\t\tcos(r), sin(r), 0, 0,\n"
+        "\t\t-sin(r), cos(r),  0, 0,\n"
+        "\t\t0,      0,       1, 0,\n"
+        "\t\t0,      0,       0, 1\n"
+        "\t);\n"
+        "}\n"
+        "\n"
+        "mat4 create_scale(float x, float y)\n"
+        "{\n"
+        "\treturn mat4\n"
+        "\t(\n"
+        "\t\tx, 0, 0, 0,\n"
+        "\t\t0, y, 0, 0,\n"
+        "\t\t0, 0, 1, 0,\n"
+        "\t\t0, 0, 0, 1\n"
+        "\t);\n"
+        "}\n"
+        "\n"
         "void main()\n"
         "{\n"
-            "gl_Position = projection * transform * vec4(vert.x, vert.y, 0.0, 1.0);\n"
-            "fragColour = colour;\n"
-            "fragTextureCoord = textureCoord;\n"
+        "\t// translation, rotation, scale\n"
+        "\tgl_Position = projection * create_translate(translation.x, translation.y) * create_rotate(rotation) * create_scale(scale.x, scale.y) * vec4(vert.xy, 0.0, 1.0);\n"
+        "\tfragTexCoord = texCoord;\n"
+        "\tfragColour = texColour;\n"
         "}",
         // fragment shader
         "#version 330 core\n"
 
         "out vec4 fragmentColour;\n"
 
+        "in vec2 fragTexCoord;\n"
         "in vec4 fragColour;\n"
-        "in vec2 fragTextureCoord;\n"
-
+        
         "uniform vec2 textureSize;\n"
         "uniform sampler2D textureSampler;\n"
 
         "void main()\n"
         "{\n"
-            "fragmentColour = texture(textureSampler, vec2(fragTextureCoord.x / textureSize.x, 1.0 - (fragTextureCoord.y / textureSize.y))) * fragColour;\n"
+            "fragmentColour = texture(textureSampler, vec2(fragTexCoord.x / textureSize.x, 1.0 - (fragTexCoord.y / textureSize.y))) * fragColour;\n"
             "if (fragmentColour.w == 0.0) { discard; }\n"
         "}");
         
