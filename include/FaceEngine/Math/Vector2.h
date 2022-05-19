@@ -233,7 +233,7 @@ namespace FaceEngine
 
         const std::vector<float> ToArray() const noexcept override
         {
-            return {X, Y};
+            return {(float)X, (float)Y};
         }
     };
 

@@ -314,7 +314,7 @@ namespace FaceEngine
 
         const std::vector<float> ToArray() const noexcept override
         {
-            return { X, Y, Z, W };
+            return {(float)X, (float)Y, (float)Z, (float)W};
         }
     };
 
