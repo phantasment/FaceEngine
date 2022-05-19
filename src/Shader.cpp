@@ -38,6 +38,7 @@ namespace FaceEngine
     Shader* Shader::CreateShader(ResourceManager* rm, const std::string& vertexShader, const std::string& fragmentShader)
     {
         int success;
+        const char* infoLog = new char[1024];
 
         GLuint vs = glCreateShader(GL_VERTEX_SHADER);
         const GLchar* vss = vertexShader.c_str();
@@ -47,8 +48,11 @@ namespace FaceEngine
 
         if (!success)
         {
+            glGetShaderInfoLog(vs, 1024, NULL, (GLchar*)infoLog);
+            std::string log(infoLog);
+            delete[] infoLog;
             glDeleteShader(vs);
-            throw Exception::FromMessage("FaceEngine::Shader::CreateShader", "Couldn't compile vertex shader.");
+            throw Exception::FromMessage("FaceEngine::Shader::CreateShader", "Couldn't compile vertex shader: " + log);
         }
 
         GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
@@ -59,11 +63,15 @@ namespace FaceEngine
 
         if (!success)
         {
+            glGetShaderInfoLog(fs, 1024, NULL, (GLchar*)infoLog);
+            std::string log(infoLog);
+            delete[] infoLog;
             glDeleteShader(vs);
             glDeleteShader(fs);
-            throw Exception::FromMessage("FaceEngine::Shader::CreateShader", "Couldn't compile fragment shader.");
+            throw Exception::FromMessage("FaceEngine::Shader::CreateShader", "Couldn't compile fragment shader: " + log);
         }
 
+        delete[] infoLog;
         GLuint program = glCreateProgram();
         glAttachShader(program, vs);
         glAttachShader(program, fs);
