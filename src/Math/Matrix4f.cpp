@@ -496,9 +496,9 @@ namespace FaceEngine
 
     Matrix4f Matrix4f::CreateOrthographic(const float width, const float height, const float zNearPlane, const float zFarPlane) noexcept
     {
-        return Matrix4f(2 / width, 0, 0, -1,
-                        0, -2 / height, 0, 1, 
-                        0, 0, 1, 0, 
+        return Matrix4f(2 / width, 0, 0, 0,
+                        0, 2 / height, 0, 0,
+                        0, 0, 1, 0,
                         0, 0, 0, 1);
     }
 
