@@ -49,12 +49,6 @@ namespace FaceEngine
         void Begin();
 
         /**
-         * @brief Begins a sprite batch with the specified translation.
-         * 
-         */
-        void Begin(const Vector2f&);
-
-        /**
          * @brief Begins a sprite batch with the specified transform.
          * 
          */
@@ -65,71 +59,18 @@ namespace FaceEngine
          */
         void End();
 
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn at 0,0 using the default colour and the default source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
         void Draw(Texture2D*);
-
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn at 0,0 using the specified colour and the default source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
         void Draw(Texture2D*, const Colour&);
-
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn at the specified position using the default colour and the default source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
+        void Draw(Texture2D*, float, const Colour&);
         void Draw(Texture2D*, const Vector2f&);
-
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn at the specified position using the specified colour and the default source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
         void Draw(Texture2D*, const Vector2f&, const Colour&);
-
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn using the specified rectangle using the default colour and the default source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
+        void Draw(Texture2D*, const Vector2f&, float, const Colour&);
         void Draw(Texture2D*, const Rectanglef&);
-
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn using the specified rectangle using the specified colour and the default source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
         void Draw(Texture2D*, const Rectanglef&, const Colour&);
-
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn using the specified rectangle using the default colour and the specified source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
+        void Draw(Texture2D*, const Rectanglef&, float, const Colour&);
         void Draw(Texture2D*, const Rectanglef&, const Rectanglef&);
-
-        void Draw(Texture2D*, const Rectanglef&, const Rectanglef&, float);
-
-        /**
-         * @brief Draws a texture.
-         * The texture will be drawn using the specified rectangle using the specified colour and the specified source rectangle.
-         * 
-         * This function creates a batch job. To complete it, call Flush().
-         */
         void Draw(Texture2D*, const Rectanglef&, const Rectanglef&, const Colour&);
+        void Draw(Texture2D*, const Rectanglef&, const Rectanglef&, float, const Colour&);
 
         /**
          * @brief Constructs a SpriteBatcher object.

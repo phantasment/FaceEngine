@@ -52,17 +52,6 @@ namespace FaceEngine
         transform = Matrix4f::Identity;
     }
 
-    void SpriteBatcher::Begin(const Vector2f& vec2)
-    {
-        if (hasBegun)
-        {
-            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Begin", "Invalid state.");
-        }
-
-        hasBegun = true;
-        transform = Matrix4f::CreateTranslation(vec2.X, vec2.Y, 0.0f);
-    }
-
     void SpriteBatcher::Begin(const Matrix4f& mat4)
     {
         if (hasBegun)
@@ -212,6 +201,28 @@ namespace FaceEngine
         jobs.push_back(std::move(job));
     }
 
+    void SpriteBatcher::Draw(Texture2D* tex, float rotation, const Colour& col)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            rotation,
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            col
+        };
+        jobs.push_back(std::move(job));
+    }
+
     void SpriteBatcher::Draw(Texture2D* tex, const Vector2f& vec2)
     {
         if (!hasBegun)
@@ -256,6 +267,28 @@ namespace FaceEngine
         jobs.push_back(std::move(job));
     }
 
+    void SpriteBatcher::Draw(Texture2D* tex, const Vector2f& vec2, float rotation, const Colour& col)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
+            rotation,
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            col
+        };
+        jobs.push_back(std::move(job));
+    }
+
     void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect)
     {
         if (!hasBegun)
@@ -274,6 +307,50 @@ namespace FaceEngine
             0.0f,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Colour& col)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            rect,
+            0.0f,
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            col
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, float rotation, const Colour& col)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            rect,
+            rotation,
+            Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+            col
         };
         jobs.push_back(std::move(job));
     }
@@ -300,28 +377,6 @@ namespace FaceEngine
         jobs.push_back(std::move(job));
     }
 
-    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src, float rotation)
-    {
-        if (!hasBegun)
-        {
-            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
-        }
-        else if (jobs.size() >= MAX_JOBS)
-        {
-            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
-        }
-
-        BatchJob job
-        {
-            tex,
-            rect,
-            rotation,
-            src,
-            Colour::White
-        };
-        jobs.push_back(std::move(job));
-    }
-
     void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src, const Colour& col)
     {
         if (!hasBegun)
@@ -338,6 +393,28 @@ namespace FaceEngine
             tex,
             rect,
             0.0f,
+            src,
+            col
+        };
+        jobs.push_back(std::move(job));
+    }
+
+    void SpriteBatcher::Draw(Texture2D* tex, const Rectanglef& rect, const Rectanglef& src, float rotation, const Colour& col)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        BatchJob job
+        {
+            tex,
+            rect,
+            rotation,
             src,
             col
         };
