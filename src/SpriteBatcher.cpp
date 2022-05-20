@@ -148,7 +148,6 @@ namespace FaceEngine
             vertexData[51] = job.Colour.GetA();
 
             glBufferSubData(GL_ARRAY_BUFFER, 0, 52 * sizeof(float), vertexData);
-            shader->SetUniform("textureSize", Vector2f(job.Texture->GetWidth(), job.Texture->GetHeight()));
             glBindTexture(GL_TEXTURE_2D, job.Texture->GetHandle());
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
@@ -488,12 +487,12 @@ namespace FaceEngine
         "in vec2 fragTexCoord;\n"
         "in vec4 fragColour;\n"
         
-        "uniform vec2 textureSize;\n"
         "uniform sampler2D textureSampler;\n"
 
         "void main()\n"
         "{\n"
-            "fragmentColour = texture(textureSampler, vec2(fragTexCoord.x / textureSize.x, 1.0 - (fragTexCoord.y / textureSize.y))) * fragColour;\n"
+            "ivec2 texSize = textureSize(textureSampler, 0);"
+            "fragmentColour = texelFetch(textureSampler, ivec2(fragTexCoord.x, texSize.y - fragTexCoord.y), 0) * fragColour;"
             "if (fragmentColour.w == 0.0) { discard; }\n"
         "}");
         
