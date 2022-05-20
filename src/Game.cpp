@@ -6,6 +6,7 @@ namespace FaceEngine
     std::atomic_bool Game::GameRunning(false);
 
     void Game::Initialise() { }
+    void Game::OnExit() { }
     void Game::Update() { }
     void Game::Draw() { }
 
@@ -145,6 +146,7 @@ namespace FaceEngine
             }
         }
         
+        OnExit();
         ResourceManagerPtr->DisposeAllResources();
         delete ResourceManagerPtr;
         delete ContentLoaderPtr;

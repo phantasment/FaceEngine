@@ -93,6 +93,13 @@ namespace FaceEngine
         virtual void Initialise();
 
         /**
+         * @brief Code to execute before the game exits.
+         * 
+         * This function should never be called manually.
+         */
+        virtual void OnExit();
+
+        /**
          * @brief Code responsible for updating the game such as physics, input, etc.
          * 
          * This function should never be called manually.
