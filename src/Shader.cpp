@@ -71,7 +71,6 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::Shader::CreateShader", "Couldn't compile fragment shader: " + log);
         }
 
-        delete[] infoLog;
         GLuint program = glCreateProgram();
         glAttachShader(program, vs);
         glAttachShader(program, fs);
@@ -82,10 +81,14 @@ namespace FaceEngine
 
         if (!success)
         {
+            glGetProgramInfoLog(program, 1024, NULL, (GLchar*)infoLog);
+            std::string log(infoLog);
+            delete[] infoLog;
             glDeleteProgram(program);
-            throw Exception::FromMessage("FaceEngine::Shader::CreateShader", "Couldn't link shader program.");
+            throw Exception::FromMessage("FaceEngine::Shader::CreateShader", "Couldn't link shader program: " + log);
         }
 
+        delete[] infoLog;
         Shader* shader = new Shader(program);
         rm->TrackResource(shader);
         return shader;
