@@ -69,13 +69,13 @@ set(FACE_ENGINE_SRC_FILES
 )
 
 add_library(FaceEngine STATIC ${FACE_ENGINE_SRC_FILES})
-target_compile_options(FaceEngine PRIVATE -O3)
+target_compile_options(FaceEngine PRIVATE -O2)
 target_include_directories(FaceEngine PRIVATE include "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
 target_link_libraries(FaceEngine PRIVATE "${ZLIB_LIBRARIES}" glfw)
 
 if (BUILD_TESTS)
     add_executable(FaceEngineMathTests ${FACE_ENGINE_SRC_FILES} tests/MathTests.cpp)
-    target_compile_options(FaceEngineMathTests PRIVATE -O3)
+    target_compile_options(FaceEngineMathTests PRIVATE -O2)
     target_include_directories(FaceEngineMathTests PRIVATE include "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
     target_link_libraries(FaceEngineMathTests PRIVATE "${ZLIB_LIBRARIES}" glfw)
 endif()
