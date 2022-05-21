@@ -17,31 +17,34 @@ namespace FaceEngine
         GraphicsDevice* graphicsDevice;
         GLFWwindow* winHandle;
         std::string title;
-        Resolution currentRes;
+        Resolution resolution;
         bool fullscreen;
         bool vsync;
     public:
-        inline const std::string& GetTitle() const noexcept
-        {
-            return title;
-        }
-
+        inline const std::string& GetTitle() const noexcept { return title; }
         void SetTitle(const std::string&) noexcept;
         
         inline const Resolution& GetResolution() const noexcept
         {
-            return currentRes;
-        }
-
-        inline const bool GetVsync() const noexcept
-        {
-            return vsync;
+            if (fullscreen)
+            {
+                return graphicsDevice->GetPrimaryDisplay().GetMaxResolution();
+            }
+            else
+            {
+                return resolution;
+            }
         }
 
         void SetResolution(const Resolution&);
 
-        void SetVSync(const bool) noexcept;
+        inline const bool IsFullscreen() const noexcept { return fullscreen; }
+        void SetFullscreen(bool) noexcept;
 
+        inline const bool GetVsync() const noexcept { return vsync; }
+        void SetVSync(bool) noexcept;
+
+        void CenterWindow() const noexcept;
         void Clear() const noexcept;
     };
 }

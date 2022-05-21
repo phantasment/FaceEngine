@@ -12,6 +12,7 @@ namespace FaceEngine
         {
             const GLFWvidmode* vidmodes = glfwGetVideoModes(monitors[i], &vidmodeCount);
             Display display;
+            display.handle = monitors[i];
             display.primary = i == 0;
 
             for (int j = 0; j < vidmodeCount; ++j)

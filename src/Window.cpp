@@ -6,8 +6,8 @@ namespace FaceEngine
     {
         graphicsDevice = d;
         title = "Game";
-        currentRes = graphicsDevice->GetPrimaryDisplay().MinResolution();
-        winHandle = glfwCreateWindow(currentRes.GetWidth(), currentRes.GetHeight(), title.c_str(), NULL, NULL);
+        resolution = graphicsDevice->GetPrimaryDisplay().GetMinResolution();
+        winHandle = glfwCreateWindow(resolution.GetWidth(), resolution.GetHeight(), title.c_str(), NULL, NULL);
 
         if (winHandle == NULL)
         {
@@ -27,8 +27,8 @@ namespace FaceEngine
 
     void Window::SetResolution(const Resolution& r)
     {
-        const Resolution& min = graphicsDevice->GetPrimaryDisplay().MinResolution();
-        const Resolution& max = graphicsDevice->GetPrimaryDisplay().MaxResolution();
+        const Resolution& min = graphicsDevice->GetPrimaryDisplay().GetMinResolution();
+        const Resolution& max = graphicsDevice->GetPrimaryDisplay().GetMaxResolution();
 
         if (r.GetWidth() < min.GetWidth() || r.GetHeight() < min.GetHeight() ||
             r.GetWidth() > max.GetWidth() || r.GetHeight() > max.GetHeight())
@@ -36,7 +36,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::Window::SetResolution", "Invalid resolution.");
         }
 
-        currentRes = r;
+        resolution = r;
         
         if (!fullscreen)
         {
@@ -45,10 +45,40 @@ namespace FaceEngine
         }
     }
 
-    void Window::SetVSync(const bool v) noexcept
+    void Window::SetFullscreen(bool f) noexcept
+    {
+        fullscreen = f;
+        const Display& display = graphicsDevice->GetPrimaryDisplay();
+        const Resolution& res = display.GetMaxResolution();
+
+        if (fullscreen)
+        {
+            glfwSetWindowMonitor(winHandle, display.GetHandle(), 0, 0, res.GetWidth(), res.GetHeight(), GLFW_DONT_CARE);
+            glViewport(0, 0, res.GetWidth(), res.GetHeight());
+        }
+        else
+        {
+            glfwSetWindowMonitor(winHandle, NULL,
+                                (res.GetWidth() - resolution.GetWidth()) / 2,
+                                (res.GetHeight() - resolution.GetHeight()) / 2,
+                                resolution.GetWidth(), resolution.GetHeight(), GLFW_DONT_CARE);
+            glViewport(0, 0, resolution.GetWidth(), resolution.GetHeight());
+        }
+    }
+
+    void Window::SetVSync(bool v) noexcept
     {
         vsync = v;
         glfwSwapInterval(vsync ? 1 : 0);
+    }
+
+    void Window::CenterWindow() const noexcept
+    {
+        if (!fullscreen)
+        {
+            const Resolution& res = graphicsDevice->GetPrimaryDisplay().GetMaxResolution();
+            glfwSetWindowPos(winHandle, (res.GetWidth() - resolution.GetWidth()) / 2, (res.GetHeight() - resolution.GetHeight()) / 2);
+        }
     }
 
     void Window::Clear() const noexcept
