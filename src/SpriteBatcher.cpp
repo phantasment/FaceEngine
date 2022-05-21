@@ -420,6 +420,78 @@ namespace FaceEngine
         jobs.push_back(std::move(job));
     }
 
+    void SpriteBatcher::DrawString(TextureFont* font, const std::string& text, const Vector2f& pos)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        Vector2f textPos(pos);
+
+        for (std::uint8_t c : text)
+        {
+            const FaceEngine::FontChar* fontChar = font->GetFontChar((std::uint32_t)c);
+
+            if (fontChar->HasTexture())
+            {
+                Texture2D* tex = fontChar->GetTexture();
+
+                BatchJob job
+                {
+                    fontChar->GetTexture(),
+                    FaceEngine::Rectanglef(textPos.X, textPos.Y - fontChar->GetBearingY() + (font->GetAscender() / 64), tex->GetHeight(), tex->GetHeight()),
+                    0.0f,
+                    FaceEngine::Rectanglef(0.0f, 0.0f, tex->GetHeight(), tex->GetHeight()),
+                    Colour::White
+                };
+                jobs.push_back(std::move(job));
+            }
+
+            textPos.X += fontChar->GetAdvance() - fontChar->GetBearingX();
+        }
+    }
+
+    void SpriteBatcher::DrawString(TextureFont* font, const std::string& text, const Vector2f& pos, const Colour& col)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        Vector2f textPos(pos);
+
+        for (std::uint8_t c : text)
+        {
+            const FaceEngine::FontChar* fontChar = font->GetFontChar((std::uint32_t)c);
+
+            if (fontChar->HasTexture())
+            {
+                Texture2D* tex = fontChar->GetTexture();
+
+                BatchJob job
+                {
+                    fontChar->GetTexture(),
+                    FaceEngine::Rectanglef(textPos.X, textPos.Y - fontChar->GetBearingY() + (font->GetAscender() / 64), tex->GetHeight(), tex->GetHeight()),
+                    0.0f,
+                    FaceEngine::Rectanglef(0.0f, 0.0f, tex->GetHeight(), tex->GetHeight()),
+                    col
+                };
+                jobs.push_back(std::move(job));
+            }
+
+            textPos.X += fontChar->GetAdvance() - fontChar->GetBearingX();
+        }
+    }
+
     SpriteBatcher* SpriteBatcher::CreateSpriteBatcher(ResourceManager* rm, Window* win)
     {
         Shader* shader = Shader::CreateShader(rm,

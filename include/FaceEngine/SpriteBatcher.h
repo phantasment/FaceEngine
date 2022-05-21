@@ -11,6 +11,7 @@
 #include "FaceEngine/Colour.h"
 #include "FaceEngine/Shader.h"
 #include "FaceEngine/Texture2D.h"
+#include "FaceEngine/TextureFont.h"
 
 #define MAX_JOBS 4194304UL
 
@@ -71,6 +72,9 @@ namespace FaceEngine
         void Draw(Texture2D*, const Rectanglef&, const Rectanglef&);
         void Draw(Texture2D*, const Rectanglef&, const Rectanglef&, const Colour&);
         void Draw(Texture2D*, const Rectanglef&, const Rectanglef&, float, const Colour&);
+
+        void DrawString(TextureFont*, const std::string&, const Vector2f&);
+        void DrawString(TextureFont*, const std::string&, const Vector2f&, const Colour&);
 
         /**
          * @brief Constructs a SpriteBatcher object.
