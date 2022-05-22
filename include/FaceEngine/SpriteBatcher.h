@@ -49,6 +49,9 @@ namespace FaceEngine
          */
         void Begin();
 
+        /**
+         * @brief Begins a sprite batch with the specified translation.
+         */
         void Begin(const Vector2f&);
 
         /**
