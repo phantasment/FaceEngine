@@ -322,8 +322,8 @@ bool operator ==(const FaceEngine::Colour& firstColour, const FaceEngine::Colour
 
 bool operator !=(const FaceEngine::Colour& firstColour, const FaceEngine::Colour& secondColour) noexcept
 {
-    return firstColour.GetR() != secondColour.GetR() &&
-           firstColour.GetG() != secondColour.GetG() &&
-           firstColour.GetB() != secondColour.GetB() &&
+    return firstColour.GetR() != secondColour.GetR() ||
+           firstColour.GetG() != secondColour.GetG() ||
+           firstColour.GetB() != secondColour.GetB() ||
            firstColour.GetA() != secondColour.GetA();
 }
