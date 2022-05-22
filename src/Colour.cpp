@@ -311,3 +311,19 @@ std::ostream& operator<<(std::ostream& os, const FaceEngine::Colour& c) noexcept
     os << '[' << c.GetRAsInt() << ", " << c.GetGAsInt() << ", " << c.GetBAsInt() << ", " << c.GetAAsInt() << ']';
     return os;
 }
+
+bool operator ==(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour) noexcept
+{
+    return firstColour.GetR() == secondColour.GetR() &&
+           firstColour.GetG() == secondColour.GetG() &&
+           firstColour.GetB() == secondColour.GetB() &&
+           firstColour.GetA() == secondColour.GetA();
+}
+
+bool operator !=(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour) noexcept
+{
+    return firstColour.GetR() != secondColour.GetR() &&
+           firstColour.GetG() != secondColour.GetG() &&
+           firstColour.GetB() != secondColour.GetB() &&
+           firstColour.GetA() != secondColour.GetA();
+}
