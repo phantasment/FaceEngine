@@ -17,6 +17,7 @@ namespace FaceEngine
         fullscreen = false;
         vsync = true;
         glfwSwapInterval(1);
+        clearColour = Colour::Black;
     }
 
     void Window::SetTitle(const std::string& t) noexcept
@@ -81,8 +82,19 @@ namespace FaceEngine
         }
     }
 
-    void Window::Clear() const noexcept
+    void Window::Clear() noexcept
     {
+        Clear(Colour::Black);
+    }
+
+    void Window::Clear(const Colour& col) noexcept
+    {
+        if (clearColour != col)
+        {
+            clearColour = col;
+            glClearColor(clearColour.GetR(), clearColour.GetG(), clearColour.GetB(), clearColour.GetA());
+        }
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 }

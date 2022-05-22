@@ -6,6 +6,7 @@
 #include "FaceEngine/OGL.h"
 #include "FaceEngine/Exception.h"
 #include "FaceEngine/GraphicsDevice.h"
+#include "FaceEngine/Colour.h"
 
 namespace FaceEngine
 {
@@ -20,6 +21,8 @@ namespace FaceEngine
         Resolution resolution;
         bool fullscreen;
         bool vsync;
+
+        Colour clearColour;
     public:
         inline const std::string& GetTitle() const noexcept { return title; }
         void SetTitle(const std::string&) noexcept;
@@ -45,7 +48,8 @@ namespace FaceEngine
         void SetVSync(bool) noexcept;
 
         void CenterWindow() const noexcept;
-        void Clear() const noexcept;
+        void Clear() noexcept;
+        void Clear(const Colour&) noexcept;
     };
 }
 
