@@ -109,7 +109,7 @@ namespace FaceEngine
         vertexData[39] = -0.5f;
         vertexData[40] = -0.5f;
 
-        for (const BatchJob& job : jobs)
+        for (const __BatchJob& job : jobs)
         {
             vertexData[2] = job.Rect.Width;
             vertexData[3] = job.Rect.Height;
@@ -193,7 +193,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
@@ -215,7 +215,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
@@ -237,7 +237,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
@@ -259,7 +259,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
@@ -281,7 +281,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
@@ -303,7 +303,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
@@ -325,7 +325,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             rect,
@@ -347,7 +347,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             rect,
@@ -369,7 +369,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             rect,
@@ -391,7 +391,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             rect,
@@ -413,7 +413,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             rect,
@@ -435,7 +435,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
         }
 
-        BatchJob job
+        __BatchJob job
         {
             tex,
             rect,
@@ -467,7 +467,7 @@ namespace FaceEngine
             {
                 Texture2D* tex = fontChar->GetTexture();
 
-                BatchJob job
+                __BatchJob job
                 {
                     fontChar->GetTexture(),
                     FaceEngine::Rectanglef(textPos.X, textPos.Y - fontChar->GetBearingY() + (font->GetAscender() / 64), tex->GetHeight(), tex->GetHeight()),
@@ -503,7 +503,7 @@ namespace FaceEngine
             {
                 Texture2D* tex = fontChar->GetTexture();
 
-                BatchJob job
+                __BatchJob job
                 {
                     fontChar->GetTexture(),
                     FaceEngine::Rectanglef(textPos.X, textPos.Y - fontChar->GetBearingY() + (font->GetAscender() / 64), tex->GetHeight(), tex->GetHeight()),

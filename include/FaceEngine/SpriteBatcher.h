@@ -17,7 +17,8 @@
 
 namespace FaceEngine
 {
-    struct BatchJob
+    // For internal use only.
+    struct __BatchJob
     {
         Texture2D* Texture;
         Rectanglef Rect;
@@ -35,7 +36,7 @@ namespace FaceEngine
         Shader* shader;
         GLuint vao, vbo, ebo;
 
-        std::vector<BatchJob> jobs;
+        std::vector<__BatchJob> jobs;
         Matrix4f transform;
         bool hasBegun;
 
