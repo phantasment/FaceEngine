@@ -1,5 +1,4 @@
 #include "FaceEngine/SpriteBatcher.h"
-#include <cmath>
 
 namespace FaceEngine
 {
@@ -112,49 +111,49 @@ namespace FaceEngine
 
         for (const __BatchJob& job : jobs)
         {
-            vertexData[2] = std::roundf(job.Rect.Width);
-            vertexData[3] = std::roundf(job.Rect.Height);
-            vertexData[4] = std::roundf(job.Rect.X);
-            vertexData[5] = std::roundf(job.Rect.Y);
+            vertexData[2] = (int)job.Rect.Width;
+            vertexData[3] = (int)job.Rect.Height;
+            vertexData[4] = (int)job.Rect.X;
+            vertexData[5] = (int)job.Rect.Y;
             vertexData[6] = job.Rotation;
-            vertexData[7] = std::roundf(job.Source.GetLeft());
-            vertexData[8] = std::roundf(job.Source.GetTop());
+            vertexData[7] = (int)job.Source.GetLeft();
+            vertexData[8] = (int)job.Source.GetTop();
             vertexData[9] = job.Colour.GetR();
             vertexData[10] = job.Colour.GetB();
             vertexData[11] = job.Colour.GetG();
             vertexData[12] = job.Colour.GetA();
 
-            vertexData[15] = std::roundf(job.Rect.Width);
-            vertexData[16] = std::roundf(job.Rect.Height);
-            vertexData[17] = std::roundf(job.Rect.X);
-            vertexData[18] = std::roundf(job.Rect.Y);
+            vertexData[15] = (int)job.Rect.Width;
+            vertexData[16] = (int)job.Rect.Height;
+            vertexData[17] = (int)job.Rect.X;
+            vertexData[18] = (int)job.Rect.Y;
             vertexData[19] = job.Rotation;
-            vertexData[20] = std::roundf(job.Source.GetRight());
-            vertexData[21] = std::roundf(job.Source.GetTop());
+            vertexData[20] = (int)job.Source.GetRight();
+            vertexData[21] = (int)job.Source.GetTop();
             vertexData[22] = job.Colour.GetR();
             vertexData[23] = job.Colour.GetB();
             vertexData[24] = job.Colour.GetG();
             vertexData[25] = job.Colour.GetA();
 
-            vertexData[28] = std::roundf(job.Rect.Width);
-            vertexData[29] = std::roundf(job.Rect.Height);
-            vertexData[30] = std::roundf(job.Rect.X);
-            vertexData[31] = std::roundf(job.Rect.Y);
+            vertexData[28] = (int)job.Rect.Width;
+            vertexData[29] = (int)job.Rect.Height;
+            vertexData[30] = (int)job.Rect.X;
+            vertexData[31] = (int)job.Rect.Y;
             vertexData[32] = job.Rotation;
-            vertexData[33] = std::roundf(job.Source.GetRight());
-            vertexData[34] = std::roundf(job.Source.GetBottom());
+            vertexData[33] = (int)job.Source.GetRight();
+            vertexData[34] = (int)job.Source.GetBottom();
             vertexData[35] = job.Colour.GetR();
             vertexData[36] = job.Colour.GetB();
             vertexData[37] = job.Colour.GetG();
             vertexData[38] = job.Colour.GetA();
 
-            vertexData[41] = std::roundf(job.Rect.Width);
-            vertexData[42] = std::roundf(job.Rect.Height);
-            vertexData[43] = std::roundf(job.Rect.X);
-            vertexData[44] = std::roundf(job.Rect.Y);
+            vertexData[41] = (int)job.Rect.Width;
+            vertexData[42] = (int)job.Rect.Height;
+            vertexData[43] = (int)job.Rect.X;
+            vertexData[44] = (int)job.Rect.Y;
             vertexData[45] = job.Rotation;
-            vertexData[46] = std::roundf(job.Source.GetLeft());
-            vertexData[47] = std::roundf(job.Source.GetBottom());
+            vertexData[46] = (int)job.Source.GetLeft();
+            vertexData[47] = (int)job.Source.GetBottom();
             vertexData[48] = job.Colour.GetR();
             vertexData[49] = job.Colour.GetB();
             vertexData[50] = job.Colour.GetG();
