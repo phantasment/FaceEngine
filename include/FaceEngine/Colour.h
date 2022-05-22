@@ -125,7 +125,7 @@ std::ostream& operator<<(std::ostream& os, const FaceEngine::Colour& c) noexcept
 FaceEngine::Colour operator +(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour);
 FaceEngine::Colour operator -(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour);
 
-bool operator ==(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour) noexcept;
-bool operator !=(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour) noexcept;
+bool operator ==(const FaceEngine::Colour& firstColour, const FaceEngine::Colour& secondColour) noexcept;
+bool operator !=(const FaceEngine::Colour& firstColour, const FaceEngine::Colour& secondColour) noexcept;
 
 #endif

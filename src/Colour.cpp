@@ -312,7 +312,7 @@ std::ostream& operator<<(std::ostream& os, const FaceEngine::Colour& c) noexcept
     return os;
 }
 
-bool operator ==(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour) noexcept
+bool operator ==(const FaceEngine::Colour& firstColour, const FaceEngine::Colour& secondColour) noexcept
 {
     return firstColour.GetR() == secondColour.GetR() &&
            firstColour.GetG() == secondColour.GetG() &&
@@ -320,7 +320,7 @@ bool operator ==(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColo
            firstColour.GetA() == secondColour.GetA();
 }
 
-bool operator !=(FaceEngine::Colour& firstColour, FaceEngine::Colour& secondColour) noexcept
+bool operator !=(const FaceEngine::Colour& firstColour, const FaceEngine::Colour& secondColour) noexcept
 {
     return firstColour.GetR() != secondColour.GetR() &&
            firstColour.GetG() != secondColour.GetG() &&
