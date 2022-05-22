@@ -27,17 +27,17 @@ namespace FaceEngine
         indices[4] = 3;
         indices[5] = 0;
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 52, (void*)0);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(2 * sizeof(float)));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 52, (void*)8);
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(4 * sizeof(float)));
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 52, (void*)16);
         glEnableVertexAttribArray(2);
-        glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(6 * sizeof(float)));
+        glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 52, (void*)24);
         glEnableVertexAttribArray(3);
-        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(7 * sizeof(float)));
+        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 52, (void*)28);
         glEnableVertexAttribArray(4);
-        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 13 * sizeof(float), (void*)(9 * sizeof(float)));
+        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 52, (void*)36);
         glEnableVertexAttribArray(5);
     }
 
@@ -50,6 +50,17 @@ namespace FaceEngine
 
         hasBegun = true;
         transform = Matrix4f::Identity;
+    }
+
+    void SpriteBatcher::Begin(const Vector2f& translation)
+    {
+        if (hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Begin", "Invalid state.");
+        }
+
+        hasBegun = true;
+        transform = Matrix4f::CreateTranslation(translation.X, translation.Y, 0.0f);
     }
 
     void SpriteBatcher::Begin(const Matrix4f& mat4)
@@ -86,6 +97,7 @@ namespace FaceEngine
         const Resolution& resolution = win->GetResolution();
         shader->SetUniform("projection", Matrix4f::CreateOrthographic(resolution.GetWidth(), resolution.GetHeight(), 0.0f, 1.0f));
         shader->SetUniform("windowSize", Vector2f(resolution.GetWidth(), resolution.GetHeight()));
+        shader->SetUniform("transform", transform);
         
         float* vertexData = new float[52];
         vertexData[0] = -0.5f;
@@ -148,6 +160,20 @@ namespace FaceEngine
             vertexData[51] = job.Colour.GetA();
 
             glBufferSubData(GL_ARRAY_BUFFER, 0, 52 * sizeof(float), vertexData);
+            /*
+            std::int32_t left = job.Source.GetLeft(),
+                         right = job.Source.GetRight(),
+                         top = job.Source.GetTop(),
+                         bottom = job.Source.GetBottom();
+            glBufferSubData(GL_ARRAY_BUFFER, 7 * 4, sizeof(left), &left);
+            glBufferSubData(GL_ARRAY_BUFFER, 8 * 4, sizeof(top), &top);
+            glBufferSubData(GL_ARRAY_BUFFER, 20 * 4, sizeof(right), &right);
+            glBufferSubData(GL_ARRAY_BUFFER, 21 * 4, sizeof(top), &top);
+            glBufferSubData(GL_ARRAY_BUFFER, 33 * 4, sizeof(right), &right);
+            glBufferSubData(GL_ARRAY_BUFFER, 34 * 4, sizeof(bottom), &bottom);
+            glBufferSubData(GL_ARRAY_BUFFER, 46 * 4, sizeof(left), &left);
+            glBufferSubData(GL_ARRAY_BUFFER, 47 * 4, sizeof(bottom), &bottom);
+            */
             glBindTexture(GL_TEXTURE_2D, job.Texture->GetHandle());
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
@@ -510,6 +536,7 @@ namespace FaceEngine
         "\n"
         "uniform mat4 projection;\n"
         "uniform vec2 windowSize;\n"
+        "uniform mat4 transform;\n"
         "\n"
         "mat4 create_translate(float x, float y)\n"
         "{\n"
@@ -547,7 +574,7 @@ namespace FaceEngine
         "void main()\n"
         "{\n"
         "\t// translation, rotation, scale\n"
-        "\tgl_Position = projection * create_translate(translation.x, translation.y) * create_rotate(rotation) * create_scale(scale.x, scale.y) * vec4(vert.xy, 0.0, 1.0);\n"
+        "\tgl_Position = projection * transform * create_translate(translation.x, translation.y) * create_rotate(rotation) * create_scale(scale.x, scale.y) * vec4(vert.xy, 0.0, 1.0);\n"
         "\tfragTexCoord = texCoord;\n"
         "\tfragColour = texColour;\n"
         "}",
@@ -564,7 +591,7 @@ namespace FaceEngine
         "void main()\n"
         "{\n"
             "ivec2 texSize = textureSize(textureSampler, 0);"
-            "fragmentColour = texelFetch(textureSampler, ivec2(fragTexCoord.x, texSize.y - fragTexCoord.y), 0) * fragColour;"
+            "fragmentColour = texelFetch(textureSampler, ivec2(floor(fragTexCoord.x), floor(texSize.y - fragTexCoord.y)), 0) * fragColour;"
             "if (fragmentColour.w == 0.0) { discard; }\n"
         "}");
         

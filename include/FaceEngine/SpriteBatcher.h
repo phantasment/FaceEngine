@@ -49,6 +49,8 @@ namespace FaceEngine
          */
         void Begin();
 
+        void Begin(const Vector2f&);
+
         /**
          * @brief Begins a sprite batch with the specified transform.
          * 
