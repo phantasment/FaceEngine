@@ -7,6 +7,7 @@
 #include "FaceEngine/Resource.h"
 #include "FaceEngine/ResourceManager.h"
 #include "FaceEngine/Texture2D.h"
+#include "FaceEngine/Math/Vector2.h"
 
 namespace FaceEngine
 {
@@ -79,6 +80,8 @@ namespace FaceEngine
         inline const std::vector<FontChar>& GetFontChars() const noexcept { return fontChars; }
 
         const FontChar* GetFontChar(std::uint32_t) const;
+
+        Vector2f MeasureString(const std::string&) const;
 
         static TextureFont* CreateTextureFont(ResourceManager*, std::uint32_t, std::int32_t, std::int32_t, std::int32_t, const std::vector<FontChar>&);
     };
