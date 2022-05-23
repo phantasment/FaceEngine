@@ -23,9 +23,3 @@ bool operator!=(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rec
 {
     return !firstRect.Equals(secondRect);
 }
-
-template <typename T>
-std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle<T>& rect)
-{
-    return out << "Rectangle:[X: " << rect.X << ", Y: " << rect.Y << ", Width: " << rect.Width << ", Height: " << rect.Height;
-}
