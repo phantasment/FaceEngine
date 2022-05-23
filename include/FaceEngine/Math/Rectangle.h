@@ -76,6 +76,11 @@ namespace FaceEngine
             return Vector2f(Width, Height);
         }
 
+        inline std::string ToString() const
+        {
+            return "Rectangle[X: " + std::to_string(X) + ", Y: " + std::to_string(Y) + ", Width: " + std::to_string(Width) + ", Height: " + std::to_string(Height) + "]";
+        }
+
         inline bool Contains(const Vector2f& vector) const
         {
             return (vector.X >= X) && (vector.X <= GetRight()) && (vector.Y >= Y) && (vector.Y <= GetBottom());
@@ -123,8 +128,11 @@ namespace FaceEngine
     typedef Rectangle<float> Rectanglef;
 }
 
-template <class T>
-std::ostream& operator <<(std::ostream& out, const FaceEngine::Rectangle<T>& rect);
+template <typename T>
+std::ostream& operator <<(std::ostream& os, const FaceEngine::Rectangle<T>& rect)
+{
+    return os << rect.ToString();
+}
 
 template <class T>
 FaceEngine::Rectangle<T> operator+(const FaceEngine::Rectangle<T>& firstRect, const FaceEngine::Rectangle<T>& secondRect) noexcept;
