@@ -504,6 +504,77 @@ namespace FaceEngine
         }
     }
 
+    void SpriteBatcher::DrawString(TextureFont* font, const std::string& text, const Vector2f& pos, const Colour& col, const float scale)
+    {
+        if (!hasBegun)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::DrawString", "Invalid state.");
+        }
+        else if (jobs.size() >= MAX_JOBS)
+        {
+            throw Exception::FromMessage("FaceEngine::SpriteBatcher::Draw", "Max jobs reached.");
+        }
+
+        if (text.length() == 0)
+        {
+            return;
+        }
+
+        FaceEngine::Vector2f textPos(pos);
+
+        // First Glyph
+
+        const FontChar* firstGlyph = font->GetFontChar(text[0]);
+        const int ascender = font->MeasureString("M").Y * scale;
+
+        if (firstGlyph->HasTexture())
+        {
+            Texture2D* tex = firstGlyph->GetTexture();
+
+            __BatchJob job
+            {
+                tex,
+                FaceEngine::Rectanglef(textPos.X, pos.Y - ((firstGlyph->GetBearingY() * scale) - ascender), tex->GetWidth() * scale, tex->GetHeight() * scale),
+                0.0f,
+                FaceEngine::Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
+                col
+            };
+            
+            jobs.push_back(std::move(job));
+
+            textPos.X += (tex->GetWidth() + (firstGlyph->GetAdvance() - (firstGlyph->GetBearingX() + tex->GetWidth()))) * scale;
+        }
+        else
+        {
+            textPos.X += firstGlyph->GetAdvance() * scale;
+        }
+
+        // Other Glyphs
+        
+        for (int i = 1; i < text.length() ; ++i)
+        {
+            const FontChar* glyph = font->GetFontChar(text[i]);
+            
+            if (glyph->GetTexture() != nullptr)
+            {
+                Texture2D* tex = firstGlyph->GetTexture();
+
+                __BatchJob job
+                {
+                    tex,
+                    FaceEngine::Rectanglef(textPos.X + (glyph->GetBearingX() * scale), pos.Y - ((firstGlyph->GetBearingY() * scale) - ascender), tex->GetWidth() * scale, tex->GetHeight() * scale),
+                    0.0f,
+                    FaceEngine::Rectanglef(0.0f, 0.0f, firstGlyph->GetTexture()->GetWidth(), firstGlyph->GetTexture()->GetHeight()),
+                    col
+                };
+
+                jobs.push_back(std::move(job));
+            }
+            
+            textPos.X += glyph->GetAdvance() * scale;
+        }
+    }
+
     SpriteBatcher* SpriteBatcher::CreateSpriteBatcher(ResourceManager* rm, Window* win)
     {
         Shader* shader = Shader::CreateShader(rm,

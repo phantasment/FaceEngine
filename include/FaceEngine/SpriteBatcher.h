@@ -81,6 +81,7 @@ namespace FaceEngine
 
         void DrawString(TextureFont*, const std::string&, const Vector2f&);
         void DrawString(TextureFont*, const std::string&, const Vector2f&, const Colour&);
+        void DrawString(TextureFont*, const std::string&, const Vector2f&, const Colour&, const float);
 
         /**
          * @brief Constructs a SpriteBatcher object.
