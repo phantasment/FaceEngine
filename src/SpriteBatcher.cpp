@@ -559,14 +559,14 @@ namespace FaceEngine
             
             if (glyph->GetTexture() != nullptr)
             {
-                Texture2D* tex = firstGlyph->GetTexture();
+                Texture2D* tex = glyph->GetTexture();
 
                 __BatchJob job
                 {
                     tex,
-                    FaceEngine::Rectanglef(textPos.X + (glyph->GetBearingX() * scale), pos.Y - ((firstGlyph->GetBearingY() * scale) - ascender), tex->GetWidth() * scale, tex->GetHeight() * scale),
+                    FaceEngine::Rectanglef(textPos.X + (glyph->GetBearingX() * scale), pos.Y - ((glyph->GetBearingY() * scale) - ascender), tex->GetWidth() * scale, tex->GetHeight() * scale),
                     0.0f,
-                    FaceEngine::Rectanglef(0.0f, 0.0f, firstGlyph->GetTexture()->GetWidth(), firstGlyph->GetTexture()->GetHeight()),
+                    FaceEngine::Rectanglef(0.0f, 0.0f, glyph->GetTexture()->GetWidth(), glyph->GetTexture()->GetHeight()),
                     col
                 };
 
