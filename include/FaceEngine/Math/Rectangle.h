@@ -71,6 +71,11 @@ namespace FaceEngine
             return Vector2f(X, Y);
         }
 
+        inline Vector2f GetCentre() const
+        {
+            return Vector2f(X + (Width / 2), Y + (Height / 2));
+        }
+
         inline Vector2f GetSize() const
         {
             return Vector2f(Width, Height);
