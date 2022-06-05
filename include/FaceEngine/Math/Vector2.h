@@ -12,10 +12,13 @@ namespace FaceEngine
     class Vector2 : public Vector
     {
     static_assert(std::is_same<float, T>() || 
-                    std::is_same<int, T>() || 
+                    std::is_same<int, T>() ||
+                    std::is_same<unsigned int, T>() ||
                     std::is_same<double, T>() || 
                     std::is_same<short, T>() ||
-                    std::is_same<long long, T>());
+                    std::is_same<unsigned short, T>() ||
+                    std::is_same<long long, T>() ||
+                    std::is_same<unsigned long long, T>());
     public:
         T X;
         T Y;
