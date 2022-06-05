@@ -64,6 +64,7 @@ namespace FaceEngine
         ContentLoaderPtr = new ContentLoader(ResourceManagerPtr);
         GameUpdatePtr = new GameUpdate(winHandle);
         GameDrawPtr = new GameDraw;
+        AudioDevicePtr = new AudioDevice;
 
         // initialise
         Initialise();
@@ -150,6 +151,7 @@ namespace FaceEngine
         ResourceManagerPtr->DisposeAllResources();
         delete ResourceManagerPtr;
         delete ContentLoaderPtr;
+        delete AudioDevicePtr;
         delete GameUpdatePtr;
         delete GameDrawPtr;
         delete WindowPtr;

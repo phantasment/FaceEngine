@@ -20,6 +20,7 @@
 #include "FaceEngine/ContentLoader.h"
 #include "FaceEngine/GameUpdate.h"
 #include "FaceEngine/GameDraw.h"
+#include "FaceEngine/AudioDevice.h"
 
 namespace FaceEngine
 {
@@ -74,6 +75,13 @@ namespace FaceEngine
          * This object's allocation is automatic.
          */
         GameDraw* GameDrawPtr;
+
+        /**
+         * @brief Used to play audio.
+         * 
+         * This object's allocation is automatic.
+         */
+        AudioDevice* AudioDevicePtr;
 
         /**
          * @brief Determines the target speed of the Update() function. A value less than 1 indicates no limit.

@@ -7,11 +7,15 @@ option(BUILD_TESTS "Build Face Engine tests" OFF)
 
 find_package(ZLIB 1.2.12 EXACT REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
+find_package(OpenAL REQUIRED)
 
 set(FACE_ENGINE_HEADER_FILES
     include/glad/glad.h
     include/KHR/khrplatform.h
 
+    include/FaceEngine/AudioDevice.h
+    include/FaceEngine/Colour.h
+    include/FaceEngine/ContentLoader.h
     include/FaceEngine/Display.h
     include/FaceEngine/Exception.h
     include/FaceEngine/Game.h
@@ -43,6 +47,7 @@ set(FACE_ENGINE_HEADER_FILES
 )
 
 set(FACE_ENGINE_SRC_FILES
+    src/AudioDevice.cpp
     src/Colour.cpp
     src/ContentLoader.cpp
     src/Game.cpp
@@ -70,12 +75,12 @@ set(FACE_ENGINE_SRC_FILES
 
 add_library(FaceEngine STATIC ${FACE_ENGINE_SRC_FILES})
 target_compile_options(FaceEngine PRIVATE -O3)
-target_include_directories(FaceEngine PRIVATE include "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
-target_link_libraries(FaceEngine PRIVATE "${ZLIB_LIBRARIES}" glfw)
+target_include_directories(FaceEngine PRIVATE include "${OPENAL_INCLUDE_DIR}" "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
+target_link_libraries(FaceEngine PRIVATE "${OPENAL_LIBRARY}" "${ZLIB_LIBRARIES}" glfw)
 
 if (BUILD_TESTS)
     add_executable(FaceEngineMathTests ${FACE_ENGINE_SRC_FILES} tests/MathTests.cpp)
     target_compile_options(FaceEngineMathTests PRIVATE -O3)
-    target_include_directories(FaceEngineMathTests PRIVATE include "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
-    target_link_libraries(FaceEngineMathTests PRIVATE "${ZLIB_LIBRARIES}" glfw)
+    target_include_directories(FaceEngineMathTests PRIVATE include "${OPENAL_INCLUDE_DIR}" "${GLFW_INCLUDE_DIRS}" "${ZLIB_INCLUDE_DIRS}")
+    target_link_libraries(FaceEngineMathTests PRIVATE "${OPENAL_LIBRARY}" "${ZLIB_LIBRARIES}" glfw)
 endif()
