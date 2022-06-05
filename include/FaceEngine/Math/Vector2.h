@@ -15,7 +15,7 @@ namespace FaceEngine
                     std::is_same<int, T>() || 
                     std::is_same<double, T>() || 
                     std::is_same<short, T>() ||
-                    std::is_same<long, T>());
+                    std::is_same<long long, T>());
     public:
         T X;
         T Y;
