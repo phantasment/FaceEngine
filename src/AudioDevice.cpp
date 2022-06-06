@@ -4,11 +4,12 @@ namespace FaceEngine
 {
     AudioDevice::AudioDevice()
     {
+        active = false;
         alDevice = alcOpenDevice(nullptr);
 
         if (!alDevice)
         {
-            throw Exception::FromMessage("FaceEngine::AudioDevice::AudioDevice", "Couldn't create audio device.");
+            return;
         }
 
         alContext = alcCreateContext(alDevice, nullptr);
@@ -17,13 +18,18 @@ namespace FaceEngine
         {
             alcDestroyContext(alContext);
             alcCloseDevice(alDevice);
-            throw Exception::FromMessage("FaceEngine::AudioDevice::AudioDevice", "Couldn't create audio device.");
+            return;
         }
+
+        active = true;
     }
 
     AudioDevice::~AudioDevice()
     {
-        alcDestroyContext(alContext);
-        alcCloseDevice(alDevice);
+        if (active)
+        {
+            alcDestroyContext(alContext);
+            alcCloseDevice(alDevice);
+        }
     }
 }

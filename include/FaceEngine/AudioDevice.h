@@ -10,10 +10,13 @@ namespace FaceEngine
     {
     friend class Game;
     private:
+        bool active;
         ALCdevice* alDevice;
         ALCcontext* alContext;
         AudioDevice();
         ~AudioDevice();
+    public:
+        inline bool IsActive() const noexcept { return active; }
     };
 }
 
