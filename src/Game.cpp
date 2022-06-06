@@ -74,12 +74,14 @@ namespace FaceEngine
         // delta time/target time stuff
         double lastUpdate = glfwGetTime();
         double lastDraw = lastUpdate;
-        double now;
+        double refreshRate = (double)glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate;
 
         // UPS/FPS stuff
         std::uint32_t updates = 0, frames = 0;
         double lastUPS = lastUpdate;
         double lastFPS = lastUPS;
+
+        double now;
 
         while (!glfwWindowShouldClose(winHandle))
         {
@@ -109,7 +111,18 @@ namespace FaceEngine
             // handle drawing
             now = glfwGetTime();
 
-            if (PreferredDraws > 0.0)
+            if (WindowPtr->vsync)
+            {
+                if (now - lastDraw >= 1.0 / refreshRate)
+                {
+                    GameDrawPtr->delta = now - lastDraw;
+                    lastDraw = now;
+                    Draw();
+                    ++frames;
+                    glfwSwapBuffers(winHandle);
+                }
+            }
+            else if (PreferredDraws > 0.0)
             {
                 if (now - lastDraw >= 1.0 / PreferredDraws)
                 {
