@@ -24,7 +24,7 @@ namespace FaceEngine
         Rectanglef Rect;
         float Rotation;
         Rectanglef Source;
-        Colour Colour;
+        Colour _Colour;
     };
 
     class SpriteBatcher : public Resource

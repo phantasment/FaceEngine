@@ -120,10 +120,10 @@ namespace FaceEngine
             vertexData[6] = job.Rotation;
             vertexData[7] = (int)job.Source.GetLeft();
             vertexData[8] = (int)job.Source.GetTop();
-            vertexData[9] = job.Colour.GetR();
-            vertexData[10] = job.Colour.GetB();
-            vertexData[11] = job.Colour.GetG();
-            vertexData[12] = job.Colour.GetA();
+            vertexData[9] = job._Colour.GetR();
+            vertexData[10] = job._Colour.GetB();
+            vertexData[11] = job._Colour.GetG();
+            vertexData[12] = job._Colour.GetA();
 
             vertexData[15] = (int)job.Rect.Width;
             vertexData[16] = (int)job.Rect.Height;
@@ -132,10 +132,10 @@ namespace FaceEngine
             vertexData[19] = job.Rotation;
             vertexData[20] = (int)job.Source.GetRight();
             vertexData[21] = (int)job.Source.GetTop();
-            vertexData[22] = job.Colour.GetR();
-            vertexData[23] = job.Colour.GetB();
-            vertexData[24] = job.Colour.GetG();
-            vertexData[25] = job.Colour.GetA();
+            vertexData[22] = job._Colour.GetR();
+            vertexData[23] = job._Colour.GetB();
+            vertexData[24] = job._Colour.GetG();
+            vertexData[25] = job._Colour.GetA();
 
             vertexData[28] = (int)job.Rect.Width;
             vertexData[29] = (int)job.Rect.Height;
@@ -144,10 +144,10 @@ namespace FaceEngine
             vertexData[32] = job.Rotation;
             vertexData[33] = (int)job.Source.GetRight();
             vertexData[34] = (int)job.Source.GetBottom();
-            vertexData[35] = job.Colour.GetR();
-            vertexData[36] = job.Colour.GetB();
-            vertexData[37] = job.Colour.GetG();
-            vertexData[38] = job.Colour.GetA();
+            vertexData[35] = job._Colour.GetR();
+            vertexData[36] = job._Colour.GetB();
+            vertexData[37] = job._Colour.GetG();
+            vertexData[38] = job._Colour.GetA();
 
             vertexData[41] = (int)job.Rect.Width;
             vertexData[42] = (int)job.Rect.Height;
@@ -156,10 +156,10 @@ namespace FaceEngine
             vertexData[45] = job.Rotation;
             vertexData[46] = (int)job.Source.GetLeft();
             vertexData[47] = (int)job.Source.GetBottom();
-            vertexData[48] = job.Colour.GetR();
-            vertexData[49] = job.Colour.GetB();
-            vertexData[50] = job.Colour.GetG();
-            vertexData[51] = job.Colour.GetA();
+            vertexData[48] = job._Colour.GetR();
+            vertexData[49] = job._Colour.GetB();
+            vertexData[50] = job._Colour.GetG();
+            vertexData[51] = job._Colour.GetA();
 
             glBufferSubData(GL_ARRAY_BUFFER, 0, 52 * sizeof(float), vertexData);
             glBindTexture(GL_TEXTURE_2D, job.Texture->GetHandle());
