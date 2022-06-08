@@ -33,6 +33,6 @@ namespace FaceEngine
 
     float Calculator::Lerp(const float a, const float b, const float t)
     {
-        return a + (b - a) * t;
+        return (1.0f - t) * a + t * b;
     }
 }
