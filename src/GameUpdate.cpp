@@ -118,7 +118,7 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::GameUpdate::IsMousePressed", "Invalid button.");
         }
 
-        return !previousMice[button] && currentMice[button];
+        return previousMice[button] && !currentMice[button];
     }
 
     bool GameUpdate::IsMouseReleased(int button) const
