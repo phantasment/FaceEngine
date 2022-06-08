@@ -79,6 +79,8 @@ namespace FaceEngine
         {
             previousMice[i] = currentMice[i];
         }
+
+        keysTyped.clear();
     }
 
     bool GameUpdate::IsKeyDown(int key) const

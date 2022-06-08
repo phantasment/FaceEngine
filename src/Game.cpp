@@ -88,9 +88,6 @@ namespace FaceEngine
 
         while (!glfwWindowShouldClose(winHandle))
         {
-            // handle updating
-            GameUpdatePtr->UpdateInput();
-            glfwPollEvents();
             now = glfwGetTime();
 
             if (PreferredUpdates > 0.0)
@@ -106,6 +103,8 @@ namespace FaceEngine
                 while (accumulator >= dt)
                 {
                     GameUpdatePtr->delta = dt;
+                    GameUpdatePtr->UpdateInput();
+                    glfwPollEvents();
                     Update();
                     accumulator -= dt;
                     ++updates;
@@ -115,6 +114,8 @@ namespace FaceEngine
             {
                 GameUpdatePtr->delta = now - lastUpdate;
                 lastUpdate = now;
+                GameUpdatePtr->UpdateInput();
+                glfwPollEvents();
                 Update();
                 ++updates;
             }
