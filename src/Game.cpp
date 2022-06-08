@@ -71,17 +71,20 @@ namespace FaceEngine
         glfwShowWindow(winHandle);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        // delta time/target time stuff
-        double lastUpdate = glfwGetTime();
-        double lastDraw = lastUpdate;
-        double refreshRate = (double)glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate;
+        double now = glfwGetTime();
 
         // UPS/FPS stuff
         std::uint32_t updates = 0, frames = 0;
-        double lastUPS = lastUpdate;
-        double lastFPS = lastUPS;
+        double lastUPS = now;
+        double lastFPS = now;
 
-        double now;
+        // timing
+        double lastUpdate = now;
+        double lastDraw = now;
+        double accumulator = 0.0;
+        double frameTime;
+        double refreshRate = (double)glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate;
+        float dt;
 
         while (!glfwWindowShouldClose(winHandle))
         {
@@ -92,11 +95,19 @@ namespace FaceEngine
 
             if (PreferredUpdates > 0.0)
             {
-                if (now - lastUpdate >= 1.0 / PreferredUpdates)
+                dt = 1.0 / PreferredUpdates;
+                frameTime = now - lastUpdate;
+
+                if (frameTime > 0.25) { frameTime = 0.25; }
+
+                lastUpdate = now;
+                accumulator += frameTime;
+
+                while (accumulator >= dt)
                 {
-                    GameUpdatePtr->delta = now - lastUpdate;
-                    lastUpdate = now;
+                    GameUpdatePtr->delta = dt;
                     Update();
+                    accumulator -= dt;
                     ++updates;
                 }
             }
@@ -110,6 +121,7 @@ namespace FaceEngine
 
             // handle drawing
             now = glfwGetTime();
+            GameDrawPtr->alpha = accumulator / dt;
 
             if (WindowPtr->vsync)
             {

@@ -12,6 +12,7 @@ namespace FaceEngine
         inline GameDraw() { }
 
         double delta;
+        double alpha;
         std::uint32_t fps;
     public:
         /**
@@ -19,15 +20,11 @@ namespace FaceEngine
          * 
          * @return double 
          */
-        inline double GetDelta() const noexcept
-        {
-            return delta;
-        }
+        inline double GetDelta() const noexcept { return delta; }
 
-        inline double GetFPS() const noexcept
-        {
-            return fps;
-        }
+        inline double GetAlpha() const noexcept { return alpha; }
+
+        inline double GetFPS() const noexcept { return fps; }
     };
 }
 
