@@ -35,4 +35,18 @@ namespace FaceEngine
     {
         return (1.0f - t) * a + t * b;
     }
+
+    float Calculator::Clamp(const float value, const float lower, const float upper)
+    {
+        if (value < lower)
+        {
+            return lower;
+        }
+        else if (value > upper)
+        {
+            return upper;
+        }
+
+        return value;
+    }
 }

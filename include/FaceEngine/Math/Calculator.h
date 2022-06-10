@@ -28,6 +28,7 @@ namespace FaceEngine
         static float WrapAngle(float angle);
         static float WrapAngle180(float angle);
         static float Lerp(const float a, const float b, const float t);
+        static float Clamp(const float value, const float lower, const float upper);
     };
 }
 
