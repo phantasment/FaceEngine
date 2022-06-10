@@ -100,6 +100,16 @@ namespace FaceEngine
             throw Exception::FromMessage("FaceEngine::GameUpdate::IsKeyPressed", "Invalid key.");
         }
 
+        return !previousKeys[key] && currentKeys[key];
+    }
+
+    bool GameUpdate::IsKeyReleased(int key) const
+    {
+        if (key < 0 || key > GLFW_KEY_LAST)
+        {
+            throw Exception::FromMessage("FaceEngine::GameUpdate::IsKeyReleased", "Invalid key.");
+        }
+
         return previousKeys[key] && !currentKeys[key];
     }
 

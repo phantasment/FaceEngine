@@ -61,6 +61,7 @@ namespace FaceEngine
 
         bool IsKeyDown(int) const;
         bool IsKeyPressed(int) const;
+        bool IsKeyReleased(int) const;
         bool IsMouseDown(int) const;
         bool IsMousePressed(int) const;
         bool IsMouseReleased(int) const;
