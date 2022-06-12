@@ -1,6 +1,8 @@
 #ifndef FACEENGINE_MATH_CALCULATOR_H_
 #define FACEENGINE_MATH_CALCULATOR_H_
 
+#include "FaceEngine/Math/Vector2.h"
+
 namespace FaceEngine
 {
     class Calculator
@@ -27,7 +29,8 @@ namespace FaceEngine
         static float RadiansToDegrees(float radians);
         static float WrapAngle(float angle);
         static float WrapAngle180(float angle);
-        static float Lerp(const float a, const float b, const float t);
+        static float Lerp(float a, float b, float t);
+        static FaceEngine::Vector2f Lerp(const FaceEngine::Vector2f& a, const FaceEngine::Vector2f& b, float t);
         static float Clamp(const float value, const float lower, const float upper);
     };
 }

@@ -31,9 +31,14 @@ namespace FaceEngine
         return wrappedAngle;
     }
 
-    float Calculator::Lerp(const float a, const float b, const float t)
+    float Calculator::Lerp(float a, float b, float t)
     {
         return (1.0f - t) * a + t * b;
+    }
+
+    FaceEngine::Vector2f Calculator::Lerp(const FaceEngine::Vector2f& a, const FaceEngine::Vector2f& b, float t)
+    {
+        return b * t + a * (1.0f - t);
     }
 
     float Calculator::Clamp(const float value, const float lower, const float upper)
