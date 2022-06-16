@@ -63,6 +63,11 @@ namespace FaceEngine
             return sqrt(((X - vector.X) * (X - vector.X)) + ((Y - vector.Y) * (Y - vector.Y)));
         }
 
+        float DistanceSquared(const Vector2<T>& vector) const noexcept
+        {
+            return ((X - vector.X) * (X - vector.X)) + ((Y - vector.Y) * (Y - vector.Y));
+        }
+
         std::string ToString() const noexcept
         {
             return "Vector2[X: " + std::to_string(X) + ", Y: " + std::to_string(Y) + "]";
