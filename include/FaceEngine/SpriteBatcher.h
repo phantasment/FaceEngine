@@ -23,6 +23,7 @@ namespace FaceEngine
         Texture2D* Texture;
         Rectanglef Rect;
         float Rotation;
+        Vector2f RotationOrigin;
         Rectanglef Source;
         Colour _Colour;
     };

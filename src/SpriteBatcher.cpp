@@ -18,7 +18,7 @@ namespace FaceEngine
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-        glBufferData(GL_ARRAY_BUFFER, 208, nullptr, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, 240, nullptr, GL_DYNAMIC_DRAW);
         GLuint indices[6];
         indices[0] = 0;
         indices[1] = 1;
@@ -27,18 +27,20 @@ namespace FaceEngine
         indices[4] = 3;
         indices[5] = 0;
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 52, (void*)0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 60, (void*)0);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 52, (void*)8);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 60, (void*)(2 * sizeof(float)));
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 52, (void*)16);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 60, (void*)(4 * sizeof(float)));
         glEnableVertexAttribArray(2);
-        glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 52, (void*)24);
+        glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 60, (void*)(6 * sizeof(float)));
         glEnableVertexAttribArray(3);
-        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 52, (void*)28);
+        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 60, (void*)(7 * sizeof(float)));
         glEnableVertexAttribArray(4);
-        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 52, (void*)36);
+        glVertexAttribPointer(5, 2, GL_FLOAT, GL_FALSE, 60, (void*)(9 * sizeof(float)));
         glEnableVertexAttribArray(5);
+        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 60, (void*)(11 * sizeof(float)));
+        glEnableVertexAttribArray(6);
     }
 
     void SpriteBatcher::Begin()
@@ -101,15 +103,15 @@ namespace FaceEngine
         shader->SetUniform("windowSize", Vector2f(resolution.GetWidth(), resolution.GetHeight()));
         shader->SetUniform("transform", transform);
         
-        float* vertexData = new float[52];
+        float* vertexData = new float[60];
         vertexData[0] = -0.5f;
         vertexData[1] = 0.5f;
-        vertexData[13] = 0.5f;
-        vertexData[14] = 0.5f;
-        vertexData[26] = 0.5f;
-        vertexData[27] = -0.5f;
-        vertexData[39] = -0.5f;
-        vertexData[40] = -0.5f;
+        vertexData[15] = 0.5f;
+        vertexData[16] = 0.5f;
+        vertexData[30] = 0.5f;
+        vertexData[31] = -0.5f;
+        vertexData[45] = -0.5f;
+        vertexData[46] = -0.5f;
 
         for (const __BatchJob& job : jobs)
         {
@@ -118,50 +120,58 @@ namespace FaceEngine
             vertexData[4] = (int)job.Rect.X;
             vertexData[5] = (int)job.Rect.Y;
             vertexData[6] = job.Rotation;
-            vertexData[7] = (int)job.Source.GetLeft();
-            vertexData[8] = (int)job.Source.GetTop();
-            vertexData[9] = job._Colour.GetR();
-            vertexData[10] = job._Colour.GetB();
-            vertexData[11] = job._Colour.GetG();
-            vertexData[12] = job._Colour.GetA();
+            vertexData[7] = job.RotationOrigin.X;
+            vertexData[8] = job.RotationOrigin.Y;
+            vertexData[9] = (int)job.Source.GetLeft();
+            vertexData[10] = (int)job.Source.GetTop();
+            vertexData[11] = job._Colour.GetR();
+            vertexData[12] = job._Colour.GetB();
+            vertexData[13] = job._Colour.GetG();
+            vertexData[14] = job._Colour.GetA();
 
-            vertexData[15] = (int)job.Rect.Width;
-            vertexData[16] = (int)job.Rect.Height;
-            vertexData[17] = (int)job.Rect.X;
-            vertexData[18] = (int)job.Rect.Y;
-            vertexData[19] = job.Rotation;
-            vertexData[20] = (int)job.Source.GetRight();
-            vertexData[21] = (int)job.Source.GetTop();
-            vertexData[22] = job._Colour.GetR();
-            vertexData[23] = job._Colour.GetB();
-            vertexData[24] = job._Colour.GetG();
-            vertexData[25] = job._Colour.GetA();
+            vertexData[17] = (int)job.Rect.Width;
+            vertexData[18] = (int)job.Rect.Height;
+            vertexData[19] = (int)job.Rect.X;
+            vertexData[20] = (int)job.Rect.Y;
+            vertexData[21] = job.Rotation;
+            vertexData[22] = job.RotationOrigin.X;
+            vertexData[23] = job.RotationOrigin.Y;
+            vertexData[24] = (int)job.Source.GetRight();
+            vertexData[25] = (int)job.Source.GetTop();
+            vertexData[26] = job._Colour.GetR();
+            vertexData[27] = job._Colour.GetB();
+            vertexData[28] = job._Colour.GetG();
+            vertexData[29] = job._Colour.GetA();
 
-            vertexData[28] = (int)job.Rect.Width;
-            vertexData[29] = (int)job.Rect.Height;
-            vertexData[30] = (int)job.Rect.X;
-            vertexData[31] = (int)job.Rect.Y;
-            vertexData[32] = job.Rotation;
-            vertexData[33] = (int)job.Source.GetRight();
-            vertexData[34] = (int)job.Source.GetBottom();
-            vertexData[35] = job._Colour.GetR();
-            vertexData[36] = job._Colour.GetB();
-            vertexData[37] = job._Colour.GetG();
-            vertexData[38] = job._Colour.GetA();
+            vertexData[32] = (int)job.Rect.Width;
+            vertexData[33] = (int)job.Rect.Height;
+            vertexData[34] = (int)job.Rect.X;
+            vertexData[35] = (int)job.Rect.Y;
+            vertexData[36] = job.Rotation;
+            vertexData[37] = job.RotationOrigin.X;
+            vertexData[38] = job.RotationOrigin.Y;
+            vertexData[39] = (int)job.Source.GetRight();
+            vertexData[40] = (int)job.Source.GetBottom();
+            vertexData[41] = job._Colour.GetR();
+            vertexData[42] = job._Colour.GetB();
+            vertexData[43] = job._Colour.GetG();
+            vertexData[44] = job._Colour.GetA();
 
-            vertexData[41] = (int)job.Rect.Width;
-            vertexData[42] = (int)job.Rect.Height;
-            vertexData[43] = (int)job.Rect.X;
-            vertexData[44] = (int)job.Rect.Y;
-            vertexData[45] = job.Rotation;
-            vertexData[46] = (int)job.Source.GetLeft();
-            vertexData[47] = (int)job.Source.GetBottom();
-            vertexData[48] = job._Colour.GetR();
-            vertexData[49] = job._Colour.GetB();
-            vertexData[50] = job._Colour.GetG();
-            vertexData[51] = job._Colour.GetA();
+            vertexData[47] = (int)job.Rect.Width;
+            vertexData[48] = (int)job.Rect.Height;
+            vertexData[49] = (int)job.Rect.X;
+            vertexData[50] = (int)job.Rect.Y;
+            vertexData[51] = job.Rotation;
+            vertexData[52] = job.RotationOrigin.X;
+            vertexData[53] = job.RotationOrigin.Y;
+            vertexData[54] = (int)job.Source.GetLeft();
+            vertexData[55] = (int)job.Source.GetBottom();
+            vertexData[56] = job._Colour.GetR();
+            vertexData[57] = job._Colour.GetB();
+            vertexData[58] = job._Colour.GetG();
+            vertexData[59] = job._Colour.GetA();
 
-            glBufferSubData(GL_ARRAY_BUFFER, 0, 52 * sizeof(float), vertexData);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, 60 * sizeof(float), vertexData);
             glBindTexture(GL_TEXTURE_2D, job.Texture->GetHandle());
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
@@ -186,6 +196,7 @@ namespace FaceEngine
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             0.0f,
+            Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
@@ -208,6 +219,7 @@ namespace FaceEngine
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             0.0f,
+            Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -230,6 +242,7 @@ namespace FaceEngine
             tex,
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             rotation,
+            Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -252,6 +265,7 @@ namespace FaceEngine
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
             0.0f,
+            Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
@@ -274,6 +288,7 @@ namespace FaceEngine
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
             0.0f,
+            Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -296,6 +311,7 @@ namespace FaceEngine
             tex,
             Rectanglef(vec2.X, vec2.Y, tex->GetWidth(), tex->GetHeight()),
             rotation,
+            Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -318,6 +334,7 @@ namespace FaceEngine
             tex,
             rect,
             0.0f,
+            Vector2f(rect.Width / 2.0f, rect.Height / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             Colour::White
         };
@@ -340,6 +357,7 @@ namespace FaceEngine
             tex,
             rect,
             0.0f,
+            Vector2f(rect.Width / 2.0f, rect.Height / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -362,6 +380,7 @@ namespace FaceEngine
             tex,
             rect,
             rotation,
+            Vector2f(rect.Width / 2.0f, rect.Height / 2.0f),
             Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
             col
         };
@@ -384,6 +403,7 @@ namespace FaceEngine
             tex,
             rect,
             0.0f,
+            Vector2f(rect.Width / 2.0f, rect.Height / 2.0f),
             src,
             Colour::White
         };
@@ -406,6 +426,7 @@ namespace FaceEngine
             tex,
             rect,
             0.0f,
+            Vector2f(rect.Width / 2.0f, rect.Height / 2.0f),
             src,
             col
         };
@@ -428,6 +449,7 @@ namespace FaceEngine
             tex,
             rect,
             rotation,
+            Vector2f(rect.Width / 2.0f, rect.Height / 2.0f),
             src,
             col
         };
@@ -460,6 +482,7 @@ namespace FaceEngine
                     fontChar->GetTexture(),
                     FaceEngine::Rectanglef(textPos.X, textPos.Y - fontChar->GetBearingY() + (font->GetAscender() / 64), tex->GetHeight(), tex->GetHeight()),
                     0.0f,
+                    Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
                     FaceEngine::Rectanglef(0.0f, 0.0f, tex->GetHeight(), tex->GetHeight()),
                     Colour::White
                 };
@@ -496,6 +519,7 @@ namespace FaceEngine
                     fontChar->GetTexture(),
                     FaceEngine::Rectanglef(textPos.X, textPos.Y - fontChar->GetBearingY() + (font->GetAscender() / 64), tex->GetHeight(), tex->GetHeight()),
                     0.0f,
+                    Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
                     FaceEngine::Rectanglef(0.0f, 0.0f, tex->GetHeight(), tex->GetHeight()),
                     col
                 };
@@ -538,6 +562,7 @@ namespace FaceEngine
                 tex,
                 FaceEngine::Rectanglef(textPos.X, pos.Y - ((firstGlyph->GetBearingY() * scale) - ascender), tex->GetWidth() * scale, tex->GetHeight() * scale),
                 0.0f,
+                Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
                 FaceEngine::Rectanglef(0.0f, 0.0f, tex->GetWidth(), tex->GetHeight()),
                 col
             };
@@ -566,6 +591,7 @@ namespace FaceEngine
                     tex,
                     FaceEngine::Rectanglef(textPos.X + (glyph->GetBearingX() * scale), pos.Y - ((glyph->GetBearingY() * scale) - ascender), tex->GetWidth() * scale, tex->GetHeight() * scale),
                     0.0f,
+                    Vector2f(tex->GetWidth() / 2.0f, tex->GetHeight() / 2.0f),
                     FaceEngine::Rectanglef(0.0f, 0.0f, glyph->GetTexture()->GetWidth(), glyph->GetTexture()->GetHeight()),
                     col
                 };
@@ -587,8 +613,9 @@ namespace FaceEngine
         "layout (location = 1) in vec2 scale;\n"
         "layout (location = 2) in vec2 translation;\n"
         "layout (location = 3) in float rotation;\n"
-        "layout (location = 4) in vec2 texCoord;\n"
-        "layout (location = 5) in vec4 texColour;\n"
+        "layout (location = 4) in vec2 rotationOrigin;\n"
+        "layout (location = 5) in vec2 texCoord;\n"
+        "layout (location = 6) in vec4 texColour;\n"
         "\n"
         "out vec2 fragTexCoord;\n"
         "out vec4 fragColour;\n"
