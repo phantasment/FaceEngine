@@ -22,7 +22,6 @@ set(FACE_ENGINE_HEADER_FILES
     include/FaceEngine/GameDraw.h
     include/FaceEngine/GameUpdate.h
     include/FaceEngine/GraphicsDevice.h
-    include/FaceEngine/Math.h
     include/FaceEngine/OGL.h
     include/FaceEngine/Resolution.h
     include/FaceEngine/Resource.h
