@@ -1,5 +1,5 @@
-#ifndef FACEENGINE_SHADER_H_
-#define FACEENGINE_SHADER_H_
+#ifndef FACEENGINE_GRAPHICS_SHADER_H_
+#define FACEENGINE_GRAPHICS_SHADER_H_
 
 #include <string>
 

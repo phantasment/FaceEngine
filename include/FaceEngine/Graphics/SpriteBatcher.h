@@ -1,5 +1,5 @@
-#ifndef FACEENGINE_SPRITEBATCHER_H_
-#define FACEENGINE_SPRITEBATCHER_H_
+#ifndef FACEENGINE_GRAPHICS_SPRITEBATCHER_H_
+#define FACEENGINE_GRAPHICS_SPRITEBATCHER_H_
 
 #include <vector>
 
@@ -8,10 +8,10 @@
 #include "FaceEngine/Resource.h"
 #include "FaceEngine/ResourceManager.h"
 #include "FaceEngine/Math/Rectangle.h"
-#include "FaceEngine/Colour.h"
-#include "FaceEngine/Shader.h"
-#include "FaceEngine/Texture2D.h"
-#include "FaceEngine/TextureFont.h"
+#include "FaceEngine/Graphics/Colour.h"
+#include "FaceEngine/Graphics/Shader.h"
+#include "FaceEngine/Graphics/Texture2D.h"
+#include "FaceEngine/Graphics/TextureFont.h"
 
 #define MAX_JOBS 4194304UL
 

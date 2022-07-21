@@ -1,5 +1,5 @@
-#ifndef FACEENGINE_COLOUR_H
-#define FACEENGINE_COLOUR_H
+#ifndef FACEENGINE_GRAPHICS_COLOUR_H
+#define FACEENGINE_GRAPHICS_COLOUR_H
 
 #include <string>
 #include <iostream>

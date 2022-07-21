@@ -7,7 +7,7 @@
 #include "FaceEngine/OGL.h"
 #include "FaceEngine/Exception.h"
 #include "FaceEngine/GraphicsDevice.h"
-#include "FaceEngine/Colour.h"
+#include "FaceEngine/Graphics/Colour.h"
 
 namespace FaceEngine
 {

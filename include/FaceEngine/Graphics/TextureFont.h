@@ -1,12 +1,12 @@
-#ifndef FACEENGINE_TEXTUREFONT_H_
-#define FACEENGINE_TEXTUREFONT_H_
+#ifndef FACEENGINE_GRAPHICS_TEXTUREFONT_H_
+#define FACEENGINE_GRAPHICS_TEXTUREFONT_H_
 
 #include <cstdint>
 #include <vector>
 
 #include "FaceEngine/Resource.h"
 #include "FaceEngine/ResourceManager.h"
-#include "FaceEngine/Texture2D.h"
+#include "FaceEngine/Graphics/Texture2D.h"
 #include "FaceEngine/Math/Vector2.h"
 
 namespace FaceEngine

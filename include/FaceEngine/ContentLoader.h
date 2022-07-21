@@ -5,8 +5,8 @@
 #include <array>
 
 #include "FaceEngine/ResourceManager.h"
-#include "FaceEngine/Texture2D.h"
-#include "FaceEngine/TextureFont.h"
+#include "FaceEngine/Graphics/Texture2D.h"
+#include "FaceEngine/Graphics/TextureFont.h"
 
 namespace FaceEngine
 {

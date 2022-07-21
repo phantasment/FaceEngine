@@ -14,7 +14,6 @@ set(FACE_ENGINE_HEADER_FILES
     include/KHR/khrplatform.h
 
     include/FaceEngine/AudioDevice.h
-    include/FaceEngine/Colour.h
     include/FaceEngine/ContentLoader.h
     include/FaceEngine/Display.h
     include/FaceEngine/Exception.h
@@ -26,12 +25,14 @@ set(FACE_ENGINE_HEADER_FILES
     include/FaceEngine/Resolution.h
     include/FaceEngine/Resource.h
     include/FaceEngine/ResourceManager.h
-    include/FaceEngine/Shader.h
-    include/FaceEngine/SpriteBatcher.h
-    include/FaceEngine/Texture2D.h
-    include/FaceEngine/TextureFont.h
     include/FaceEngine/TypingSession.h
     include/FaceEngine/Window.h
+
+    include/FaceEngine/Graphics/Colour.h
+    include/FaceEngine/Graphics/Shader.h
+    include/FaceEngine/Graphics/SpriteBatcher.h
+    include/FaceEngine/Graphics/Texture2D.h
+    include/FaceEngine/Graphics/TextureFont.h
 
     include/FaceEngine/Math/Calculator.h
     include/FaceEngine/Math/Matrix.h
@@ -47,7 +48,6 @@ set(FACE_ENGINE_HEADER_FILES
 
 set(FACE_ENGINE_SRC_FILES
     src/AudioDevice.cpp
-    src/Colour.cpp
     src/ContentLoader.cpp
     src/Game.cpp
     src/GameUpdate.cpp
@@ -56,12 +56,14 @@ set(FACE_ENGINE_SRC_FILES
     src/Resolution.cpp
     src/Resource.cpp
     src/ResourceManager.cpp
-    src/Shader.cpp
-    src/SpriteBatcher.cpp
-    src/Texture2D.cpp
-    src/TextureFont.cpp
     src/TypingSession.cpp
     src/Window.cpp
+
+    src/Graphics/Colour.cpp
+    src/Graphics/Shader.cpp
+    src/Graphics/SpriteBatcher.cpp
+    src/Graphics/Texture2D.cpp
+    src/Graphics/TextureFont.cpp
 
     src/Math/Calculator.cpp
     src/Math/Matrix.cpp

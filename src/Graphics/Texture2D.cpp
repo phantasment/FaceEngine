@@ -1,4 +1,4 @@
-#include "FaceEngine/Texture2D.h"
+#include "FaceEngine/Graphics/Texture2D.h"
 
 namespace FaceEngine
 {
