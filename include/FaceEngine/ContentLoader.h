@@ -16,7 +16,7 @@ namespace FaceEngine
         TypeTextureFont = 2
     };
 
-    class ContentLoader
+    class ContentLoader : public Resource
     {
         friend class Game;
     private:

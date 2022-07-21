@@ -20,6 +20,12 @@ namespace FaceEngine
         clearColour = Colour::Black;
     }
 
+    void Window::Dispose() noexcept
+    {
+        glfwDestroyWindow(winHandle);
+        winHandle = nullptr;
+    }
+
     void Window::SetTitle(const std::string& t) noexcept
     {
         title = t;

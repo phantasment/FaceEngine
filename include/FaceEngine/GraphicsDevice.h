@@ -3,12 +3,13 @@
 
 #include <vector>
 
+#include "FaceEngine/Resource.h"
 #include "FaceEngine/OGL.h"
 #include "FaceEngine/Display.h"
 
 namespace FaceEngine
 {
-    class GraphicsDevice
+    class GraphicsDevice : public Resource
     {
         friend class Game;
     private:

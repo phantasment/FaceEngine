@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "FaceEngine/Resource.h"
 #include "FaceEngine/OGL.h"
 #include "FaceEngine/Exception.h"
 #include "FaceEngine/GraphicsDevice.h"
@@ -10,7 +11,7 @@
 
 namespace FaceEngine
 {
-    class Window
+    class Window : public Resource
     {
         friend class Game;
     private:
@@ -24,6 +25,10 @@ namespace FaceEngine
 
         Colour clearColour;
     public:
+        inline bool IsDisposed() noexcept override { return winHandle == nullptr; }
+
+        void Dispose() noexcept override;
+
         inline const std::string& GetTitle() const noexcept { return title; }
         void SetTitle(const std::string&) noexcept;
         

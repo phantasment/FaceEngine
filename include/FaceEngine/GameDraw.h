@@ -3,9 +3,11 @@
 
 #include <cstdint>
 
+#include "FaceEngine/Resource.h"
+
 namespace FaceEngine
 {
-    class GameDraw
+    class GameDraw : public Resource
     {
         friend class Game;
     private:

@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "FaceEngine/Resource.h"
 #include "FaceEngine/OGL.h"
 #include "FaceEngine/Math/Vector2.h"
 #include "FaceEngine/Exception.h"
@@ -19,7 +20,7 @@ namespace FaceEngine
         bool CapsLock;
     };
 
-    class GameUpdate
+    class GameUpdate : public Resource
     {
         friend class Game;
     private:
@@ -40,10 +41,13 @@ namespace FaceEngine
         static void CursorPosCallback(GLFWwindow*, double, double);
 
         GameUpdate(GLFWwindow* gw) noexcept;
-        ~GameUpdate() noexcept;
 
         void UpdateInput() noexcept;
     public:
+        inline bool IsDisposed() noexcept override { return previousKeys == nullptr; }
+
+        void Dispose() noexcept override;
+
         /**
          * @brief Returns the number of seconds that have passed since the last update. If your game is running at 60 frames per second the delta will be ~0.016.
          * 

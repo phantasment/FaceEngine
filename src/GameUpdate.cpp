@@ -60,12 +60,15 @@ namespace FaceEngine
         glfwSetCursorPosCallback(winHandle, &CursorPosCallback);
     }
 
-    GameUpdate::~GameUpdate() noexcept
+    void GameUpdate::Dispose() noexcept
     {
+        if (previousKeys == nullptr) { return; }
+        
         delete[] previousKeys;
         delete[] currentKeys;
         delete[] previousMice;
         delete[] currentMice;
+        previousKeys = nullptr;
     }
 
     void GameUpdate::UpdateInput() noexcept

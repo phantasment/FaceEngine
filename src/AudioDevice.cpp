@@ -24,12 +24,13 @@ namespace FaceEngine
         active = true;
     }
 
-    AudioDevice::~AudioDevice()
+    void AudioDevice::Dispose() noexcept
     {
         if (active)
         {
             alcDestroyContext(alContext);
             alcCloseDevice(alDevice);
+            active = false;
         }
     }
 }

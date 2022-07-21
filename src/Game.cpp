@@ -53,18 +53,20 @@ namespace FaceEngine
 
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
-            delete GraphicsDevicePtr;
             delete WindowPtr;
+            delete GraphicsDevicePtr;
             glfwTerminate();
             throw Exception::FromMessage("FaceEngine::Game::Run", "Could not load OpenGL functions.");
         }
 
         glViewport(0, 0, WindowPtr->resolution.GetWidth(), WindowPtr->resolution.GetHeight());
         ResourceManagerPtr = new ResourceManager;
-        ContentLoaderPtr = new ContentLoader(ResourceManagerPtr);
-        GameUpdatePtr = new GameUpdate(winHandle);
-        GameDrawPtr = new GameDraw;
-        AudioDevicePtr = new AudioDevice;
+        ResourceManagerPtr->TrackResource(WindowPtr);
+        ResourceManagerPtr->TrackResource(GraphicsDevicePtr);
+        ResourceManagerPtr->TrackResource(ContentLoaderPtr = new ContentLoader(ResourceManagerPtr));
+        ResourceManagerPtr->TrackResource(GameUpdatePtr = new GameUpdate(winHandle));
+        ResourceManagerPtr->TrackResource(GameDrawPtr = new GameDraw);
+        ResourceManagerPtr->TrackResource(AudioDevicePtr = new AudioDevice);
 
         // initialise
         Initialise();
@@ -176,12 +178,6 @@ namespace FaceEngine
         OnExit();
         ResourceManagerPtr->DisposeAllResources();
         delete ResourceManagerPtr;
-        delete ContentLoaderPtr;
-        delete AudioDevicePtr;
-        delete GameUpdatePtr;
-        delete GameDrawPtr;
-        delete WindowPtr;
-        delete GraphicsDevicePtr;
         glfwTerminate();
         GameRunning.store(false);
     }
