@@ -41,6 +41,11 @@ namespace FaceEngine
          */
         Texture2D* LoadTexture2D(const std::string&) const;
 
+        /**
+         * @brief Loads a TextureFont from a Face Engine content file specified by the path.
+         * 
+         * @return TextureFont* A pointer to the newly created TextureFont.
+         */
         TextureFont* LoadTextureFont(const std::string&) const;
     };
 }
