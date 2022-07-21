@@ -1,5 +1,4 @@
 #include "FaceEngine/ResourceManager.h"
-#include <iostream>
 
 namespace FaceEngine
 {
