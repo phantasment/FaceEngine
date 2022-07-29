@@ -171,7 +171,7 @@ namespace FaceEngine
             vertexData[58] = job._Colour.GetG();
             vertexData[59] = job._Colour.GetA();
 
-            glBufferSubData(GL_ARRAY_BUFFER, 0, 60 * sizeof(float), vertexData);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, 240, vertexData);
             glBindTexture(GL_TEXTURE_2D, job.Texture->GetHandle());
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
